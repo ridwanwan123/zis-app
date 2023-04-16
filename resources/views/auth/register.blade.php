@@ -93,7 +93,9 @@
                             <div class="mb-3">
                                 <label for="roles" class="form-label">Roles</label> <i class="fa fa-info-circle"
                                     id="my-icon"></i>
-                                <select name="id_role" class="form-select" disabled>
+                                <input type="text" value="Muzaki" disabled class="form-control">
+
+                                <select name="id_role" class="form-select" hidden>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}"
                                             @if ($role->name == 'Muzaki') selected @endif>{{ $role->name }}
@@ -110,8 +112,8 @@
                             <div class="mb-3">
                                 <label for="mosque" class="form-label">Masjid</label> <i class="fa fa-info-circle"
                                     id="my-icon2"></i>
-                                <select name="id_role" class="form-select">
-                                    <option value="">Silahkan pilih daftar masjid</option>
+                                <select name="id_mosque" class="form-select">
+                                    <option value="" selected>Silahkan pilih daftar masjid</option>
                                     @foreach ($mosques as $mosque)
                                         <option value="{{ $mosque->id }}"> {{ $mosque->name_mosque }} </option>
                                     @endforeach
