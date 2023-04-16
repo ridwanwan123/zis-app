@@ -1,0 +1,43 @@
+.icon-circle-medium {
+    line-height: 1;
+    padding: 22px 2px;
+    text-align: center;
+    font-size: 12px;
+    display: inline-block;
+    border-radius: 100%;
+}
+.icon-box-lg {
+    height: 68px;
+    width: 68px;
+}
+.bg-info-light {
+    background-color: #dffaff !important;
+    color: #fff;
+}
+
+/* CHART */
+.graphBox{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-gap: 20px;     */
+    min-height: 350px;
+}
+.graphBox .box{
+    position: relative;
+    background-color: #F9FAFF;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+/* statistik */
+.statistik .statistik-card{
+    background-color: #F9FAFF;
+    padding: 1.875rem;
+    border-radius: 1.625rem;
+    margin-right: 16px;
+}

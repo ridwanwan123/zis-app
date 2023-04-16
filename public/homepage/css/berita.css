@@ -1,0 +1,18 @@
+.btn-next{
+    border: none;
+    background-color: #2554F5;
+    border-radius: 5px;
+    
+}
+
+.btn-next:hover{
+    color: #2554F5;
+    background-color: #fff;
+    box-shadow: 1px 2px 7px #2554F5;
+    border-radius: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+  }
+
