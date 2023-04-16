@@ -29,6 +29,8 @@
     <!-- Page -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
 </head>
 
 <body>
@@ -91,7 +93,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="roles" class="form-label">Roles</label> <i class="fa fa-info-circle"
+                                <label for="roles" class="form-label">Role</label> <i class="fa fa-info-circle"
                                     id="my-icon"></i>
                                 <input type="text" value="Muzaki" disabled class="form-control">
 
@@ -144,6 +146,8 @@
     </div>
 
     <!-- Core JS -->
+    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('assets/admin/vendor/js/bootstrap.js') }}"></script>
     <!-- Popper.js -->
