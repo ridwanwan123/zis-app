@@ -23,9 +23,26 @@ Route::get('/', function () {
 
 
 
-
-Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::group(['middleware' =>['auth.login']], function (){
+    Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
+});
+
+
+
+
+
+
+
+
+

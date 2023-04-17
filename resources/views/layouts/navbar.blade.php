@@ -30,13 +30,14 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt="FotoAdmin"
+                                        <img src="{{ asset('assets/img/avatars/2.png') }}" alt="FotoAdmin"
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">Nama_pengguna</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
+                                    <small
+                                        class="text-muted">{{ \App\Models\Role::find(auth()->user()->id_role)->name }}</small>
                                 </div>
                             </div>
                         </a>
@@ -45,7 +46,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
+                        <a class="dropdown-item" href="{{ route('login.logout') }}">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Log Out</span>
                         </a>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ZIS | Login</title>
+    <title>ZIS | Log in</title>
 
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/mosquee.png') }}" />
 
@@ -36,12 +36,26 @@
 <body>
     <!-- Content -->
 
+
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
                 <!-- Register -->
                 <div class="card">
+
                     <div class="card-body">
+
+                        {{-- Alert Here --}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissable">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <!-- Logo -->
                         <div class="app-brand justify-content-center -">
                             <a href="{{ url('/') }}" class="app-brand-link gap-2">
@@ -54,18 +68,22 @@
                         </div>
                         <!-- /Logo -->
                         <h4 class="mb-2">Welcome to ZIS! </h4>
-                        <p class="mb-4">Website Pengelolaan Zakat, Infaq dan Sedekah</p>
+                        <p class="mb-4">Website Pengelolaan & Pembayaran Zakat, Infaq dan Sedekah</p>
 
-                        <form id="formAuthentication" class="mb-3">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('login.authenticate') }}"
+                            method="post">
+                            @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="Masukan Email" autofocus />
+                                    value="{{ old('email') }}" placeholder="Masukan Email" autofocus />
+                                @error('email')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" name="password" for="password">Password</label>
-
                                 </div>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password"
@@ -73,8 +91,13 @@
                                         aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
+                                @error('password')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
-
+                            @error('credentials')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Masuk</button>
                             </div>
