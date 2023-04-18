@@ -126,6 +126,28 @@
                                 </small>
                             </div>
 
+
+                            <div class="mb-3">
+                                <label for="mosque" class="form-label">ass</label> <i class="fa fa-info-circle"
+                                    id="my-icon2"></i>
+                                <select name="id_mosque" class="form-select" id="select-condition">
+                                    <option value="" selected>Silahkan pilih daftar masjid</option>
+                                    <option value="option1">Option 1</option>
+                                    <option value="option2">Option 2</option>
+                                    <option value="option3">Option 3</option>
+                                </select>
+
+                                <small id="my-tooltip2" hidden>
+                                    Daftar Masjid hanya masjid yang sudah didaftarkan oleh pihak masjid
+                                </small>
+                            </div>
+
+                            <div class="mb-3" id="input-form" style="display:none;">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="input-form" name="email"
+                                    placeholder="Masukan Email" />
+                            </div>
+
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Daftar</button>
                             </div>
@@ -167,6 +189,23 @@
         tippy('#my-icon2', {
             content: document.querySelector('#my-tooltip2').innerHTML,
             placement: 'top',
+        });
+
+        // Get the select element and input form
+        const selectCondition = document.getElementById('select-condition');
+        const inputForm = document.getElementById('input-form');
+
+        // Add event listener to select element
+        selectCondition.addEventListener('change', function() {
+            // Get the selected option value
+            const selectedOption = selectCondition.value;
+
+            // Show or hide the input form based on the selected option value
+            if (selectedOption === 'option2') {
+                inputForm.style.display = 'block';
+            } else {
+                inputForm.style.display = 'none';
+            }
         });
     </script>
 

@@ -23,10 +23,31 @@
             </a>
         </li>
 
+
+
+        @if (auth()->user()->role->name === 'Admin')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Data Pengelola ZIS</span>
+            </li>
+            <li
+                class="menu-item {{ request()->is('adminZIS*') || request()->routeIs('adminZIS') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bxs-book-alt"></i>
+                    <div data-i18n="">Data Pengelola</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->routeIs('adminZIS') ? 'active' : '' }}">
+                        <a href="{{ route('adminZIS') }}" class="menu-link">
+                            <div data-i18n="Data Zakat">Akun Pengelola ZIS</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Data Keuangan ZIS</span>
         </li>
-        <li class="menu-item {{ request()->is('zakat*') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->is('zakat*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-book-alt"></i>
                 <div data-i18n="">Data Keuangan ZIS</div>
@@ -49,6 +70,7 @@
                 </li>
             </ul>
         </li>
+
 
         {{-- SECTION LAPORAN  --}}
 
