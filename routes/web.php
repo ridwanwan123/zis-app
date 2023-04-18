@@ -39,7 +39,14 @@ Route::group(['middleware' =>['auth.login']], function (){
 
     //Route CRUD ADMIN
     Route::get('/pengelolaZIS', [AdminController::class, 'index'])->name('adminZIS');
-    
+
+    Route::get('/pengelolaZIS/create', [AdminController::class, 'create'])->name('adminZIS.create');
+    Route::post('/pengelolaZIS/store', [AdminController::class, 'store'])->name('adminZIS.store');
+
+    Route::get('/pengelolaZIS/edit/{id}', [AdminController::class, 'edit'])->name('adminZIS.edit');
+    Route::put('/pengelolaZIS/edit/{id}', [AdminController::class, 'update'])->name('adminZIS.update');
+
+    Route::delete('/pengelolaZIS/delete/{id}', [AdminController::class, 'destroy'])->name('adminZIS.delete');
     Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
 
     //MUZAKI

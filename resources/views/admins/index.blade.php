@@ -6,7 +6,8 @@
 @section('content')
     <div class="float-end mt-4">
         {{-- <a href="#" class="btn btn-primary "><i class='bx bxs-report bx-flashing bx-flip-horizontal' ></i>   Download Laporan</a>  --}}
-        <a href="" class="btn btn-primary btn-add-now"><i class='bx bxs-add-to-queue bx-flashing'></i> Tambah Data</a>
+        <a href="{{ route('adminZIS.create') }}" class="btn btn-primary btn-add-now"><i
+                class='bx bxs-add-to-queue bx-flashing'></i> Tambah Data</a>
     </div>
 
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data Pengelola ZIS /</span> Pengelola ZIS</h4>
@@ -20,10 +21,12 @@
                 <thead>
                     <tr class="text-nowrap">
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Nama Lengkap</th>
                         <th>Email</th>
-                        <th>Mosque</th>
-                        <th>Role</th>
+                        <th>No Telepon</th>
+                        <th>Alamat</th>
+                        <th>Masjid</th>
+                        <th>Status</th>
                         <th><i class='bx bx-cog'></i></th>
                     </tr>
                 </thead>
@@ -42,6 +45,12 @@
                                 <i class="fab fa-angular fa-lg "></i> <strong> {{ $admin->email }}</strong>
                             </td>
                             <td>
+                                <i class="fab fa-angular fa-lg "></i> <strong> {{ $admin->no_telepon }}</strong>
+                            </td>
+                            <td>
+                                <i class="fab fa-angular fa-lg "></i> <strong> {{ $admin->address }}</strong>
+                            </td>
+                            <td>
                                 <i class="fab fa-angular fa-lg "></i> <strong>
                                     {{ $admin->mosque ? $admin->mosque->name_mosque : 'Tidak Terikat' }}</strong>
                             </td>
@@ -55,9 +64,9 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" {{-- href="{{ route('admin.pelaporan-seksual-edit', $admin->id) }}" --}} style="color:#435971"><i
-                                                class="bx bx-edit-alt me-1"></i> Update</a>
-                                        <form method="post" action="">
+                                        <a class="dropdown-item" href="{{ route('adminZIS.edit', $admin->id) }}"
+                                            style="color:#435971"><i class="bx bx-edit-alt me-1"></i> Update</a>
+                                        <form method="post" action="{{ route('adminZIS.delete', $admin->id) }}">
 
                                             @method('delete')
                                             @csrf
