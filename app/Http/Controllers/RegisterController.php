@@ -24,7 +24,9 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:5',
             'id_role' => 'required',
-            'id_mosque' => 'nullable'
+            'id_mosque' => 'nullable',
+            'address' => 'required',
+            'no_telepon' => 'required'
         ]);
 
         $data = $request->except('_token');

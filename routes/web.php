@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\TransaksiZISController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::get('/pengelolaZIS', [AdminController::class, 'index'])->name('adminZIS');
     
     Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
+
+    //MUZAKI
+    Route::get('/tunaikanZIS', [TransaksiZISController::class, 'index'])->name('formulir');
 });
 
 

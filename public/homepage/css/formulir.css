@@ -1,47 +1,40 @@
-.formulir  .formulir-card{
-    background-color: #F9FAFF;
+.formulir .formulir-card {
+    background-color: #f9faff;
     padding: 1.875rem;
     border-radius: 1rem;
     margin-right: 16px;
 }
 
-hr{
+hr {
     margin-right: 20px;
-    border: 1px solid #0C145A;
+    border: 1px solid #0c145a;
 }
 
 .header-title {
     font-size: 28px;
 }
 
-
-.btn-next{
+.btn-next {
     border: none;
-    background-color: #2554F5;
+    background-color: #00d200;
     border-radius: 25px;
-    
 }
 
-.btn-next:hover{
-    color: #2554F5;
+.btn-next:hover {
+    color: #00d200;
     background-color: #fff;
-    box-shadow: 1px 2px 7px #2554F5;
+    box-shadow: 1px 2px 7px #00d200;
     border-radius: 25px;
 }
-
-
-
-
-
 
 /* Progress */
 .card {
     z-index: 0;
     border: none;
-    position: relative
+    position: relative;
 }
 
-#msForm{ 
+#msForm {
     padding: 30px;
 }
 
@@ -49,11 +42,11 @@ hr{
     margin-bottom: 30px;
     overflow: hidden;
     color: lightgrey;
-    padding: 30px
+    padding: 30px;
 }
 
 #progressbar .active {
-    color: #2554F5
+    color: #00d200;
 }
 
 #progressbar li {
@@ -62,27 +55,26 @@ hr{
     width: 50%;
     float: left;
     position: relative;
-    font-weight: 400
+    font-weight: 400;
 }
 
-
 #progressbar #tahap1:before {
-    content: "1"
+    content: "1";
 }
 
 #progressbar #tahap2:before {
-    content: "2"
+    content: "2";
 }
 
 #progressbar #tahap3:before {
-    content: "3"
+    content: "3";
 }
 
 #progressbar #tahap4:before {
-    content: "4"
+    content: "4";
 }
 
-#progressbar li  {
+#progressbar li {
     color: #fff;
 }
 
@@ -92,35 +84,35 @@ hr{
     line-height: 45px;
     display: block;
     font-size: 20px;
-    color: #0C145A;
+    color: #0c145a;
     font-weight: 600;
     background: lightgray;
     border-radius: 50%;
     margin: 0 auto 10px auto;
-    padding: 2px
+    padding: 2px;
 }
 
 #progressbar li:after {
-    content: '';
+    content: "";
     width: 100%;
     height: 2px;
-    color: #F9FAFF;
+    color: #f9faff;
     background: lightgray;
     position: absolute;
     left: 0;
     top: 25px;
-    z-index: -1
+    z-index: -1;
 }
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-    background: #2554F5
+    background: #00d200;
 }
 
 .progress {
-    height: 20px
+    height: 20px;
 }
 
 .progress-bar {
-    background-color: #2554F5
+    background-color: #00d200;
 }

@@ -49,6 +49,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
             'id_role' => $adminRoleId,
             'id_mosque' => null,
+            'address' => 'Jl.Margonda Raya Rt.05 Rw.01, Pancoran Mas, Kota Depok',
+            'no_telepon' => '085713237132',
             'created_at' => now(), 
             'updated_at' => now()
         ]);
@@ -59,6 +61,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('ridwan'),
             'id_role' => $muzakiRoleId,
             'id_mosque' => $DarulMosqueId,
+            'address' => 'Jl.Pahlawan Raya Rt.04 Rw.01, Aren Jaya, Kota Bekasi',
+            'no_telepon' => '081213237532',
             'created_at' => now(), 
             'updated_at' => now()
         ]);
@@ -69,6 +73,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('ilham'),
             'id_role' => $dkmRoleId,
             'id_mosque' => $barokahMosqueId,
+            'address' => 'Jl.Panaitan Raya Rt.05 Rw.04, Mas Jaya, Kota Bogor',
+            'no_telepon' => '081312239332',
             'created_at' => now(), 
             'updated_at' => now()
         ]);

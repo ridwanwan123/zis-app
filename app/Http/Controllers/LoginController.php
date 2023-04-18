@@ -32,8 +32,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             if(Auth::user()->id_role == 2) {
-                //untuk muzaki akan di route ke halama pembayaran dan formulir, untuk sementara di redirect ke halaman zakat
-                return redirect()->route('zakat');
+                //untuk muzaki akan di route ke halama pembayaran dan formulir, untuk sementara di redirect ke halaman formulir
+                return redirect()->route('formulir');
             } else {
                 return redirect()->route('dashboard');
             }
