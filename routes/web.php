@@ -37,6 +37,9 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/changePassword', [LoginController::class, 'password'])->name('login.changePassword');
+    Route::post('/changePasswordd', [LoginController::class, 'changePassword'])->name('login.changePasswordd');
+
     //Route CRUD ADMIN
     Route::get('/pengelolaZIS', [AdminController::class, 'index'])->name('adminZIS');
 
