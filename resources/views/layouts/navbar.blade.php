@@ -37,7 +37,8 @@
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
                                     <small
-                                        class="text-muted">{{ \App\Models\Role::find(auth()->user()->id_role)->name }}</small>
+                                        class="text-muted">{{ \App\Models\Role::find(auth()->user()->id_role)->name }} -
+                                        {{ auth()->user()->id_mosque ? \App\Models\Mosque::find(auth()->user()->id_mosque)->name_mosque : '' }}</small>
                                 </div>
                             </div>
                         </a>

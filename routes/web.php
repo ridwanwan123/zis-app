@@ -6,7 +6,10 @@ use App\Http\Controllers\RegisterController;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InfaqController;
 use App\Http\Controllers\ZakatController;
+
+
 use App\Http\Controllers\TransaksiZISController;
 
 /*
@@ -50,6 +53,13 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::put('/pengelolaZIS/edit/{id}', [AdminController::class, 'update'])->name('adminZIS.update');
 
     Route::delete('/pengelolaZIS/delete/{id}', [AdminController::class, 'destroy'])->name('adminZIS.delete');
+    
+    
+    //Route CRUD Infaqs
+    Route::get('/infaqs', [InfaqController::class, 'index'])->name('infaq');
+
+
+    //Route CRUD Zakat
     Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
 
     //MUZAKI
