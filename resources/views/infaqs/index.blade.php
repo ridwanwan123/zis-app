@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="float-end mt-4">
-        <a href="{{ route('infaq.generatePDF') }}" class="btn btn-warning "><i
+        <a href="{{ route('infaq.generatePDF') }}" target="_blank" class="btn btn-warning "><i
                 class='bx bxs-report bx-flashing bx-flip-horizontal'></i> Download
             Laporan</a>
         <a href="{{ route('infaq.create') }}" class="btn btn-primary btn-add-now"><i
