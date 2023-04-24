@@ -5,9 +5,11 @@
 
 @section('content')
     <div class="float-end mt-4">
-        <a href="#" class="btn btn-warning "><i class='bx bxs-report bx-flashing bx-flip-horizontal'></i> Download
+        <a href="{{ route('infaq.generatePDF') }}" class="btn btn-warning "><i
+                class='bx bxs-report bx-flashing bx-flip-horizontal'></i> Download
             Laporan</a>
-        <a href="" class="btn btn-primary btn-add-now"><i class='bx bxs-add-to-queue bx-flashing'></i> Tambah Data</a>
+        <a href="{{ route('infaq.create') }}" class="btn btn-primary btn-add-now"><i
+                class='bx bxs-add-to-queue bx-flashing'></i> Tambah Data</a>
     </div>
 
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data Infaq /</span> Infaq</h4>

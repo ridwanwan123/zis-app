@@ -57,7 +57,11 @@ Route::group(['middleware' =>['auth.login']], function (){
     
     //Route CRUD Infaqs
     Route::get('/infaqs', [InfaqController::class, 'index'])->name('infaq');
+    
+    Route::get('/infaqs/create', [InfaqController::class, 'create'])->name('infaq.create');
+    Route::post('/infaqs/store', [InfaqController::class, 'store'])->name('infaq.store');
 
+    Route::get('/infaqs/pdf', [InfaqController::class, 'generatePDF'])->name('infaq.generatePDF');
 
     //Route CRUD Zakat
     Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
