@@ -22,6 +22,22 @@ class InfaqController extends Controller
         return view('infaqs.create', ['user' => $user]);
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_user' => 'required',
+            'jumlahInfaq' => 'required',
+            'status' => 'required'
+        ]);
+
+        $data = $request->except('_token');
+
+        Infaq::create($data);
+        
+
+        return redirect()->route('infaq');
+    }
+
     public function generatePDF()
     {
         $infaq = Infaq::all();

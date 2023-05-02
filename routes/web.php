@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 
+use App\Http\Controllers\MosqueController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InfaqController;
@@ -43,6 +44,17 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::get('/changePassword', [LoginController::class, 'password'])->name('login.changePassword');
     Route::post('/changePasswordd', [LoginController::class, 'changePassword'])->name('login.changePasswordd');
 
+    //Route CRUD Mosque
+    Route::get('/mosques', [MosqueController::class, 'index'])->name('mosque');
+    
+    Route::get('/mosques/create', [MosqueController::class, 'create'])->name('mosque.create');
+    Route::post('/mosques/store', [MosqueController::class, 'store'])->name('mosque.store');
+
+    Route::get('/mosques/edit/{id}', [MosqueController::class, 'edit'])->name('mosque.edit');
+    Route::put('/mosques/edit/{id}', [MosqueController::class, 'update'])->name('mosque.update');
+
+    Route::delete('/mosques/delete/{id}', [MosqueController::class, 'destroy'])->name('mosque.delete');
+
     //Route CRUD ADMIN
     Route::get('/pengelolaZIS', [AdminController::class, 'index'])->name('adminZIS');
 
@@ -60,6 +72,11 @@ Route::group(['middleware' =>['auth.login']], function (){
     
     Route::get('/infaqs/create', [InfaqController::class, 'create'])->name('infaq.create');
     Route::post('/infaqs/store', [InfaqController::class, 'store'])->name('infaq.store');
+
+    Route::get('/infaqs/edit/{id}', [InfaqController::class, 'edit'])->name('infaq.edit');
+    Route::put('/infaqs/edit/{id}', [InfaqController::class, 'update'])->name('infaq.update');
+
+    Route::delete('/infaqs/delete/{id}', [InfaqController::class, 'destroy'])->name('infaq.delete');
 
     Route::get('/infaqs/pdf', [InfaqController::class, 'generatePDF'])->name('infaq.generatePDF');
 

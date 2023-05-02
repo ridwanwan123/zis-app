@@ -30,7 +30,7 @@
                 <span class="menu-header-text">Data Pengelola ZIS</span>
             </li>
             <li
-                class="menu-item {{ request()->is('adminZIS*') || request()->routeIs('adminZIS') ? 'active open' : '' }}">
+                class="menu-item {{ request()->routeIs('adminZIS') || request()->routeIs('mosque') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bxs-book-alt"></i>
                     <div data-i18n="">Data Pengelola</div>
@@ -38,7 +38,14 @@
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->routeIs('adminZIS') ? 'active' : '' }}">
                         <a href="{{ route('adminZIS') }}" class="menu-link">
-                            <div data-i18n="Data Zakat">Akun Pengelola ZIS</div>
+                            <div data-i18n="Data AkunZIS">Akun Pengelola ZIS</div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->routeIs('mosque') ? 'active' : '' }}">
+                        <a href="{{ route('mosque') }}" class="menu-link">
+                            <div data-i18n="Data Masjid">Data Masjid</div>
                         </a>
                     </li>
                 </ul>

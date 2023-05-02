@@ -40,40 +40,82 @@
                             @if ($item->user->id_mosque == auth()->user()->id_mosque)
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg "></i> <strong>{{ $i++ }}</strong>
+                                        <i class="fab fa-angular fa-lg "></i> {{ $i++ }}
                                     </td>
                                     <td>
-                                        <i class="fab fa-angular fa-lg "></i> <strong>{{ $item->user->name }}</strong>
+                                        <i class="fab fa-angular fa-lg "></i>{{ $item->user->name }}
                                     </td>
                                     <td>
-                                        <i class="fab fa-angular fa-lg "></i> <strong>{{ $item->jumlahInfaq }}</strong>
+                                        <i class="fab fa-angular fa-lg "></i>{{ $item->jumlahInfaq }}
                                     </td>
                                     <td>
-                                        <i class="fab fa-angular fa-lg "></i> <strong>{{ $item->status }}</strong>
+                                        <i class="fab fa-angular fa-lg "></i>{{ $item->status }}
                                     </td>
                                     <td>
                                         <i class="fab fa-angular fa-lg "></i>
-                                        <strong>{{ $item->user->mosque->name_mosque }}</strong>
+                                        {{ $item->user->mosque->name_mosque }}
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ route('infaq.edit', $item->id) }}"
+                                                    style="color:#435971"><i class="bx bx-edit-alt me-1"></i> Update</a>
+                                                <form method="post" action="{{ route('infaq.delete', $item->id) }}">
+
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit"
+                                                        style="border: none; background-color:white; color:#435971">
+                                                        <i class="bx bx-trash me-1 m-3"></i> Delete</a>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endif
                         @else
                             <tr>
                                 <td>
-                                    <i class="fab fa-angular fa-lg "></i> <strong>{{ $i++ }}</strong>
+                                    <i class="fab fa-angular fa-lg "></i> {{ $i++ }}
                                 </td>
                                 <td>
-                                    <i class="fab fa-angular fa-lg "></i> <strong>{{ $item->user->name }}</strong>
+                                    <i class="fab fa-angular fa-lg "></i> {{ $item->user->name }}
                                 </td>
                                 <td>
-                                    <i class="fab fa-angular fa-lg "></i> <strong>{{ $item->jumlahInfaq }}</strong>
+                                    <i class="fab fa-angular fa-lg "></i> {{ $item->jumlahInfaq }}
                                 </td>
                                 <td>
-                                    <i class="fab fa-angular fa-lg "></i> <strong>{{ $item->status }}</strong>
+                                    <i class="fab fa-angular fa-lg "></i> {{ $item->status }}
                                 </td>
                                 <td>
                                     <i class="fab fa-angular fa-lg "></i>
-                                    <strong>{{ $item->user->mosque->name_mosque }}</strong>
+                                    {{ $item->user->mosque->name_mosque }}
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ route('infaq.edit', $item->id) }}"
+                                                style="color:#435971"><i class="bx bx-edit-alt me-1"></i> Update</a>
+                                            <form method="post" action="{{ route('infaq.delete', $item->id) }}">
+
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit"
+                                                    style="border: none; background-color:white; color:#435971">
+                                                    <i class="bx bx-trash me-1 m-3"></i> Delete</a>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endif

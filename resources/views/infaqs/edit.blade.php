@@ -1,15 +1,15 @@
 @extends('layouts.base')
 
-@section('title', 'Tambah Infaq')
+@section('title', 'Edit Infaq')
 
 
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> <a href="{{ route('infaq') }}"
-                style="color: unset !important"> Data Infaq </a>/</span> Tambah Data</h4>
+                style="color: unset !important"> Data Infaq </a>/</span> Update Data</h4>
 
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Tambah Data</h5>
+            <h5 class="mb-0">Update Data</h5>
             <small class="text-muted float-end">ZIS</small>
         </div>
 
@@ -17,13 +17,14 @@
 
         <div class="card-body">
             <form enctype="multipart/form-data" method="POST" action="{{ route('infaq.store') }}">
+                @method('PUT')
                 @csrf
                 <!-- input -->
                 <div class="col-lg-12">
                     <div class="col mb-3">
                         <label for="id_user" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" id="id_user" value="{{ old('id_user') }}"
-                            name="id_user" aria-describedby="name">
+                            name="name" aria-describedby="name">
                     </div>
                 </div>
 
@@ -53,7 +54,7 @@
                 <!-- BUTTON  -->
                 <div class="d-flex justify-content-md-end mt-3">
                     <button type="submit" class="mt-1 btn btn-primary d-grid p-3 m-3">
-                        <span class="font-semibold text-white text-base">Tambah Data</span>
+                        <span class="font-semibold text-white text-base">Update Data</span>
                     </button>
                 </div>
 
