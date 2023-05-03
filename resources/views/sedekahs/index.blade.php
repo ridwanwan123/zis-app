@@ -1,23 +1,23 @@
 @extends('layouts.base')
 
-@section('title', 'Infaq')
+@section('title', 'Sedekah')
 
 
 @section('content')
     <div class="float-end mt-4">
-        <a href="{{ route('infaq.generatePDF') }}" target="_blank" class="btn btn-warning "><i
+        <a href="{{ route('sedekah.generatePDF') }}" target="_blank" class="btn btn-warning "><i
                 class='bx bxs-report bx-flashing bx-flip-horizontal'></i> Download
             Laporan</a>
-        <a href="{{ route('infaq.create') }}" class="btn btn-primary btn-add-now"><i
+        <a href="{{ route('sedekah.create') }}" class="btn btn-primary btn-add-now"><i
                 class='bx bxs-add-to-queue bx-flashing'></i> Tambah Data</a>
     </div>
 
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data Infaq /</span> Infaq</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data Sedekah /</span> Sedekah</h4>
 
     <!-- Striped Rows -->
     <div class="card">
-        <h5 class="card-header">Data Infaq = </h5>
-        <p>Total infaq yang terkumpul: Rp {{ number_format($totalInfaq) }}</p>
+        <h5 class="card-header">Data Sedekah </h5>
+        <p>Total sedekah yang terkumpul: Rp {{ number_format($totalSedekah) }}</p>
 
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
@@ -26,7 +26,7 @@
                         <th>#</th>
                         <th>Nama Donatur</th>
                         <th>Nomor Telepon</th>
-                        <th>Jumlah Infaq</th>
+                        <th>Jumlah Sedekah</th>
                         <th>Masjid</th>
                         <th>Status</th>
                         <th><i class='bx bx-cog'></i></th>
@@ -37,16 +37,16 @@
                         $i = 1;
                     @endphp
                     @if (auth()->user()->mosque)
-                        <p>Total infaq yang terkumpul di masjid {{ auth()->user()->mosque->name_mosque }}: Rp
-                            {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalInfaq')) }}
+                        <p>Total sedekah yang terkumpul di masjid {{ auth()->user()->mosque->name_mosque }}: Rp
+                            {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalSedekah')) }}
                         </p>
                     @else
-                        <p>Total infaq yang terkumpul: Rp
-                            {{ number_format($infaq->where('status', 'Bayar')->sum('nominalInfaq')) }}</p>
+                        <p>Total sedekah yang terkumpul: Rp
+                            {{ number_format($sedekah->where('status', 'Bayar')->sum('nominalSedekah')) }}</p>
                     @endif
 
                     @if (auth()->user()->mosque)
-                        @foreach ($infaq as $item)
+                        @foreach ($sedekah as $item)
                             @if ($item->mosque->id == auth()->user()->mosque->id)
                                 <tr>
                                     <td>
@@ -59,7 +59,7 @@
                                         <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                                     </td>
                                     <td>
-                                        <i class="fab fa-angular fa-lg "></i>{{ $item->nominalInfaq }}
+                                        <i class="fab fa-angular fa-lg "></i>{{ $item->nominalSedekah }}
                                     </td>
                                     <td>
                                         <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}
@@ -74,9 +74,9 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('infaq.edit', $item->id) }}"
+                                                <a class="dropdown-item" href="{{ route('sedekah.edit', $item->id) }}"
                                                     style="color:#435971"><i class="bx bx-edit-alt me-1"></i> Update</a>
-                                                <form method="post" action="{{ route('infaq.delete', $item->id) }}">
+                                                <form method="post" action="{{ route('sedekah.delete', $item->id) }}">
 
                                                     @method('delete')
                                                     @csrf
@@ -92,7 +92,7 @@
                             @endif
                         @endforeach
                     @else
-                        @foreach ($infaq as $item)
+                        @foreach ($sedekah as $item)
                             <tr>
                                 <td>
                                     <i class="fab fa-angular fa-lg "></i> {{ $i++ }}
@@ -104,7 +104,7 @@
                                     <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                                 </td>
                                 <td>
-                                    <i class="fab fa-angular fa-lg "></i>{{ $item->nominalInfaq }}
+                                    <i class="fab fa-angular fa-lg "></i>{{ $item->nominalSedekah }}
                                 </td>
                                 <td>
                                     <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}
@@ -119,9 +119,9 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('infaq.edit', $item->id) }}"
+                                            <a class="dropdown-item" href="{{ route('sedekah.edit', $item->id) }}"
                                                 style="color:#435971"><i class="bx bx-edit-alt me-1"></i> Update</a>
-                                            <form method="post" action="{{ route('infaq.delete', $item->id) }}">
+                                            <form method="post" action="{{ route('sedekah.delete', $item->id) }}">
 
                                                 @method('delete')
                                                 @csrf

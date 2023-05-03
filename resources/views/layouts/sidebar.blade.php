@@ -54,7 +54,8 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Data Keuangan ZIS</span>
         </li>
-        <li class="menu-item {{ request()->is('zakat*') || request()->routeIs('infaq') ? 'active open' : '' }}">
+        <li
+            class="menu-item {{ request()->is('zakat*') || request()->routeIs('infaq') || request()->routeIs('sedekah') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-book-alt"></i>
                 <div data-i18n="">Data Keuangan ZIS</div>
@@ -71,7 +72,7 @@
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('sedekah') ? 'active' : '' }}">
-                    <a href="" class="menu-link">
+                    <a href="{{ route('sedekah') }}" class="menu-link">
                         <div data-i18n="Data Sedekah">Data Sedekah</div>
                     </a>
                 </li>

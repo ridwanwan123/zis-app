@@ -1,11 +1,11 @@
 @extends('layouts.base')
 
-@section('title', 'Tambah Infaq')
+@section('title', 'Tambah Sedekah')
 
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> <a href="{{ route('infaq') }}"
-                style="color: unset !important"> Data Infaq </a>/</span> Tambah Data</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> <a href="{{ route('sedekah') }}"
+                style="color: unset !important"> Data Sedekah </a>/</span> Tambah Data</h4>
 
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
@@ -16,7 +16,7 @@
 
 
         <div class="card-body">
-            <form enctype="multipart/form-data" method="POST" action="{{ route('infaq.store') }}">
+            <form enctype="multipart/form-data" method="POST" action="{{ route('sedekah.store') }}">
                 @csrf
                 <!-- input -->
                 <div class="col-lg-12">
@@ -38,13 +38,13 @@
 
                 <!-- input -->
                 <div class="col-lg-12">
-                    <label for="nominalInfaq" class="form-label">Jumlah Infaq</label>
+                    <label for="nominalSedekah" class="form-label">Jumlah Sedekah</label>
                 </div>
                 <div class="g-3 mb-3 col-lg-12 input-group input-group-merge">
                     <span class="input-group-text">$</span>
                     <input type="text" class="form-control" placeholder="40000"
-                        aria-label="Amount (to the nearest ruppiah)" id="nominalInfaq" value="{{ old('nominalInfaq') }}"
-                        name="nominalInfaq" aria-describedby="nominalInfaq" autocomplete="off">
+                        aria-label="Amount (to the nearest ruppiah)" id="nominalSedekah" value="{{ old('nominalSedekah') }}"
+                        name="nominalSedekah" aria-describedby="nominalSedekah" autocomplete="off">
                 </div>
 
                 <div class="col mb-3 ">

@@ -3,7 +3,7 @@
 <h3 style=”text-align:justify;” class="text-center">
     <img src="https://res.cloudinary.com/dbvrqaynl/image/upload/v1682352614/Online-shop/mosquee_ybrkz8.png" alt="Logo-ZIS"
         class="me-4" width="60px" srcset="" />
-    Result Laporan Infaq
+    Result Laporan Sedekah
 </h3><br>
 
 <div class="table-responsive">
@@ -13,7 +13,7 @@
                 <th>No</th>
                 <th>Nama Donatur</th>
                 <th>Nomor Telepon</th>
-                <th>Jumlah Infaq</th>
+                <th>Jumlah Sedekah</th>
                 <th>Masjid</th>
                 <th>Status</th>
             </tr>
@@ -24,7 +24,7 @@
             @endphp
 
             @if (auth()->user()->mosque)
-                @foreach ($infaq as $item)
+                @foreach ($sedekah as $item)
                     @if ($item->mosque->id == auth()->user()->mosque->id)
                         <tr>
                             <td>
@@ -37,7 +37,7 @@
                                 <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                             </td>
                             <td>
-                                <i class="fab fa-angular fa-lg "></i>{{ $item->nominalInfaq }}
+                                <i class="fab fa-angular fa-lg "></i>{{ $item->nominalSedekah }}
                             </td>
                             <td>
                                 <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}
@@ -49,7 +49,7 @@
                     @endif
                 @endforeach
             @else
-                @foreach ($infaq as $item)
+                @foreach ($sedekah as $item)
                     <tr>
                         <td>
                             <i class="fab fa-angular fa-lg "></i> {{ $i++ }}
@@ -61,7 +61,7 @@
                             <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                         </td>
                         <td>
-                            <i class="fab fa-angular fa-lg "></i>{{ $item->nominalInfaq }}
+                            <i class="fab fa-angular fa-lg "></i>{{ $item->nominalSedekah }}
                         </td>
                         <td>
                             <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}

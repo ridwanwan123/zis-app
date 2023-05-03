@@ -7,8 +7,9 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MosqueController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\InfaqController;
 use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\InfaqController;
+use App\Http\Controllers\SedekahController;
 
 
 use App\Http\Controllers\TransaksiZISController;
@@ -66,6 +67,8 @@ Route::group(['middleware' =>['auth.login']], function (){
 
     Route::delete('/pengelolaZIS/delete/{id}', [AdminController::class, 'destroy'])->name('adminZIS.delete');
     
+    //Route CRUD Zakats
+    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
     
     //Route CRUD Infaqs
     Route::get('/infaqs', [InfaqController::class, 'index'])->name('infaq');
@@ -80,8 +83,19 @@ Route::group(['middleware' =>['auth.login']], function (){
 
     Route::get('/infaqs/pdf', [InfaqController::class, 'generatePDF'])->name('infaq.generatePDF');
 
-    //Route CRUD Zakat
-    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
+
+    //Route CRUD Sedekahs
+    Route::get('/sedekahs', [SedekahController::class, 'index'])->name('sedekah');
+    
+    Route::get('/sedekahs/create', [SedekahController::class, 'create'])->name('sedekah.create');
+    Route::post('/sedekahs/store', [SedekahController::class, 'store'])->name('sedekah.store');
+
+    Route::get('/sedekahs/edit/{id}', [SedekahController::class, 'edit'])->name('sedekah.edit');
+    Route::put('/sedekahs/edit/{id}', [SedekahController::class, 'update'])->name('sedekah.update');
+
+    Route::delete('/sedekahs/delete/{id}', [SedekahController::class, 'destroy'])->name('sedekah.delete');
+
+    Route::get('/sedekahs/pdf', [SedekahController::class, 'generatePDF'])->name('sedekah.generatePDF');
 
     //MUZAKI
     Route::get('/tunaikanZIS', [TransaksiZISController::class, 'index'])->name('formulir');

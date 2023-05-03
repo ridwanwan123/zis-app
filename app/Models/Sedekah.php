@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Infaq extends Model
+class Sedekah extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class Infaq extends Model
         'id_mosque',
         'nama_donatur',
         'phone',
-        'nominalInfaq',
+        'nominalSedekah',
         'status'
     ];
 

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('infaqs', function (Blueprint $table) {
+        Schema::create('sedekahs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_mosque')->constrained('mosques');
             $table->string('nama_donatur');
             $table->string('phone');
-            $table->integer('nominalInfaq');
+            $table->integer('nominalSedekah');
             $table->string('status');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('infaqs');
+        Schema::dropIfExists('sedekahs');
     }
 };

@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Infaq;
+use App\Models\Sedekah;
 
 class DashboardController extends Controller
 {
     public function index()
-    {
-        return view('dashboards.dashboard');
+    {   
+        $infaq = Infaq::all();
+        $sedekah = Sedekah::all();
+        $totalInfaq = Infaq::where('status', '=', 'Bayar')->sum('nominalInfaq');
+        $totalSedekah = Sedekah::where('status', '=', 'Bayar')->sum('nominalSedekah');
+        return view('dashboards.dashboard',  compact('infaq', 'sedekah', 'totalInfaq', 'totalSedekah'));
     }
+
 }

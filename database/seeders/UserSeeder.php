@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Ilham syah',
             'email' => 'ilhamsyah@gmail.com',
-            'password' => Hash::make('ilham'),
+            'password' => Hash::make('adminzis123'),
             'id_role' => $dkmRoleId,
             'id_mosque' => $barokahMosqueId,
             'address' => 'Jl.Panaitan Raya Rt.05 Rw.04, Mas Jaya, Kota Bogor',

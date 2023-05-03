@@ -16,27 +16,49 @@
 
 
         <div class="card-body">
-            <form enctype="multipart/form-data" method="POST" action="{{ route('infaq.store') }}">
+            <form enctype="multipart/form-data" method="POST" action="{{ route('infaq.update', $infaq->id) }}">
                 @method('PUT')
                 @csrf
                 <!-- input -->
                 <div class="col-lg-12">
                     <div class="col mb-3">
-                        <label for="id_user" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="id_user" value="{{ old('id_user') }}"
-                            name="name" aria-describedby="name">
+                        <label for="nama_donatur" class="form-label">Nama Donatur</label>
+                        <input type="text" class="form-control" id="nama_donatur" value="{{ $infaq->nama_donatur }}"
+                            name="nama_donatur" aria-describedby="nama_donatur" autocomplete="off">
                     </div>
                 </div>
 
                 <!-- input -->
                 <div class="col-lg-12">
-                    <label for="jumlahInfaq" class="form-label">Jumlah Infaq</label>
+                    <div class="col mb-3">
+                        <label for="phone" class="form-label">Nomor Telepon</label>
+                        <input type="number" class="form-control" placeholder="Harap Menggunakan 62" id="phone"
+                            value="{{ $infaq->phone }}" name="phone" aria-describedby="phone">
+                    </div>
+                </div>
+
+                <!-- input -->
+                <div class="col-lg-12">
+                    <label for="nominalInfaq" class="form-label">Jumlah Infaq</label>
                 </div>
                 <div class="g-3 mb-3 col-lg-12 input-group input-group-merge">
                     <span class="input-group-text">$</span>
                     <input type="text" class="form-control" placeholder="40000"
-                        aria-label="Amount (to the nearest ruppiah)" id="jumlahInfaq" value="{{ old('jumlahInfaq') }}"
-                        name="jumlahInfaq" aria-describedby="jumlahInfaq">
+                        aria-label="Amount (to the nearest ruppiah)" id="nominalInfaq" value="{{ $infaq->nominalInfaq }}"
+                        name="nominalInfaq" aria-describedby="nominalInfaq" autocomplete="off">
+                </div>
+
+                <div class="col mb-3 ">
+                    <label for="mosque" class="form-label">Masjid</label>
+                    <select name="id_mosque" class="form-select">
+                        <option value="{{ $infaq->id_mosque }}" selected>{{ $infaq->mosque->name_mosque }}
+                        </option>
+                        @foreach ($mosques as $mosque)
+                            @if ($infaq->id_mosque != $mosque->id)
+                                <option value="{{ $mosque->id }}">{{ $mosque->name_mosque }}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
 
                 <!-- input -->
@@ -44,9 +66,9 @@
                     <div class="col mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select name="status" class="form-select">
-                            <option value="" selected> </option>
-                            <option value="paid"> Bayar </option>
-                            <option value="unpaid"> Belum Bayar </option>
+                            <option value="{{ $infaq->status }}" selected> {{ $infaq->status }} </option>
+                            <option value="Bayar"> Bayar </option>
+                            <option value="Belum Bayar"> Belum Bayar </option>
                         </select>
                     </div>
                 </div>
