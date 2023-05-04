@@ -12,7 +12,7 @@ use App\Http\Controllers\InfaqController;
 use App\Http\Controllers\SedekahController;
 
 
-use App\Http\Controllers\TransaksiZISController;
+use App\Http\Controllers\TransaksiInfaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,9 +97,10 @@ Route::group(['middleware' =>['auth.login']], function (){
 
     Route::get('/sedekahs/pdf', [SedekahController::class, 'generatePDF'])->name('sedekah.generatePDF');
 
-    //MUZAKI
-    Route::get('/tunaikanZIS', [TransaksiZISController::class, 'index'])->name('formulir');
 });
+
+//MUZAKI
+Route::get('/bayarInfaq', [TransaksiInfaqController::class, 'createInfaq'])->name('TransaksiInfaq');
 
 
 

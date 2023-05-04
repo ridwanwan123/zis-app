@@ -18,6 +18,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('homepage/css/homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('homepage/css/utilites.css') }}">
+    <link rel="stylesheet" href="{{ asset('homepage/css/navbar-log-in.css') }}">
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -53,8 +54,23 @@
                         <li class="nav-item my-auto">
                             <a class="nav-link active" aria-current="page" href="">Home</a>
                         </li>
-                        <li class="nav-item my-auto">
-                            <a class="nav-link" href="#">ZIS</a>
+                        <li class="nav-item my-auto dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                ZIS
+                            </a>
+                            <ul class="dropdown-menu border-0" aria-labelledby="dropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item text-lg color-palette-2" href="#">Zakat</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-lg color-palette-2"
+                                        href="{{ route('TransaksiInfaq') }}">Infaq</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-lg color-palette-2" href="#">Sedekah</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item my-auto">
                             <a class="nav-link" href=""></a>
@@ -113,14 +129,16 @@
             <div class="row gap-lg-0 gap-4" data-aos="fade-up">
                 <div class="col-lg-4">
                     <div class="card pelaporan-card border-0">
-                        <img src="{{ asset('homepage/image/icon1.png') }}" width="80px" alt="" srcset="">
+                        <img src="{{ asset('homepage/image/icon1.png') }}" width="80px" alt=""
+                            srcset="">
                         <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">1. Login</p>
                         <p class="text-lg color-palette-1 mb-0">Melakukan Login Terlebih Dahulu sebelum beramal</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="card pelaporan-card border-0">
-                        <img src="{{ asset('homepage/image/icon2.png') }}" width="80px" alt="" srcset="">
+                        <img src="{{ asset('homepage/image/icon2.png') }}" width="80px" alt=""
+                            srcset="">
                         <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">2. Isi Formulir</p>
                         <p class="text-lg color-palette-1 mb-0">Melakukan isi formulir dan masjid yang akan dituju</p>
                     </div>

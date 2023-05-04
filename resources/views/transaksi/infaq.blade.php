@@ -30,8 +30,12 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
 
-    <title>ZIS | Tunaikan ZIS</title>
+
+    <title>Bayar Infaq | Tunaikan ZIS</title>
     <!-- Logo icon -->
     <link rel="shorcut icon" width="80px" href="{{ asset('homepage/image/A1.png') }}">
 
@@ -55,11 +59,11 @@
     <section id="header" class="header">
         <div class="container-fluid">
             <h2 class="text-4xl fw-bold color-palette-1 mt-30">
-                TUNAIKAN ZAKAT, INFAK, DAN SEDEKAH ANDA DENGAN AMAN DAN MUDAH
+                TUNAIKAN INFAK ANDA DENGAN AMAN DAN MUDAH
             </h2>
             <p class="text-support text-lg col-md-8 color-palette-2">
-                Dengan mengisi formulir ini, muzaki akan menerima Bukti Setor Zakat (BSZ),
-                laporan penyaluran, info layanan ZIS melalui email & whatsapp.
+                Dengan mengisi formulir ini, donatur akan menerima Notifikasi Berhasil setelah melakukan pembayaran
+                melalui whatsapp.
             </p>
         </div>
     </section>
@@ -82,8 +86,8 @@
                     <div class="row gap-lg-0 gap-5">
                         <div class="col-lg-12 col-12 my-auto">
                             <p class=" "></p>
-                            <h1 class="header-title color-palette-1 fw-bold">Data Muzaki</h1>
-                            <p class="mt-30 text-lg color-palette-2">Data Otomatis terisi jika anda sudah login
+                            <h1 class="header-title color-palette-1 fw-bold">Data Donatur</h1>
+                            <p class="mt-30 text-lg color-palette-2">Isi Data diri dengan benar
                             </p>
                         </div>
 
@@ -91,29 +95,39 @@
                         <div class="row g-3 col-lg-12">
                             <div class="col mb-3 ">
                                 <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" value="{{ auth()->user()->name }}"
-                                    id="name">
+                                <input type="text" class="form-control" id="nama_donatur"
+                                    value="{{ old('nama_donatur') }}" name="nama_donatur"
+                                    aria-describedby="nama_donatur" autocomplete="off">
                             </div>
                             <div class="col mb-3 ">
-                                <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email"
-                                    value="{{ auth()->user()->email }}" aria-describedby="emailHelp">
+                                <label for="phone" class="form-label">Nomor Telepon</label>
+                                <input type="number" class="form-control" placeholder="Harap Menggunakan 62"
+                                    id="phone" value="{{ old('phone') }}" name="phone" aria-describedby="phone">
                             </div>
                             <div class="col mb-5 ">
-                                <label for="no_telepon" class="form-label">No Telepon</label>
-                                <input type="email" class="form-control" id="no_telepon"
-                                    value="{{ auth()->user()->no_telepon }}" aria-describedby="emailHelp">
+                                <label for="mosque" class="form-label">Masjid</label> <i class="fa fa-info-circle"
+                                    id="my-icon"></i>
+                                <select name="id_mosque" class="form-select">
+                                    <option value="{{ old('id_mosque') }}" selected>Silahkan pilih daftar masjid
+                                    </option>
+                                    @foreach ($mosques as $mosque)
+                                        <option value="{{ $mosque->id }}"> {{ $mosque->name_mosque }} </option>
+                                    @endforeach
+                                </select>
+                                <small id="my-tooltip" hidden>
+                                    Data anda akan masuk ke data masjid yang anda pilih
+                                </small>
                             </div>
                             <hr>
 
                             <div class="col-lg-12 col-12 my-auto">
                                 <p class=" "></p>
-                                <h1 class="header-title color-palette-1 fw-bold">Pilih Jenis Dana</h1>
+                                <h1 class="header-title color-palette-1 fw-bold">Nominal Donatur</h1>
 
                             </div>
 
-                            <div class="mb-3">
-                                <label for="mosque" class="form-label">Jenis Dana</label> <i class="fa fa-info-circle"
+                            <div class="mb-3" hidden>
+                                <label for="" class="form-label">Jenis Dana</label> <i class="fa fa-info-circle"
                                     id="my-icon2"></i>
                                 <select name="id_mosque" class="form-select" id="select-condition">
                                     <option value="" selected>Silahkan pilih jenis dana</option>
@@ -127,13 +141,13 @@
                                 </small>
                             </div>
 
-                            <div class="mb-3" id="input-form" style="display:none;">
+                            <div class="" id="input-form" style="display:none;">
                                 {{-- <label for="zakat" class="form-label">Nominal Zakat</label> --}}
                                 <input type="text" class="form-control"
                                     placeholder="100"aria-label="Amount (to the nearest dollar)">
                             </div>
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text">$</span>
+                            <div class="input-group input-group-merge mb-5">
+                                <span class="input-group-text">Rp</span>
                                 <input type="text" class="form-control" placeholder="100"
                                     aria-label="Amount (to the nearest ruppiah)">
                             </div>
@@ -141,9 +155,7 @@
 
 
                             <!-- BUTTON  -->
-                            <div class="d-md-flex justify-content-md-end">
-                                <!-- <button class="btn btn-primary me-md-2" type="button">Button</button> -->
-                                <!-- <button class="btn btn-primary" type="button">Button</button> -->
+                            <div class="d-md-flex justify-content-md-end mt-5">
                                 <input type="button" value="Selanjutnya" class="btn btn-primary btn-next p-3">
                             </div>
                         </div>
@@ -158,7 +170,7 @@
     <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('assets/admin/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
     <!-- Popper.js -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
 
@@ -181,6 +193,13 @@
             } else {
                 inputForm.style.display = 'none';
             }
+        });
+
+        tippy('#my-icon', {
+            content: document.querySelector('#my-tooltip').innerHTML,
+            placement: 'top',
+            theme: 'light',
+            arrow: true,
         });
     </script>
 </body>

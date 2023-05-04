@@ -51,7 +51,7 @@
                             </div>
                             <span>Total Pemasukan</span>
                             <h3 class="card-title text-nowrap mb-1">Zakat</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp. 300.000</small>
+                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.</small>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                             </div>
                             <span>Total Pemasukan</span>
                             <h3 class="card-title text-nowrap mb-1">Infaq</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp
+                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                 @if (auth()->user()->mosque)
                                     {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalInfaq')) }}
                                 @else
@@ -105,7 +105,7 @@
                             </div>
                             <span>Total Pemasukan</span>
                             <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i>
+                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                 @if (auth()->user()->mosque)
                                     {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalSedekah')) }}
                                 @else
