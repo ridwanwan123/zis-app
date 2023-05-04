@@ -98,9 +98,9 @@
                         السلام عليكم ورحمة الله وبركاته <br>
                         <span class="d-sm-inline d-none tx-hero"> Zakat, Infaq, Sedekah </span>
                     </h1>
-                    <p class="mt-30 mb-40 text-lg color-palette-1">Sebuah website yang dibangun bertujuan untuk mengajak
-                        umat muslim untuk tolong-menolong dengan cara beramal serta mempererat hubungan antara sesama
-                        muslim.
+                    <p class="mt-30 mb-40 text-lg color-palette-1">Sebuah situs web yang dibangun dengan tujuan mengajak
+                        umat Muslim untuk saling membantu dengan cara bersedekah dan juga mempererat hubungan antar
+                        sesama Muslim.
                     </p>
                     <div class="d-flex flex-lg-row flex-colcontainer-fluidumn gap-4">
                         <a class="btn btn-get text-lg text-white rounded-pill" href="#" role="button">Yuk
@@ -131,8 +131,9 @@
                     <div class="card pelaporan-card border-0">
                         <img src="{{ asset('homepage/image/icon1.png') }}" width="80px" alt=""
                             srcset="">
-                        <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">1. Login</p>
-                        <p class="text-lg color-palette-1 mb-0">Melakukan Login Terlebih Dahulu sebelum beramal</p>
+                        <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">1. Pilih Menu</p>
+                        <p class="text-lg color-palette-1 mb-0">Anda dapat memilih menu zakat, infaq, atau sedekah pada
+                            navbar.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -140,15 +141,17 @@
                         <img src="{{ asset('homepage/image/icon2.png') }}" width="80px" alt=""
                             srcset="">
                         <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">2. Isi Formulir</p>
-                        <p class="text-lg color-palette-1 mb-0">Melakukan isi formulir dan masjid yang akan dituju</p>
+                        <p class="text-lg color-palette-1 mb-0">Melakukan pengisian formulir dan memilih masjid yang
+                            menjadi tujuan.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="card pelaporan-card border-0">
                         <img src="{{ asset('homepage/image/icon3.png') }}" width="80px" alt=""
                             srcset="">
-                        <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">3. Pembayaran</p>
-                        <p class="text-lg color-palette-1 mb-0">Melakukan pembayaran dan mendownload bukti pembayaran
+                        <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">3. Notifikasi</p>
+                        <p class="text-lg color-palette-1 mb-0">Setelah melakukan pembayaran, Anda akan mendapatkan
+                            notifikasi.
                         </p>
                     </div>
                 </div>
@@ -184,9 +187,10 @@
                             </h3>
                             <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                                 <div class="accordion-body">
-                                    Anda bisa langsung mengklik button Login, Setelah itu isi
-                                    semua data yang ada diformulir dengan lengkap setelah itu
-                                    anda akan diminta melakukan pembayaran
+
+                                    Anda bisa langsung mengklik menu zakat, infaq, atau sedekah sesuai dengan yang ingin
+                                    dibayar. Kemudian, lengkapi semua data yang terdapat pada formulir dengan lengkap.
+                                    Setelah itu, Anda akan diminta untuk melakukan pembayaran.
                                 </div>
                             </div>
                         </div><!-- # Faq item-->
@@ -196,17 +200,18 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#faq-content-2">
                                     <i class="bi bi-question-circle question-icon"></i>
-                                    2. Bagaimana melihat hasil transaksi ?
+                                    2. Bagaimana cara mengetahui apakah transaksi telah berhasil?
                                 </button>
                             </h3>
                             <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                                 <div class="accordion-body">
-                                    Setelah Muzaki melakukan pembayaran, akan ada notifikasi masuk status pembayaran
+                                    Setelah Muzaki melakukan pembayaran, akan ada notifikasi WhatsApp masuk bahwa status
+                                    pembayaran berhasil.
                                 </div>
                             </div>
                         </div><!-- # Faq item-->
 
-                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+                        {{-- <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
                             <h3 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#faq-content-3">
@@ -216,10 +221,10 @@
                             </h3>
                             <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                                 <div class="accordion-body">
-                                    Hasil Penyaluran dana akan kami hu diwebsite ini
+                                    Hasil Penyaluran dana akan kami hubungi diwebsite ini
                                 </div>
                             </div>
-                        </div><!-- # Faq item-->
+                        </div> --}}
                     </div>
 
                 </div>
@@ -247,15 +252,15 @@
                         <a href="" class="mb-30">
                             <img src="{{ asset('homepage/image/logo.png') }}" alt="" srcset="">
                         </a>
-                        <p class="mt-30 text-lg color-palette-1 mb-30">Sebuah website yang dibangun bertujuan untuk
-                            mengajak umat muslim untuk tolong-menolong dengan cara beramal serta mempererat hubungan
-                            antara sesama muslim</p>
+                        <p class="mt-30 text-lg color-palette-1 mb-30">Sebuah situs web yang dibangun dengan tujuan
+                            mengajak umat Muslim untuk saling membantu dengan cara bersedekah dan juga mempererat
+                            hubungan antar sesama Muslim.</p>
                         <!-- <p class="mt-30 text-lg color-palette-1 mb-30">Copyright 2021. All Rights Reserved.</p> -->
                     </div>
                     <div class="col-lg-8 mt-lg-0 mt-20">
                         <div class="row gap-sm-0">
                             <div class="col-md-4 col-6 mb-lg-0 mb-25">
-                                <p class="text-lg fw-semibold color-palette-1 mb-12">Company</p>
+                                <p class="text-lg fw-semibold color-palette-1 mb-12">ZIS</p>
                                 <ul class="list-unstyled">
                                     <li class="mb-6">
                                         <a href="" class="text-lg color-palette-1 text-decoration-none">About
@@ -299,7 +304,7 @@
                                     </li>
                                     <li class="mb-6">
                                         <a href="#" class="text-lg color-palette-1 text-decoration-none">
-                                            Badan Amil Zakat Nasional
+                                            Teknik Informatika dan komputer PNJ
                                         </a>
                                     </li>
                                 </ul>
