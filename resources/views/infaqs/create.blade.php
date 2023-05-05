@@ -42,7 +42,7 @@
                 </div>
                 <div class="g-3 mb-3 col-lg-12 input-group input-group-merge">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" placeholder="40000"
+                    <input type="number" class="form-control" placeholder="40000"
                         aria-label="Amount (to the nearest ruppiah)" id="nominalInfaq" value="{{ old('nominalInfaq') }}"
                         name="nominalInfaq" aria-describedby="nominalInfaq" autocomplete="off">
                 </div>

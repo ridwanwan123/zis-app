@@ -11,7 +11,7 @@ class InfaqController extends Controller
 {
     public function index()
     {
-        $infaq = Infaq::all();
+        $infaq = Infaq::paginate(5);
         $totalInfaq = Infaq::where('status', '=', 'Bayar')->sum('nominalInfaq');
         return view('infaqs.index', ['infaq' => $infaq, 'totalInfaq' => $totalInfaq]);
     }

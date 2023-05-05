@@ -51,87 +51,89 @@
                 </ul>
             </li>
         @endif
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Data Keuangan ZIS</span>
-        </li>
-        <li
-            class="menu-item {{ request()->is('zakat*') || request()->routeIs('infaq') || request()->routeIs('sedekah') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-book-alt"></i>
-                <div data-i18n="">Data Keuangan ZIS</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('zakat') ? 'active' : '' }}">
-                    <a href="{{ route('zakat') }}" class="menu-link">
-                        <div data-i18n="Data Zakat">Data Zakat</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('infaq') ? 'active' : '' }}">
-                    <a href="{{ route('infaq') }}" class="menu-link">
-                        <div data-i18n="Data Infaq">Data Infaq</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('sedekah') ? 'active' : '' }}">
-                    <a href="{{ route('sedekah') }}" class="menu-link">
-                        <div data-i18n="Data Sedekah">Data Sedekah</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+
+        @if (auth()->user()->role->name === 'DKM')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Data Keuangan ZIS</span>
+            </li>
+            <li
+                class="menu-item {{ request()->is('zakat*') || request()->routeIs('infaq') || request()->routeIs('sedekah') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bxs-book-alt"></i>
+                    <div data-i18n="">Data Keuangan ZIS</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->routeIs('zakat') ? 'active' : '' }}">
+                        <a href="{{ route('zakat') }}" class="menu-link">
+                            <div data-i18n="Data Zakat">Data Zakat</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('infaq') ? 'active' : '' }}">
+                        <a href="{{ route('infaq') }}" class="menu-link">
+                            <div data-i18n="Data Infaq">Data Infaq</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('sedekah') ? 'active' : '' }}">
+                        <a href="{{ route('sedekah') }}" class="menu-link">
+                            <div data-i18n="Data Sedekah">Data Sedekah</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
-        {{-- SECTION LAPORAN  --}}
+            {{-- SECTION LAPORAN  --}}
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Laporan Keuangan ZIS</span>
-        </li>
-        <li class="menu-item {{ request()->is('laporan*') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-report"></i>
-                <div data-i18n="">Laporan</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('report-zakat') ? 'active' : '' }}">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Laporan Zakat">Laporan Zakat</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('report-infaq') ? 'active' : '' }}">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Laporan Infaq">Laporan Infaq</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('report-sedekah') ? 'active' : '' }}">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Laporan Sedekah">Laporan Sedekah</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            {{-- <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Laporan Keuangan ZIS</span>
+            </li>
+            <li class="menu-item {{ request()->is('laporan*') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bxs-report"></i>
+                    <div data-i18n="">Laporan</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->routeIs('report-zakat') ? 'active' : '' }}">
+                        <a href="" class="menu-link">
+                            <div data-i18n="Laporan Zakat">Laporan Zakat</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('report-infaq') ? 'active' : '' }}">
+                        <a href="" class="menu-link">
+                            <div data-i18n="Laporan Infaq">Laporan Infaq</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('report-sedekah') ? 'active' : '' }}">
+                        <a href="" class="menu-link">
+                            <div data-i18n="Laporan Sedekah">Laporan Sedekah</div>
+                        </a>
+                    </li>
+                </ul>
+            </li> --}}
 
-        {{-- SECTION SISTEM PENDUKUNG KEPUTUSAN  --}}
+            {{-- SECTION SISTEM PENDUKUNG KEPUTUSAN  --}}
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Sistem Pendukung Keputusan</span>
-        </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-data"></i>
-                <div data-i18n="">SPK</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Data Penerima">Data Penerima</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="SPK">SPK</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Sistem Pendukung Keputusan</span>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bxs-data"></i>
+                    <div data-i18n="">SPK</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="" class="menu-link">
+                            <div data-i18n="Data Penerima">Data Penerima</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="" class="menu-link">
+                            <div data-i18n="SPK">SPK</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
     </ul>
 </aside>

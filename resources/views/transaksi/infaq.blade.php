@@ -71,7 +71,9 @@
     <!-- FORMULIR  -->
     <section id="formulir" class="formulir">
         <div class="container-fluid">
-            <form action="" id="msForm" class="row">
+            <form enctype="multipart/form-data" action="{{ route('TransaksiInfaq.store') }}" method="POST"
+                class="row">
+                @csrf
                 <div class="card formulir-card mt-5">
 
 
@@ -102,10 +104,11 @@
                             <div class="col mb-3 ">
                                 <label for="phone" class="form-label">Nomor Telepon</label>
                                 <input type="number" class="form-control" placeholder="Harap Menggunakan 62"
-                                    id="phone" value="{{ old('phone') }}" name="phone" aria-describedby="phone">
+                                    id="phone" value="{{ old('phone') }}" autocomplete="off" name="phone"
+                                    aria-describedby="phone">
                             </div>
                             <div class="col mb-5 ">
-                                <label for="mosque" class="form-label">Masjid</label> <i class="fa fa-info-circle"
+                                <label for="id_mosque" class="form-label">Masjid</label> <i class="fa fa-info-circle"
                                     id="my-icon"></i>
                                 <select name="id_mosque" class="form-select">
                                     <option value="{{ old('id_mosque') }}" selected>Silahkan pilih daftar masjid
@@ -127,9 +130,9 @@
                             </div>
 
                             <div class="mb-3" hidden>
-                                <label for="" class="form-label">Jenis Dana</label> <i class="fa fa-info-circle"
-                                    id="my-icon2"></i>
-                                <select name="id_mosque" class="form-select" id="select-condition">
+                                <label for="" class="form-label">Jenis Dana</label> <i
+                                    class="fa fa-info-circle" id="my-icon2"></i>
+                                <select name="" class="form-select" id="select-condition">
                                     <option value="" selected>Silahkan pilih jenis dana</option>
                                     <option value="zakat">Zakat</option>
                                     <option value="infaq">Infaq</option>
@@ -148,15 +151,25 @@
                             </div>
                             <div class="input-group input-group-merge mb-5">
                                 <span class="input-group-text">Rp</span>
-                                <input type="text" class="form-control" placeholder="100"
-                                    aria-label="Amount (to the nearest ruppiah)">
+                                <input type="number" class="form-control" name="nominalInfaq"
+                                    value="{{ old('nominalInfaq') }}" placeholder="100"
+                                    aria-label="Amount (to the nearest ruppiah)" autocomplete="off">
                             </div>
-                            <!-- SEBAGAI KORBAN MAKA AKAN KELUAR FORM LAGI  -->
 
+                            <!-- input -->
+                            <div class="col-lg-12" hidden>
+                                <div class="col mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select name="status" class="form-select">
+                                        <option value="Bayar" selected> Bayar </option>
+                                    </select>
+                                </div>
+                            </div>
 
-                            <!-- BUTTON  -->
-                            <div class="d-md-flex justify-content-md-end mt-5">
-                                <input type="button" value="Selanjutnya" class="btn btn-primary btn-next p-3">
+                            <div class="d-flex justify-content-md-end mt-3">
+                                <button type="submit" class="btn btn-primary btn-next p-3">
+                                    <span class="font-semibold text-base">Tambah Data</span>
+                                </button>
                             </div>
                         </div>
                     </div>

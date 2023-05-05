@@ -8,24 +8,30 @@
         <div class="col-lg-6 mb-4 order-0">
             <div class="card">
                 <div class="d-flex align-items-end row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <div class="card-body">
-                            <h5 class="card-title text-primary">السلام عليكم ورحمة الله وبركاته</h5>
+                            <h5 class="card-title text-primary d-flex justify-content-end">السلام عليكم ورحمة الله وبركاته
+                            </h5>
                             <p class="mb-4">
-                                Selamat Datang, <span class="fw-bold"> {{ auth()->user()->name }}</span> di website pendataan
-                                dan penyaluran zakat, infaq, sedekah.
+                                Selamat datang, <span class="fw-bold"> {{ auth()->user()->name }}</span>
+                                {{ \App\Models\Role::find(auth()->user()->id_role)->name }} <span class="fw-bold">
+                                    {{ auth()->user()->id_mosque ? \App\Models\Mosque::find(auth()->user()->id_mosque)->name_mosque : '' }}</span>!
+                                Disini Anda dapat mengelola data ZIS dengan mudah dan efisien, serta memastikan
+                                dana
+                                yang terkumpul
+                                tersalurkan ke penerima yang tepat.
                             </p>
 
                             <a href="#" class="btn btn-sm btn-outline-primary">More Info</a>
                         </div>
                     </div>
-                    <div class="col-sm-4 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
+                    {{-- <div class="col-sm-2">
+                        <div class="card-body pb-0 px-0 py-0">
                             <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}" height="130"
                                 alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
                                 data-app-light-img="illustrations/man-with-laptop-light.png" />
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

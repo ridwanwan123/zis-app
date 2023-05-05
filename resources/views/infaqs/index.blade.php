@@ -20,7 +20,7 @@
         <p>Total infaq yang terkumpul: Rp {{ number_format($totalInfaq) }}</p>
 
         <div class="table-responsive text-nowrap">
-            <table class="table table-striped">
+            <table class="table table-striped mb-4">
                 <thead>
                     <tr class="text-nowrap">
                         <th>#</th>
@@ -135,13 +135,39 @@
                                 </td>
                             </tr>
                         @endforeach
+
                     @endif
 
-
                 </tbody>
+
             </table>
         </div>
+        <div class="container d-flex justify-content-end">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item {{ $infaq->currentPage() == 1 ? ' disabled' : '' }}">
+                        <a class="page-link" href="{{ $infaq->url(1) }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    </li>
+                    <li class="page-item {{ $infaq->currentPage() == 1 ? ' disabled' : '' }}">
+                        <a class="page-link" href="{{ $infaq->previousPageUrl() }}"><i
+                                class="tf-icon bx bx-chevron-left"></i></a>
+                    </li>
+                    @for ($i = 1; $i <= $infaq->lastPage(); $i++)
+                        <li class="page-item {{ $infaq->currentPage() == $i ? ' active' : '' }}">
+                            <a class="page-link" href="{{ $infaq->url($i) }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+                    <li class="page-item {{ $infaq->currentPage() == $infaq->lastPage() ? ' disabled' : '' }}">
+                        <a class="page-link" href="{{ $infaq->nextPageUrl() }}"><i
+                                class="tf-icon bx bx-chevron-right"></i></a>
+                    </li>
+                    <li class="page-item {{ $infaq->currentPage() == $infaq->lastPage() ? ' disabled' : '' }}">
+                        <a class="page-link" href="{{ $infaq->url($infaq->lastPage()) }}"><i
+                                class="tf-icon bx bx-chevrons-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-
 
 @endsection

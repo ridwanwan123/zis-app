@@ -101,7 +101,11 @@ Route::group(['middleware' =>['auth.login']], function (){
 
 //MUZAKI
 Route::get('/bayarInfaq', [TransaksiInfaqController::class, 'createInfaq'])->name('TransaksiInfaq');
+Route::post('/bayarInfaq', [TransaksiInfaqController::class, 'storeInfaq'])->name('TransaksiInfaq.store');
 
+Route::get('/success', function () {
+    return view('transaksi.success');
+})->name('success');
 
 
 
