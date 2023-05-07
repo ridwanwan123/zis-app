@@ -35,93 +35,95 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-3 order-1">
-            <div class="row">
-                <div class="col-lg-4 col-md-12 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="{{ asset('assets/img/unicons/wallet-info.png') }}" alt="Credit Card"
-                                        class="rounded" />
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                        <a class="dropdown-item" href="">View More</a>
+        @if (auth()->user()->role->name === 'DKM')
+            <div class="col-lg-6 col-md-3 order-1">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/wallet-info.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="">View More</a>
+                                        </div>
                                     </div>
                                 </div>
+                                <span>Total Pemasukan</span>
+                                <h3 class="card-title text-nowrap mb-1">Zakat</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.</small>
                             </div>
-                            <span>Total Pemasukan</span>
-                            <h3 class="card-title text-nowrap mb-1">Zakat</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.</small>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="{{ asset('assets/img/unicons/wallet.png') }}" alt="Credit Card"
-                                        class="rounded" />
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                        <a class="dropdown-item" href="{{ route('infaq') }}">View More</a>
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/wallet.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="{{ route('infaq') }}">View More</a>
+                                        </div>
                                     </div>
                                 </div>
+                                <span>Total Pemasukan</span>
+                                <h3 class="card-title text-nowrap mb-1">Infaq</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalInfaq')) }}
+                                    @else
+                                        {{ number_format($infaq->where('status', 'Bayar')->sum('nominalInfaq')) }}
+                                    @endif
+                                </small>
                             </div>
-                            <span>Total Pemasukan</span>
-                            <h3 class="card-title text-nowrap mb-1">Infaq</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
-                                @if (auth()->user()->mosque)
-                                    {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalInfaq')) }}
-                                @else
-                                    {{ number_format($infaq->where('status', 'Bayar')->sum('nominalInfaq')) }}
-                                @endif
-                            </small>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="{{ asset('assets/img/unicons/cc-warning.png') }}" alt="Credit Card"
-                                        class="rounded" />
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                        <a class="dropdown-item" href="{{ route('sedekah') }}">View More</a>
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/cc-warning.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="{{ route('sedekah') }}">View More</a>
+                                        </div>
                                     </div>
                                 </div>
+                                <span>Total Pemasukan</span>
+                                <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalSedekah')) }}
+                                    @else
+                                        {{ number_format($sedekah->where('status', 'Bayar')->sum('nominalSedekah')) }}
+                                    @endif
+                                </small>
                             </div>
-                            <span>Total Pemasukan</span>
-                            <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
-                                @if (auth()->user()->mosque)
-                                    {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalSedekah')) }}
-                                @else
-                                    {{ number_format($sedekah->where('status', 'Bayar')->sum('nominalSedekah')) }}
-                                @endif
-                            </small>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

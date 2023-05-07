@@ -48,10 +48,11 @@
                 </div>
 
                 <div class="col mb-3 ">
-                    <label for="mosque" class="form-label">Masjid</label>
-                    {{-- <input type="text" class="form-control" value="{{ auth()->user()->mosque->name_mosque }}"
-                        name="id_mosque"> --}}
-                    <select name="id_mosque" class="form-select">
+                    @if (auth()->user()->id_mosque && ($mosque = \App\Models\Mosque::find(auth()->user()->id_mosque)))
+                        <label for="mosque" class="form-label">Masjid</label>
+                        <input type="text" class="form-control" value="{{ $mosque->name_mosque }}" name="id_mosque">
+                    @endif
+                    {{-- <select name="id_mosque" class="form-select">
 
                         <option value="{{ old('id_mosque') }}" selected>Silahkan pilih daftar masjid</option>
 
@@ -59,7 +60,7 @@
                         @foreach ($mosques as $mosque)
                             <option value="{{ $mosque->id }}"> {{ $mosque->name_mosque }} </option>
                         @endforeach
-                    </select>
+                    </select> --}}
                 </div>
 
                 <!-- input -->
