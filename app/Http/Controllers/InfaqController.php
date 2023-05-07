@@ -11,9 +11,11 @@ class InfaqController extends Controller
 {
     public function index()
     {
-        $infaq = Infaq::paginate(5);
+        $infaq = Infaq::all();
         $totalInfaq = Infaq::where('status', '=', 'Bayar')->sum('nominalInfaq');
+        
         return view('infaqs.index', ['infaq' => $infaq, 'totalInfaq' => $totalInfaq]);
+         
     }
     
     // public function getTotalInfaq($id_mosque = null)
@@ -48,7 +50,12 @@ class InfaqController extends Controller
 
         Infaq::create($data);
         
-
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Infaq berhasil ditambahkan!!');
         return redirect()->route('infaq');
     }
 
@@ -80,7 +87,14 @@ class InfaqController extends Controller
 
         $infaq->save();
 
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Infaq berhasil diperbarui!!');
         return redirect()->route('infaq');
+        
     }
 
     public function destroy($id)

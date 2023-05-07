@@ -36,6 +36,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
+
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -45,6 +46,26 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('assets/js/chart.js') }}"></script>
+    {{-- <style ty --}}
+    <script>
+        function confirmDelete() {
+            Swal.fire({
+                title: 'Apa kamu yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Tidak',
+                confirmButtonText: 'Ya, hapus!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form
+                    document.querySelector('form').submit();
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -67,7 +88,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
 
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="container-xxl z-3 container-p-y">
 
                         @yield('content')
 
@@ -113,6 +134,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

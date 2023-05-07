@@ -81,6 +81,8 @@
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit"
+                                                        onclick="event.preventDefault();
+                                                        confirmDelete()"
                                                         style="border: none; background-color:white; color:#435971">
                                                         <i class="bx bx-trash me-1 m-3"></i> Delete</a>
                                                     </button>
@@ -126,6 +128,8 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit"
+                                                    onclick="event.preventDefault();
+                                                        confirmDelete()"
                                                     style="border: none; background-color:white; color:#435971">
                                                     <i class="bx bx-trash me-1 m-3"></i> Delete</a>
                                                 </button>

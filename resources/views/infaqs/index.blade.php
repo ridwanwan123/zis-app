@@ -16,8 +16,8 @@
 
     <!-- Striped Rows -->
     <div class="card">
-        <h5 class="card-header">Data Infaq = </h5>
-        <p>Total infaq yang terkumpul: Rp {{ number_format($totalInfaq) }}</p>
+        <h5 class="card-header">Data Infaq </h5>
+        {{-- <p>Total infaq yang terkumpul: Rp {{ number_format($totalInfaq) }}</p> --}}
 
         <div class="table-responsive text-nowrap">
             <table class="table table-striped mb-4">
@@ -36,14 +36,7 @@
                     @php
                         $i = 1;
                     @endphp
-                    @if (auth()->user()->mosque)
-                        <p>Total infaq yang terkumpul di masjid {{ auth()->user()->mosque->name_mosque }}: Rp
-                            {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalInfaq')) }}
-                        </p>
-                    @else
-                        <p>Total infaq yang terkumpul: Rp
-                            {{ number_format($infaq->where('status', 'Bayar')->sum('nominalInfaq')) }}</p>
-                    @endif
+
 
                     @if (auth()->user()->mosque)
                         @foreach ($infaq as $item)
@@ -81,7 +74,9 @@
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit"
-                                                        style="border: none; background-color:white; color:#435971">
+                                                        onclick="event.preventDefault();
+                                                        confirmDelete()"
+                                                        style="border: none; background-color:white; color:#435971 swal2-container">
                                                         <i class="bx bx-trash me-1 m-3"></i> Delete</a>
                                                     </button>
                                                 </form>
@@ -126,6 +121,8 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit"
+                                                    onclick="event.preventDefault();
+                                                    confirmDelete()"
                                                     style="border: none; background-color:white; color:#435971">
                                                     <i class="bx bx-trash me-1 m-3"></i> Delete</a>
                                                 </button>
@@ -142,7 +139,7 @@
 
             </table>
         </div>
-        <div class="container d-flex justify-content-end">
+        {{-- <div class="container d-flex justify-content-end">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li class="page-item {{ $infaq->currentPage() == 1 ? ' disabled' : '' }}">
@@ -167,7 +164,8 @@
                     </li>
                 </ul>
             </nav>
-        </div>
+        </div> --}}
     </div>
+
 
 @endsection
