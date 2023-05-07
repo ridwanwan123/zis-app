@@ -50,7 +50,13 @@ class AdminController extends Controller
         $data['password'] = Hash::make($request->password);
 
         User::create($data);
-
+        
+        flash()
+            ->options([
+                'timeout' => 3500, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Admin berhasil ditambahkan!!');
         return redirect()->route('adminZIS');
     }
 
@@ -95,6 +101,12 @@ class AdminController extends Controller
         // Save the updated Admin ZIS
         $adminZIS->save();
 
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Admin berhasil diperbarui !!');
         // Redirect back to the Admin ZIS list page
         return redirect()->route('adminZIS');
     }
@@ -102,6 +114,12 @@ class AdminController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Admin berhasil dihapus !!');
         return redirect()->route('adminZIS');
     }
 }

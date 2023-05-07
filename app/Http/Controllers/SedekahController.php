@@ -36,7 +36,12 @@ class SedekahController extends Controller
 
         Sedekah::create($data);
         
-
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Sedekah berhasil ditambahkan!!');
         return redirect()->route('sedekah');
     }
 
@@ -67,13 +72,25 @@ class SedekahController extends Controller
         $sedekah->status = $request->status;
 
         $sedekah->save();
-
+        
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Sedekah berhasil diperbarui!!');
         return redirect()->route('sedekah');
     }
 
     public function destroy($id)
     {
         Sedekah::find($id)->delete();
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Sedekah berhasil dihapus!!');
         return redirect()->route('sedekah');
     }
 

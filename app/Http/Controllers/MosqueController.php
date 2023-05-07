@@ -28,8 +28,12 @@ class MosqueController extends Controller
         $data = $request->except('_token');
 
         Mosque::create($data);
-        
-
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Masjid berhasil ditambahkan!!');
         return redirect()->route('mosque');
     }
 
@@ -55,7 +59,12 @@ class MosqueController extends Controller
         $mosque->address_mosque = $request->address_mosque;
 
         $mosque->save();
-
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Masjid berhasil diperbarui!!');
         // Redirect back to the mosque list page
         return redirect()->route('mosque');
     }

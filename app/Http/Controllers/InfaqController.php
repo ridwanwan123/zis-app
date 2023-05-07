@@ -100,6 +100,12 @@ class InfaqController extends Controller
     public function destroy($id)
     {
         Infaq::find($id)->delete();
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Data Infaq berhasil dihapus !!');
         return redirect()->route('infaq');
     }
 

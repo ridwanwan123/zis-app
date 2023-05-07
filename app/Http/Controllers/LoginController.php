@@ -37,6 +37,12 @@ class LoginController extends Controller
                 //untuk muzaki akan di route ke halama pembayaran dan formulir, untuk sementara di redirect ke halaman formulir
                 return redirect()->route('formulir');
             } else {
+                flash()
+                    ->options([
+                        'timeout' => 3500, // 3 seconds
+                        'position' => 'bottom-right',
+                    ])
+                    ->addSuccess('Login Berhasill, Selamat Datang!!');
                 return redirect()->route('dashboard');
             }
         }
@@ -66,9 +72,21 @@ class LoginController extends Controller
             $user->password = Hash::make($request->new_password);
             $user->save();
 
-            return redirect()->back()->with('success', 'Password updated successfully.');
+            flash()
+            ->options([
+                'timeout' => 3500, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Password berhasil diubah!!');
+            return redirect()->back();
         } else {
-            return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect.']);
+            flash()
+            ->options([
+                'timeout' => 3500, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addError('Password gagal diubah!!');
+            return redirect()->back();
         }
     }
 
@@ -81,6 +99,12 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
+        flash()
+            ->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'bottom-right',
+            ])
+            ->addSuccess('Anda berhasil Logout, Terimakasih!!');
         return redirect()->route('login');
     }
 }
