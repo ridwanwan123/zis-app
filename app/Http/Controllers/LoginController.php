@@ -25,26 +25,31 @@ class LoginController extends Controller
 
         if ($request->input('role') == 'Admin') {
             $credentials['id_role'] = 1;
-        } elseif ($request->input('role') == 'Muzaki') {
+        }  elseif ($request->input('role') == 'DKM') {
             $credentials['id_role'] = 2;
-        } elseif ($request->input('role') == 'DKM') {
-            $credentials['id_role'] = 3;
         }
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if(Auth::user()->id_role == 2) {
-                //untuk muzaki akan di route ke halama pembayaran dan formulir, untuk sementara di redirect ke halaman formulir
-                return redirect()->route('formulir');
-            } else {
-                flash()
+            flash()
                     ->options([
                         'timeout' => 3500, // 3 seconds
                         'position' => 'bottom-right',
                     ])
                     ->addSuccess('Login Berhasill, Selamat Datang!!');
                 return redirect()->route('dashboard');
-            }
+            // if(Auth::user()->id_role == 2) {
+            //     untuk muzaki akan di route ke halama pembayaran dan formulir, untuk sementara di redirect ke halaman formulir
+            //     return redirect()->route('formulir');
+            // } else {
+            //     flash()
+            //         ->options([
+            //             'timeout' => 3500, // 3 seconds
+            //             'position' => 'bottom-right',
+            //         ])
+            //         ->addSuccess('Login Berhasill, Selamat Datang!!');
+            //     return redirect()->route('dashboard');
+            // }
         }
 
 

@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $roles = [
             ['name' => 'Admin', 'description' => 'Administrator'],
-            ['name' => 'Muzaki', 'description' => 'Muzaki'],
+            // ['name' => 'Muzaki', 'description' => 'Muzaki'],
             ['name' => 'DKM', 'description' => 'Pengurus Administari Masjid']
         ];
 
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             // Ambil ID dari role 'Admin'
             $adminRoleId = DB::table('roles')->where('name', 'Admin')->value('id');
             // Ambil ID dari role 'Muzaki'
-            $muzakiRoleId = DB::table('roles')->where('name', 'Muzaki')->value('id');
+            // $muzakiRoleId = DB::table('roles')->where('name', 'Muzaki')->value('id');
             // Ambil ID dari role 'DKM'
             $dkmRoleId = DB::table('roles')->where('name', 'DKM')->value('id');
 
@@ -57,9 +57,9 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Muhamad Ridwan',
-            'email' => 'ridwanwan@gmail.com',
+            'email' => 'ridwanwan784@gmail.com',
             'password' => Hash::make('ridwan'),
-            'id_role' => $muzakiRoleId,
+            'id_role' => $dkmRoleId,
             'id_mosque' => $DarulMosqueId,
             'address' => 'Jl.Pahlawan Raya Rt.04 Rw.01, Aren Jaya, Kota Bekasi',
             'no_telepon' => '081213237532',

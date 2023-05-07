@@ -50,7 +50,9 @@
                 <div class="col mb-3 ">
                     @if (auth()->user()->id_mosque && ($mosque = \App\Models\Mosque::find(auth()->user()->id_mosque)))
                         <label for="mosque" class="form-label">Masjid</label>
-                        <input type="text" class="form-control" value="{{ $mosque->name_mosque }}" name="id_mosque">
+                        <select name="id_mosque" id="mosque" class="form-control">
+                            <option value="{{ $mosque->id }}">{{ $mosque->name_mosque }}</option>
+                        </select>
                     @endif
                 </div>
 

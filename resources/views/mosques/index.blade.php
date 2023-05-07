@@ -49,7 +49,7 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('mosque.edit', $item->id) }}"
                                             style="color:#435971"><i class="bx bx-edit-alt me-1"></i> Update</a>
-                                        <form method="post" action="{{ route('mosque.delete', $item->id) }}">
+                                        <form method="post" action="{{ route('mosque.delete', $item->id) }}" hidden>
 
                                             @method('delete')
                                             @csrf
