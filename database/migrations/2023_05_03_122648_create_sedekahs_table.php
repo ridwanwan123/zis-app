@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama_donatur');
             $table->string('phone');
             $table->integer('nominalSedekah');
-            $table->string('status');
+            $table->enum('status', ['Belum Bayar', 'Bayar']);
             $table->timestamps();
         });
     }
