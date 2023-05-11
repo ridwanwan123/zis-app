@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Muhamad Ridwan',
             'email' => 'ridwanwan784@gmail.com',
-            'password' => Hash::make('ridwan'),
+            'password' => Hash::make('adminzis123'),
             'id_role' => $dkmRoleId,
             'id_mosque' => $DarulMosqueId,
             'address' => 'Jl.Pahlawan Raya Rt.04 Rw.01, Aren Jaya, Kota Bekasi',

@@ -126,7 +126,6 @@
                             <div class="col-lg-12 col-12 my-auto">
                                 <p class=" "></p>
                                 <h1 class="header-title color-palette-1 fw-bold">Nominal Donatur</h1>
-
                             </div>
 
                             <div class="mb-3" hidden>
@@ -156,19 +155,10 @@
                                     aria-label="Amount (to the nearest ruppiah)" autocomplete="off">
                             </div>
 
-                            <!-- input -->
-                            <div class="col-lg-12" hidden>
-                                <div class="col mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select name="status" class="form-select">
-                                        <option value="Bayar" selected> Bayar </option>
-                                    </select>
-                                </div>
-                            </div>
 
                             <div class="d-flex justify-content-md-end mt-3">
                                 <button type="submit" class="btn btn-primary btn-next p-3">
-                                    <span class="font-semibold text-base">Tambah Data</span>
+                                    <span class="font-semibold text-base">Lanjutkan</span>
                                 </button>
                             </div>
                         </div>

@@ -2,12 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
     <!-- Bootstrap CSS -->
@@ -129,8 +126,7 @@
             <div class="row gap-lg-0 gap-4" data-aos="fade-up">
                 <div class="col-lg-4">
                     <div class="card pelaporan-card border-0">
-                        <img src="{{ asset('homepage/image/icon1.png') }}" width="80px" alt=""
-                            srcset="">
+                        <img src="{{ asset('homepage/image/icon1.png') }}" width="80px" alt="" srcset="">
                         <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">1. Pilih Menu</p>
                         <p class="text-lg color-palette-1 mb-0">Anda dapat memilih menu zakat, infaq, atau sedekah pada
                             navbar.</p>

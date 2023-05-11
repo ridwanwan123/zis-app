@@ -84,6 +84,24 @@
                             <div class="pt-70 pb-50">
                                 <h2 class="text-4xl fw-bold text-center color-palette-1 mb-10">PEMBAYARAN BERHASIL
                                 </h2>
+                                <div class="payment pt-md-50 pb-md-50 pt-50 pb-10">
+                                    <h2 class="fw-bold text-2xl color-palette-1 mb-20">Informasi Pembayaran</h2>
+                                    <p class="text-lg color-palette-1 mb-20">Nama Lengkap :
+                                        <span class="purchase-details">
+                                            {{ $infaq->nama_donatur }}
+                                        </span>
+                                    </p>
+                                    <p class="text-lg color-palette-1 mb-20">Nomor Telepon :
+                                        <span class="purchase-details">
+                                            {{ $infaq->phone }} dsds
+                                        </span>
+                                    </p>
+                                    <p class="text-lg color-palette-1 mb-20">Nominal Pembayaran :
+                                        <span class="purchase-details color-palette-4"> Rp.
+                                            {{ number_format($infaq->nominalInfaq) }}
+                                        </span>
+                                    </p>
+                                </div>
                                 <p class="text-lg text-center color-palette-1 m-0">Semoga Allah membalas kebaikan kamu
                                 </p>
                             </div>
