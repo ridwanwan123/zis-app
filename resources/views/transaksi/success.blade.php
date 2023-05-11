@@ -54,12 +54,12 @@
 
     <section id="header" class="header">
         <div class="container-fluid">
-            <h2 class="text-4xl fw-bold color-palette-1 mt-30">
+            <h2 class="text-4xl fw-bold color-palette-1 mt-20">
                 PEMBAYARAN ZIS TELAH BERHASIL
             </h2>
-            <p class="text-support text-lg col-md-8 color-palette-2">
+            {{-- <p class="text-support text-lg col-md-8 color-palette-2">
                 Anda dapat melihat bukti transaksi pembayaran ZIS melalui notifikasi WhatsApp yang kami kirimkan.
-            </p>
+            </p> --}}
         </div>
     </section>
 
@@ -67,7 +67,7 @@
     <section id="formulir" class="formulir">
         <div class="container-fluid">
             <form action="" id="msForm" class="row">
-                <div class="card formulir-card mt-5">
+                <div class="card formulir-card mt-2">
 
 
                     <!-- progressbar -->
@@ -81,29 +81,14 @@
                             <div class="text-center">
                                 <img src="{{ asset('homepage/image/success.png') }}" alt="" srcset="">
                             </div>
-                            <div class="pt-70 pb-50">
-                                <h2 class="text-4xl fw-bold text-center color-palette-1 mb-10">PEMBAYARAN BERHASIL
-                                </h2>
-                                <div class="payment pt-md-50 pb-md-50 pt-50 pb-10">
-                                    <h2 class="fw-bold text-2xl color-palette-1 mb-20">Informasi Pembayaran</h2>
-                                    <p class="text-lg color-palette-1 mb-20">Nama Lengkap :
-                                        <span class="purchase-details">
-                                            {{ $infaq->nama_donatur }}
-                                        </span>
-                                    </p>
-                                    <p class="text-lg color-palette-1 mb-20">Nomor Telepon :
-                                        <span class="purchase-details">
-                                            {{ $infaq->phone }} dsds
-                                        </span>
-                                    </p>
-                                    <p class="text-lg color-palette-1 mb-20">Nominal Pembayaran :
-                                        <span class="purchase-details color-palette-4"> Rp.
-                                            {{ number_format($infaq->nominalInfaq) }}
-                                        </span>
-                                    </p>
-                                </div>
-                                <p class="text-lg text-center color-palette-1 m-0">Semoga Allah membalas kebaikan kamu
-                                </p>
+                            <div class="title-text pt-md-50 pt-0 mb-4">
+                                <h4 class="text-4xl fw-bold color-palette-1 text-center mb-20">Pembayaran ZIS</h4>
+                                <h4 class="text-4xl color-palette-1 mb-10 text-center"> "بركلاه لكى في أهلك و مليكة”
+                                </h4>
+                                <span class="text-lg text-center">“Semoga Allah memberkahimu dalam keluarga dan
+                                    hartamu.”
+                                    (HR.
+                                    Bukhari)</span>
                             </div>
                             <div class="button-group d-flex flex-column mx-auto">
                                 <a class="btn btn-primary btn-next p-3" href="{{ url('/') }}"
