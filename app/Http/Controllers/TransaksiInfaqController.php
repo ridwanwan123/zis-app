@@ -38,7 +38,7 @@ class TransaksiInfaqController extends Controller
     $infaqId = $orderItem->id;
     $params = [
         'transaction_details' => [
-            'order_id' => 'Icnfaq-' . $infaqId,
+            'order_id' => 'Coba-' . $infaqId,
             'gross_amount' => $orderItem->nominal,
         ],
         'customer_details' => [
@@ -63,10 +63,10 @@ class TransaksiInfaqController extends Controller
 
         if ($request->transaction_status == 'capture' or $request->transaction_status == 'settlement') {
             $order_id = strtolower($request->order_id);
-            if (strpos($order_id, 'icnfaq-') !== 0) {
+            if (strpos($order_id, 'coba-') !== 0) {
                 return response()->json(['message' => 'Invalid order id'], 400);
             }
-            $infaq_id = substr($order_id, strlen('icnfaq-'));
+            $infaq_id = substr($order_id, strlen('coba-'));
             $infaq = Infaq::find($infaq_id);
 
             if (!$infaq) {

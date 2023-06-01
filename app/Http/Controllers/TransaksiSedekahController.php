@@ -38,7 +38,7 @@ class TransaksiSedekahController extends Controller
     $sedekahId = $orderItem->id;
     $params = [
         'transaction_details' => [
-            'order_id' => 'Sedakahs-' . $sedekahId,
+            'order_id' => 'Cobas-' . $sedekahId,
             'gross_amount' => $orderItem->nominal,
         ],
         'customer_details' => [
@@ -51,7 +51,6 @@ class TransaksiSedekahController extends Controller
     return view('transaksi.pembayaran', compact('snapToken', 'orderItem'));
     }
 
-
     public function callback(Request $request)
     {
         $serverKey = config('midtrans.server_key');
@@ -61,12 +60,12 @@ class TransaksiSedekahController extends Controller
             return response()->json(['message' => 'Invalid signature key'], 400);
         }
 
-        if ($request->transaction_status == 'capture' or $request->transaction_status == 'settlement') {
-            $order_id = strtolower($request->order_id);
-            if (strpos($order_id, 'sedakahs-') !== 0) {
+        if ($request->transaction_status == 'capture' || $request->transaction_status == 'settlement') {
+            $order_id = $request->order_id;
+            if (strpos($order_id, 'Cobas-') !== 0) {
                 return response()->json(['message' => 'Invalid order id'], 400);
             }
-            $sedekah_id = substr($order_id, strlen('sedakahs-'));
+            $sedekah_id = substr($order_id, strlen('Cobas-'));
             $sedekah = Sedekah::find($sedekah_id);
 
             if (!$sedekah) {
@@ -81,4 +80,3 @@ class TransaksiSedekahController extends Controller
         return view('transaksi.success', compact('sedekah'));
     }
 }
-    
