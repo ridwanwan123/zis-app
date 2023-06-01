@@ -12,7 +12,7 @@ class InfaqController extends Controller
     public function index()
     {
         $infaq = Infaq::all();
-        $totalInfaq = Infaq::where('status', '=', 'Bayar')->sum('nominalInfaq');
+        $totalInfaq = Infaq::where('status', '=', 'Bayar')->sum('nominal');
         
         return view('infaqs.index', ['infaq' => $infaq, 'totalInfaq' => $totalInfaq]);
          
@@ -26,7 +26,7 @@ class InfaqController extends Controller
     //         $infaq->where('id_mosque', $id_mosque);
     //     }
 
-    //     return $infaq->sum('nominalInfaq');
+    //     return $infaq->sum('nominal');
     // }
 
 
@@ -42,7 +42,7 @@ class InfaqController extends Controller
             'id_mosque' => 'required',
             'nama_donatur' => 'required',
             'phone' => 'required',
-            'nominalInfaq' => 'required',
+            'nominal' => 'required',
             'status' => 'required'
         ]);
 
@@ -73,7 +73,7 @@ class InfaqController extends Controller
             'id_mosque' => 'required',
             'nama_donatur' => 'required',
             'phone' => 'required',
-            'nominalInfaq' => 'required',
+            'nominal' => 'required',
             'status' => 'required'
         ]);
 
@@ -82,7 +82,7 @@ class InfaqController extends Controller
         $infaq->id_mosque = $request->id_mosque;
         $infaq->nama_donatur = $request->nama_donatur;
         $infaq->phone = $request->phone;
-        $infaq->nominalInfaq = $request->nominalInfaq;
+        $infaq->nominal = $request->nominal;
         $infaq->status = $request->status;
 
         $infaq->save();

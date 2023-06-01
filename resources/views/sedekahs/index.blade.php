@@ -38,11 +38,11 @@
                     @endphp
                     @if (auth()->user()->mosque)
                         <p>Total sedekah yang terkumpul di masjid {{ auth()->user()->mosque->name_mosque }}: Rp
-                            {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalSedekah')) }}
+                            {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
                         </p>
                     @else
                         <p>Total sedekah yang terkumpul: Rp
-                            {{ number_format($sedekah->where('status', 'Bayar')->sum('nominalSedekah')) }}</p>
+                            {{ number_format($sedekah->where('status', 'Bayar')->sum('nominal')) }}</p>
                     @endif
 
                     @if (auth()->user()->mosque)
@@ -59,7 +59,7 @@
                                         <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                                     </td>
                                     <td>
-                                        <i class="fab fa-angular fa-lg "></i>{{ $item->nominalSedekah }}
+                                        <i class="fab fa-angular fa-lg "></i>{{ $item->nominal }}
                                     </td>
                                     <td>
                                         <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}
@@ -106,7 +106,7 @@
                                     <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                                 </td>
                                 <td>
-                                    <i class="fab fa-angular fa-lg "></i>{{ $item->nominalSedekah }}
+                                    <i class="fab fa-angular fa-lg "></i>{{ $item->nominal }}
                                 </td>
                                 <td>
                                     <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}

@@ -37,7 +37,7 @@
                                 <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                             </td>
                             <td>
-                                <i class="fab fa-angular fa-lg "></i>{{ $item->nominalInfaq }}
+                                <i class="fab fa-angular fa-lg "></i>{{ $item->nominal }}
                             </td>
                             <td>
                                 <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}
@@ -61,7 +61,7 @@
                             <i class="fab fa-angular fa-lg "></i>{{ $item->phone }}
                         </td>
                         <td>
-                            <i class="fab fa-angular fa-lg "></i>{{ $item->nominalInfaq }}
+                            <i class="fab fa-angular fa-lg "></i>{{ $item->nominal }}
                         </td>
                         <td>
                             <i class="fab fa-angular fa-lg "></i>{{ $item->mosque->name_mosque }}

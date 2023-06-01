@@ -35,7 +35,7 @@
     <script src="{{ asset('assets/js/config.js') }}"></script>
 
 
-    <title>Bayar Infaq | Tunaikan ZIS</title>
+    <title>Bayar Sedekah | Tunaikan ZIS</title>
     <!-- Logo icon -->
     <link rel="shorcut icon" width="80px" href="{{ asset('homepage/image/A1.png') }}">
 
@@ -71,7 +71,7 @@
     <!-- FORMULIR  -->
     <section id="formulir" class="formulir">
         <div class="container-fluid">
-            <form enctype="multipart/form-data" action="{{ route('TransaksiInfaq.store') }}" method="POST"
+            <form enctype="multipart/form-data" action="{{ route('TransaksiSedekah.store') }}" method="POST"
                 class="row">
                 @csrf
                 <div class="card formulir-card mt-5">
@@ -134,7 +134,7 @@
                                 <select name="" class="form-select" id="select-condition">
                                     <option value="" selected>Silahkan pilih jenis dana</option>
                                     <option value="zakat">Zakat</option>
-                                    <option value="infaq">Infaq</option>
+                                    <option value="sedekah">Sedekah</option>
                                     <option value="sedekah">Sedekah</option>
                                 </select>
 

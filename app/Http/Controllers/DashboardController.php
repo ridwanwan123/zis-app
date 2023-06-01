@@ -12,8 +12,8 @@ class DashboardController extends Controller
     {   
         $infaq = Infaq::all();
         $sedekah = Sedekah::all();
-        $totalInfaq = Infaq::where('status', '=', 'Bayar')->sum('nominalInfaq');
-        $totalSedekah = Sedekah::where('status', '=', 'Bayar')->sum('nominalSedekah');
+        $totalInfaq = Infaq::where('status', '=', 'Bayar')->sum('nominal');
+        $totalSedekah = Sedekah::where('status', '=', 'Bayar')->sum('nominal');
         return view('dashboards.dashboard',  compact('infaq', 'sedekah', 'totalInfaq', 'totalSedekah'));
     }
 

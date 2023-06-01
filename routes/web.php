@@ -13,6 +13,7 @@ use App\Http\Controllers\SedekahController;
 
 
 use App\Http\Controllers\TransaksiInfaqController;
+use App\Http\Controllers\TransaksiSedekahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +104,12 @@ Route::group(['middleware' =>['auth.login']], function (){
 Route::get('/bayarInfaq', [TransaksiInfaqController::class, 'createInfaq'])->name('TransaksiInfaq');
 Route::post('/bayarInfaq', [TransaksiInfaqController::class, 'storeInfaq'])->name('TransaksiInfaq.store');
 Route::get('/invoice/{id}', [TransaksiInfaqController::class, 'invoice']);
+
+
+//MUZAKI
+Route::get('/bayarSedekah', [TransaksiSedekahController::class, 'createSedekah'])->name('TransaksiSedekah');
+Route::post('/bayarSedekah', [TransaksiSedekahController::class, 'storeSedekah'])->name('TransaksiSedekah.store');
+Route::get('/invoice/{id}', [TransaksiSedekahController::class, 'invoice']);
 
 Route::get('/success', function () {
     return view('transaksi.success');

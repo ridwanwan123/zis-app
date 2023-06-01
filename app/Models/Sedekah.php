@@ -13,7 +13,7 @@ class Sedekah extends Model
         'id_mosque',
         'nama_donatur',
         'phone',
-        'nominalSedekah',
+        'nominal',
         'status'
     ];
 

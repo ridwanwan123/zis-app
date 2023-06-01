@@ -4,20 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mosque;
-use App\Models\Infaq;
+use App\Models\Sedekah;
 
 use App\Http\Controllers\Session;
 
 
-class TransaksiInfaqController extends Controller
+class TransaksiSedekahController extends Controller
 {
-    public function createInfaq()
+    public function createSedekah()
     {   
         $mosques = Mosque::all();
-        return view('transaksi.infaq', ['mosques' => $mosques]);
+        return view('transaksi.sedekah', ['mosques' => $mosques]);
     }
 
-    public function storeInfaq(Request $request)
+    public function storeSedekah(Request $request)
     {
        $validatedData = $request->validate([
         'id_mosque' => 'required',
@@ -28,17 +28,17 @@ class TransaksiInfaqController extends Controller
 
     $validatedData['status'] = 'Belum Bayar';
 
-    $orderItem = Infaq::create($validatedData);
+    $orderItem = Sedekah::create($validatedData);
 
     \Midtrans\Config::$serverKey = config('midtrans.server_key');
     \Midtrans\Config::$isProduction = false;
     \Midtrans\Config::$isSanitized = true;
     \Midtrans\Config::$is3ds = true;
 
-    $infaqId = $orderItem->id;
+    $sedekahId = $orderItem->id;
     $params = [
         'transaction_details' => [
-            'order_id' => 'Icnfaq-' . $infaqId,
+            'order_id' => 'Sedakahs-' . $sedekahId,
             'gross_amount' => $orderItem->nominal,
         ],
         'customer_details' => [
@@ -63,21 +63,22 @@ class TransaksiInfaqController extends Controller
 
         if ($request->transaction_status == 'capture' or $request->transaction_status == 'settlement') {
             $order_id = strtolower($request->order_id);
-            if (strpos($order_id, 'icnfaq-') !== 0) {
+            if (strpos($order_id, 'sedakahs-') !== 0) {
                 return response()->json(['message' => 'Invalid order id'], 400);
             }
-            $infaq_id = substr($order_id, strlen('icnfaq-'));
-            $infaq = Infaq::find($infaq_id);
+            $sedekah_id = substr($order_id, strlen('sedakahs-'));
+            $sedekah = Sedekah::find($sedekah_id);
 
-            if (!$infaq) {
-                return response()->json(['message' => 'Record Infaq tidak ditemukan'], 404);
+            if (!$sedekah) {
+                return response()->json(['message' => 'Record Sedekah tidak ditemukan'], 404);
             }
-            $infaq->update(['status' => 'Bayar']);
+            $sedekah->update(['status' => 'Bayar']);
         }
     }
 
     public function invoice($id){
-        $infaq = Infaq::find($id);
-        return view('transaksi.success', compact('infaq'));
+        $sedekah = Sedekah::find($id);
+        return view('transaksi.success', compact('sedekah'));
     }
 }
+    

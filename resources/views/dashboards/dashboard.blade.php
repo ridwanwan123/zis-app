@@ -84,9 +84,9 @@
                                 <h3 class="card-title text-nowrap mb-1">Infaq</h3>
                                 <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                     @if (auth()->user()->mosque)
-                                        {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalInfaq')) }}
+                                        {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
                                     @else
-                                        {{ number_format($infaq->where('status', 'Bayar')->sum('nominalInfaq')) }}
+                                        {{ number_format($infaq->where('status', 'Bayar')->sum('nominal')) }}
                                     @endif
                                 </small>
                             </div>
@@ -114,9 +114,9 @@
                                 <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
                                 <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                     @if (auth()->user()->mosque)
-                                        {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominalSedekah')) }}
+                                        {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
                                     @else
-                                        {{ number_format($sedekah->where('status', 'Bayar')->sum('nominalSedekah')) }}
+                                        {{ number_format($sedekah->where('status', 'Bayar')->sum('nominal')) }}
                                     @endif
                                 </small>
                             </div>

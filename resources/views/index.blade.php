@@ -65,7 +65,8 @@
                                         href="{{ route('TransaksiInfaq') }}">Infaq</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-lg color-palette-2" href="#">Sedekah</a>
+                                    <a class="dropdown-item text-lg color-palette-2"
+                                        href="{{ route('TransaksiSedekah') }}">Sedekah</a>
                                 </li>
                             </ul>
                         </li>
@@ -126,7 +127,8 @@
             <div class="row gap-lg-0 gap-4" data-aos="fade-up">
                 <div class="col-lg-4">
                     <div class="card pelaporan-card border-0">
-                        <img src="{{ asset('homepage/image/icon1.png') }}" width="80px" alt="" srcset="">
+                        <img src="{{ asset('homepage/image/icon1.png') }}" width="80px" alt=""
+                            srcset="">
                         <p class="fw-semibold text-2xl mb-2 mt-3 color-palette-1">1. Pilih Menu</p>
                         <p class="text-lg color-palette-1 mb-0">Anda dapat memilih menu zakat, infaq, atau sedekah pada
                             navbar.</p>

@@ -60,17 +60,17 @@ if (!isset($_SESSION['page_visited'])) {
                 <h2 class="fw-bold text-2xl color-palette-1 mb-20">Informasi Pembayaran</h2>
                 <p class="text-lg color-palette-1 mb-20">Nama Lengkap
                     <span class="purchase-details">
-                        {{ $infaq->nama_donatur }}
+                        {{ $orderItem->nama_donatur }}
                     </span>
                 </p>
                 <p class="text-lg color-palette-1 mb-20">Nomor Telepon
                     <span class="purchase-details">
-                        {{ $infaq->phone }}
+                        {{ $orderItem->phone }}
                     </span>
                 </p>
                 <p class="text-lg color-palette-1 mb-20">Nominal Pembayaran
                     <span class="purchase-details color-palette-4"> Rp.
-                        {{ number_format($infaq->nominalInfaq) }}
+                        {{ number_format($orderItem->nominal) }}
                     </span>
                 </p>
             </div>
@@ -94,7 +94,7 @@ if (!isset($_SESSION['page_visited'])) {
                 onSuccess: function(result) {
                     /* You may add your own implementation here */
                     // alert("payment success!");
-                    window.location.href = '/invoice/{{ $infaq->id }}'
+                    window.location.href = '/invoice/{{ $orderItem->id }}'
                     console.log(result);
                 },
                 onPending: function(result) {

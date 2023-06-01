@@ -13,7 +13,7 @@ class Infaq extends Model
         'id_mosque',
         'nama_donatur',
         'phone',
-        'nominalInfaq',
+        'nominal',
         'status'
     ];
 

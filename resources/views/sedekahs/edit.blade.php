@@ -39,14 +39,13 @@
 
                 <!-- input -->
                 <div class="col-lg-12">
-                    <label for="nominalSedekah" class="form-label">Jumlah Sedekah</label>
+                    <label for="nominal" class="form-label">Jumlah Sedekah</label>
                 </div>
                 <div class="g-3 mb-3 col-lg-12 input-group input-group-merge">
                     <span class="input-group-text">$</span>
                     <input type="text" class="form-control" placeholder="40000"
-                        aria-label="Amount (to the nearest ruppiah)" id="nominalSedekah"
-                        value="{{ $sedekah->nominalSedekah }}" name="nominalSedekah" aria-describedby="nominalSedekah"
-                        autocomplete="off">
+                        aria-label="Amount (to the nearest ruppiah)" id="nominal" value="{{ $sedekah->nominal }}"
+                        name="nominal" aria-describedby="nominal" autocomplete="off">
                 </div>
 
                 <div class="col mb-3 ">

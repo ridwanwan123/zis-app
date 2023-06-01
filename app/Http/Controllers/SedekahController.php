@@ -12,7 +12,7 @@ class SedekahController extends Controller
     public function index()
     {
         $sedekah = Sedekah::all();
-        $totalSedekah = Sedekah::where('status', '=', 'Bayar')->sum('nominalSedekah');
+        $totalSedekah = Sedekah::where('status', '=', 'Bayar')->sum('nominal');
         return view('sedekahs.index', ['sedekah' => $sedekah, 'totalSedekah' => $totalSedekah]);
     }
     
@@ -28,7 +28,7 @@ class SedekahController extends Controller
             'id_mosque' => 'required',
             'nama_donatur' => 'required',
             'phone' => 'required',
-            'nominalSedekah' => 'required',
+            'nominal' => 'required',
             'status' => 'required'
         ]);
 
@@ -59,7 +59,7 @@ class SedekahController extends Controller
             'id_mosque' => 'required',
             'nama_donatur' => 'required',
             'phone' => 'required',
-            'nominalSedekah' => 'required',
+            'nominal' => 'required',
             'status' => 'required'
         ]);
 
@@ -68,7 +68,7 @@ class SedekahController extends Controller
         $sedekah->id_mosque = $request->id_mosque;
         $sedekah->nama_donatur = $request->nama_donatur;
         $sedekah->phone = $request->phone;
-        $sedekah->nominalSedekah = $request->nominalSedekah;
+        $sedekah->nominal = $request->nominal;
         $sedekah->status = $request->status;
 
         $sedekah->save();

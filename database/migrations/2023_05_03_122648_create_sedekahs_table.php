@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('id_mosque')->constrained('mosques');
             $table->string('nama_donatur');
             $table->string('phone');
-            $table->integer('nominalSedekah');
+            $table->integer('nominal');
             $table->enum('status', ['Belum Bayar', 'Bayar']);
             $table->timestamps();
         });
