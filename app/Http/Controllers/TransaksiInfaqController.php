@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mosque;
 use App\Models\Infaq;
-
-use App\Http\Controllers\Session;
+use Twilio\Rest\Client;
 
 
 class TransaksiInfaqController extends Controller
@@ -48,6 +47,8 @@ class TransaksiInfaqController extends Controller
     ];
     $snapToken = \Midtrans\Snap::getSnapToken($params);
     // dd($snapToken);
+    // Send WhatsApp notification
+    // $this->whatsappNotification($orderItem->phone);  //Rencananya ingin membuat notifkasi remember untuk membayar zis
     return view('transaksi.pembayaran', compact('snapToken', 'orderItem'));
     }
 
@@ -73,11 +74,26 @@ class TransaksiInfaqController extends Controller
                 return response()->json(['message' => 'Record Infaq tidak ditemukan'], 404);
             }
             $infaq->update(['status' => 'Bayar']);
+            // Send WhatsApp notification
+            $this->whatsappNotification($infaq->phone, $infaq->nama_donatur);
         }
     }
 
     public function invoice($id){
         $infaq = Infaq::find($id);
         return view('transaksi.success', compact('infaq'));
+    }
+
+    public function whatsappNotification(string $recipient, string $namaDonatur)
+    {
+        $sid    = getenv("TWILIO_AUTH_SID");
+        $token  = getenv("TWILIO_AUTH_TOKEN");
+        $wa_from= getenv("TWILIO_WHATSAPP_FROM");
+
+        $twilio = new Client($sid, $token);
+
+        $body = "Halo $namaDonatur, Pembayaran Infaq Anda telah berhasil. Terima kasih atas kontribusinya.";
+
+        return $twilio->messages->create("whatsapp:$recipient",["from" => "whatsapp:$wa_from", "body" => $body]);
     }
 }
