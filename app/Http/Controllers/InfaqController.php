@@ -17,18 +17,6 @@ class InfaqController extends Controller
         return view('infaqs.index', ['infaq' => $infaq, 'totalInfaq' => $totalInfaq]);
          
     }
-    
-    // public function getTotalInfaq($id_mosque = null)
-    // {
-    //     $infaq = Infaq::where('status', 'Bayar');
-
-    //     if ($id_mosque) {
-    //         $infaq->where('id_mosque', $id_mosque);
-    //     }
-
-    //     return $infaq->sum('nominal');
-    // }
-
 
     public function create()
     {   

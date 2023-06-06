@@ -69,8 +69,16 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::delete('/pengelolaZIS/delete/{id}', [AdminController::class, 'destroy'])->name('adminZIS.delete');
     
     //Route CRUD Zakats
-    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
-    
+    Route::get('/zakats', [ZakatController::class, 'index'])->name('zakat');
+
+    Route::get('/zakats/create', [ZakatController::class, 'create'])->name('zakat.create');
+    Route::post('/zakats/store', [ZakatController::class, 'store'])->name('zakat.store');
+
+    Route::get('/zakats/edit/{id}', [ZakatController::class, 'edit'])->name('zakat.edit');
+    Route::put('/zakats/edit/{id}', [ZakatController::class, 'update'])->name('zakat.update');
+
+    Route::delete('/zakats/delete/{id}', [ZakatController::class, 'destroy'])->name('zakat.delete');
+
     //Route CRUD Infaqs
     Route::get('/infaqs', [InfaqController::class, 'index'])->name('infaq');
     

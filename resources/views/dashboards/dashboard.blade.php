@@ -58,7 +58,13 @@
                                 </div>
                                 <span>Total Pemasukan</span>
                                 <h3 class="card-title text-nowrap mb-1">Zakat</h3>
-                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.</small>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($zakat->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
+                                    @else
+                                        {{ number_format($zakat->where('status', 'Bayar')->sum('nominal')) }}
+                                    @endif
+                                </small>
                             </div>
                         </div>
                     </div>
