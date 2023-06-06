@@ -44,7 +44,7 @@
                                         <i class="fab fa-angular fa-lg "></i> {{ $i++ }}
                                     </td>
                                     <td>
-                                        <i class="fab fa-angular fa-lg "></i>{{ $item->jenis_zakat }}
+                                        <i class="fab fa-angular fa-lg "></i>Zakat {{ $item->jenis_zakat }}
                                     </td>
                                     <td>
                                         <i class="fab fa-angular fa-lg "></i>{{ $item->nama_donatur }}

@@ -95,19 +95,19 @@
 
                         <!-- Input  -->
                         <div class="row g-3 col-lg-12">
-                            <div class="col mb-3 ">
+                            <div class="mb-3 ">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="nama_donatur"
                                     value="{{ old('nama_donatur') }}" name="nama_donatur"
                                     aria-describedby="nama_donatur" autocomplete="off">
                             </div>
-                            <div class="col mb-3 ">
+                            <div class="mb-3 ">
                                 <label for="phone" class="form-label">Nomor Telepon</label>
                                 <input type="number" class="form-control" placeholder="Harap Menggunakan 62"
                                     id="phone" value="{{ old('phone') }}" autocomplete="off" name="phone"
                                     aria-describedby="phone">
                             </div>
-                            <div class="col mb-5 ">
+                            <div class="mb-5 ">
                                 <label for="id_mosque" class="form-label">Masjid</label> <i class="fa fa-info-circle"
                                     id="my-icon"></i>
                                 <select name="id_mosque" class="form-select">

@@ -58,7 +58,8 @@
                             </a>
                             <ul class="dropdown-menu border-0" aria-labelledby="dropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item text-lg color-palette-2" href="#">Zakat</a>
+                                    <a class="dropdown-item text-lg color-palette-2"
+                                        href="{{ route('TransaksiZakat') }}">Zakat</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-lg color-palette-2"

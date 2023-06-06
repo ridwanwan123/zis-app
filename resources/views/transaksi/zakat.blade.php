@@ -35,7 +35,7 @@
     <script src="{{ asset('assets/js/config.js') }}"></script>
 
 
-    <title>Bayar Sedekah | Tunaikan ZIS</title>
+    <title>Bayar Zakat | Tunaikan ZIS</title>
     <!-- Logo icon -->
     <link rel="shorcut icon" width="80px" href="{{ asset('homepage/image/A1.png') }}">
 
@@ -59,7 +59,7 @@
     <section id="header" class="header">
         <div class="container-fluid">
             <h2 class="text-4xl fw-bold color-palette-1 mt-30">
-                TUNAIKAN INFAK ANDA DENGAN AMAN DAN MUDAH
+                TUNAIKAN ZAKAT ANDA DENGAN AMAN DAN MUDAH
             </h2>
             <p class="text-support text-lg col-md-8 color-palette-2">
                 Dengan mengisi formulir ini, donatur akan menerima Notifikasi Berhasil setelah melakukan pembayaran
@@ -71,7 +71,7 @@
     <!-- FORMULIR  -->
     <section id="formulir" class="formulir">
         <div class="container-fluid">
-            <form enctype="multipart/form-data" action="{{ route('TransaksiSedekah.store') }}" method="POST"
+            <form enctype="multipart/form-data" action="{{ route('TransaksiZakat.store') }}" method="POST"
                 class="row">
                 @csrf
                 <div class="card formulir-card mt-5">
@@ -94,14 +94,22 @@
                         </div>
 
                         <!-- Input  -->
-                        <div class="row g-3 col-lg-12">
-                            <div class="mb-3 ">
+                        <div class="row col-lg-12">
+                            <div class="mb-4">
+                                <label for="jenis_zakat" class="form-label">Jenis Zakat</label>
+                                <select name="jenis_zakat" class="form-select" id="select-condition">
+                                    <option value="" selected>Silahkan pilih jenis zakat</option>
+                                    <option value="Fitrah">Zakat Fitrah</option>
+                                    <option value="Maal">Zakat Ma'al</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="nama_donatur"
                                     value="{{ old('nama_donatur') }}" name="nama_donatur"
                                     aria-describedby="nama_donatur" autocomplete="off">
                             </div>
-                            <div class="mb-3 ">
+                            <div class="mb-4">
                                 <label for="phone" class="form-label">Nomor Telepon</label>
                                 <input type="number" class="form-control" placeholder="Harap Menggunakan 62"
                                     id="phone" value="{{ old('phone') }}" autocomplete="off" name="phone"

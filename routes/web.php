@@ -12,6 +12,7 @@ use App\Http\Controllers\InfaqController;
 use App\Http\Controllers\SedekahController;
 
 
+use App\Http\Controllers\TransaksiZakatController;
 use App\Http\Controllers\TransaksiInfaqController;
 use App\Http\Controllers\TransaksiSedekahController;
 
@@ -108,13 +109,19 @@ Route::group(['middleware' =>['auth.login']], function (){
 
 });
 
-//MUZAKI
+//MUZAKI-Zakat
+Route::get('/bayarZakat', [TransaksiZakatController::class, 'createZakat'])->name('TransaksiZakat');
+Route::post('/bayarZakat', [TransaksiZakatController::class, 'storeZakat'])->name('TransaksiZakat.store');
+Route::get('/invoice/{id}', [TransaksiZakatController::class, 'invoice']);
+
+
+//MUZAKI-Infaq
 Route::get('/bayarInfaq', [TransaksiInfaqController::class, 'createInfaq'])->name('TransaksiInfaq');
 Route::post('/bayarInfaq', [TransaksiInfaqController::class, 'storeInfaq'])->name('TransaksiInfaq.store');
 Route::get('/invoice/{id}', [TransaksiInfaqController::class, 'invoice']);
 
 
-//MUZAKI
+//MUZAKI-Sedekah
 Route::get('/bayarSedekah', [TransaksiSedekahController::class, 'createSedekah'])->name('TransaksiSedekah');
 Route::post('/bayarSedekah', [TransaksiSedekahController::class, 'storeSedekah'])->name('TransaksiSedekah.store');
 Route::get('/invoice/{id}', [TransaksiSedekahController::class, 'invoice']);
