@@ -51,10 +51,13 @@
                         <li class="nav-item my-auto">
                             <a class="nav-link active" aria-current="page" href="">Home</a>
                         </li>
+                        <li class="nav-item my-auto">
+                            <a class="nav-link" aria-current="page" href="{{ route('Reporting') }}">Pelaporan ZIS</a>
+                        </li>
                         <li class="nav-item my-auto dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                ZIS
+                                Bayar ZIS
                             </a>
                             <ul class="dropdown-menu border-0" aria-labelledby="dropdownMenuLink">
                                 <li>

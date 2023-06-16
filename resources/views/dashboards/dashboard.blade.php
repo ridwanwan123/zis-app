@@ -4,13 +4,15 @@
 
 
 @section('content')
+
     <div class="row">
         <div class="col-lg-6 mb-4 order-0">
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
                         <div class="card-body">
-                            <h5 class="card-title text-primary d-flex justify-content-end">السلام عليكم ورحمة الله وبركاته
+                            <h5 class="card-title text-primary d-flex justify-content-end">السلام عليكم ورحمة الله
+                                وبركاته
                             </h5>
                             <p class="mb-4">
                                 Selamat datang, <span class="fw-bold"> {{ auth()->user()->name }}</span>
@@ -132,4 +134,139 @@
             </div>
         @endif
     </div>
+    {{-- <div>
+        @foreach ($tglZakat as $tgl)
+            <p>{{ $tgl }}</p>
+        @endforeach
+    </div> --}}
+    <div class="row">
+        @if (auth()->user()->role->name === 'DKM')
+            <div class="col-lg-10 order-0">
+                <div class="card">
+                    <div class="card-header header-elements p-3 my-n1">
+                        <h5 class="card-title mb-0 pl-0 pl-sm-2 p-2">Laporan Dana Zakat Infaq dan Sedekah</h5>
+                        <div class="d-flex card-action-element  ms-auto py-0 ">
+                            <select name="" id="" class="form-control" style="margin-right: 10px;">
+                                <option value="">{{ auth()->user()->mosque->name_mosque }}</option>
+                            </select>
+                            <div class="dropdown" style="margin-left: 10px;">
+                                <button type="button" class="btn dropdown-toggle p-0" data-bs-toggle="dropdown"
+                                    aria-expanded="false"><i class="bx bx-calendar"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a href="javascript:void(0);"
+                                            class="dropdown-item d-flex align-items-center">Januari</a>
+                                    </li>
+                                    <li><a href="javascript:void(0);"
+                                            class="dropdown-item d-flex align-items-center">June</a>
+                                    </li>
+                                    {{-- <li>
+                                        <hr class="dropdown-divider">
+                                    </li> --}}
+                                    <li><a href="javascript:void(0);"
+                                            class="dropdown-item d-flex align-items-center">Month</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="barChart" style="height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="card">
+                    <div class="card-header">S</div>
+                    <div class="card-body">
+                        <select name="" id="" class="form-control" style="margin-right: 10px;">
+                            <option value="">{{ auth()->user()->mosque->name_mosque }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var totalNominal = [];
+
+            @if (auth()->user()->mosque)
+                totalNominal.push(
+                    {{ $zakat->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal') }}
+                );
+                totalNominal.push(
+                    {{ $infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal') }}
+                );
+                totalNominal.push(
+                    {{ $sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal') }}
+                );
+            @else
+                totalNominal.push({{ $zakat->where('status', 'Bayar')->sum('nominal') }});
+                totalNominal.push({{ $infaq->where('status', 'Bayar')->sum('nominal') }});
+                totalNominal.push({{ $sedekah->where('status', 'Bayar')->sum('nominal') }});
+            @endif
+
+            var options = {
+                series: [{
+                    name: 'Total Nominal',
+                    data: totalNominal,
+                    colors: ['#ffbb44'],
+                }],
+                chart: {
+                    height: 400,
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '30%',
+                        borderRadius: 10,
+                        endingShape: 'rounded'
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: ['Zakat', 'Infaq', 'Sedekah'],
+                    labels: {
+                        style: {
+                            fontSize: '13px'
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            fontSize: '13px'
+                        }
+                    }
+                },
+                colors: ['#ffbb44'],
+                fill: {
+                    colors: ['#ffbb44'],
+                    opacity: 10
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return "Rp " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        }
+                    }
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#barChart"), options);
+            chart.render();
+        });
+    </script>
+
+
+
+
 @endsection
