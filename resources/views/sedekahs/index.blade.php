@@ -17,7 +17,6 @@
     <!-- Striped Rows -->
     <div class="card">
         <h5 class="card-header">Data Sedekah </h5>
-        <p>Total sedekah yang terkumpul: Rp {{ number_format($totalSedekah) }}</p>
 
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
@@ -36,14 +35,6 @@
                     @php
                         $i = 1;
                     @endphp
-                    @if (auth()->user()->mosque)
-                        <p>Total sedekah yang terkumpul di masjid {{ auth()->user()->mosque->name_mosque }}: Rp
-                            {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
-                        </p>
-                    @else
-                        <p>Total sedekah yang terkumpul: Rp
-                            {{ number_format($sedekah->where('status', 'Bayar')->sum('nominal')) }}</p>
-                    @endif
 
                     @if (auth()->user()->mosque)
                         @foreach ($sedekah as $item)

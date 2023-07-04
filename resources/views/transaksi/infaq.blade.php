@@ -95,9 +95,13 @@
 
                         <!-- Input  -->
                         <div class="row g-3 col-lg-12">
-                            <div class="mb-3 ">
-                                <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="nama_donatur"
+                            <div class="mb-4">
+                                <label for="namaDonaturInput" class="form-label">Nama Lengkap</label>
+                                <div class="form-check mb-3">
+                                    <input type="checkbox" class="form-check-input" id="hambaAllahCheckbox">
+                                    <label class="form-check-label" for="hambaAllahCheckbox">Hamba Allah</label>
+                                </div>
+                                <input type="text" class="form-control" id="namaDonaturInput"
                                     value="{{ old('nama_donatur') }}" name="nama_donatur"
                                     aria-describedby="nama_donatur" autocomplete="off">
                             </div>
@@ -179,6 +183,35 @@
 
     <!-- Tooltip.js -->
     <script src="https://unpkg.com/tippy.js@6.3.3/dist/tippy-bundle.umd.min.js"></script>
+
+    <script>
+        const hambaAllahCheckbox = document.getElementById('hambaAllahCheckbox');
+        const namaDonaturInput = document.getElementById('namaDonaturInput');
+
+        // Fungsi untuk mengatur nilai input dan checkbox
+        function toggleHambaAllah() {
+            if (hambaAllahCheckbox.checked) {
+                namaDonaturInput.value = 'Hamba Allah';
+                namaDonaturInput.setAttribute('readonly', 'readonly');
+            } else {
+                if (namaDonaturInput.value.toLowerCase() === 'hamba allah') {
+                    namaDonaturInput.value = '';
+                }
+                namaDonaturInput.removeAttribute('readonly');
+            }
+        }
+
+        hambaAllahCheckbox.addEventListener('change', toggleHambaAllah);
+
+        namaDonaturInput.addEventListener('input', function() {
+            if (this.value.toLowerCase() === 'hamba allah') {
+                hambaAllahCheckbox.checked = true;
+            } else {
+                hambaAllahCheckbox.checked = false;
+            }
+            toggleHambaAllah(); // Panggil fungsi ini setiap kali input berubah
+        });
+    </script>
 
     <script>
         // Get the select element and input form

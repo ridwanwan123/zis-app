@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['page_visited'])) {
-    header('Location: index.php');
-}
-?>
-
 <!doctype html>
 <html lang="en">
 

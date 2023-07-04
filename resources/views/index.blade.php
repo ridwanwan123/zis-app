@@ -74,13 +74,10 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item my-auto">
-                            <a class="nav-link" href=""></a>
-                        </li>
-                        <li class="nav-item my-auto">
+                        {{-- <li class="nav-item my-auto">
                             <a class="btn btn-lapor d-flex justify-content-center ms-lg-2" href="{{ route('login') }}"
                                 role="button">Login</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
