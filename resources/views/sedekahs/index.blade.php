@@ -18,8 +18,8 @@
     <div class="card">
         <h5 class="card-header">Data Sedekah </h5>
 
-        <div class="table-responsive text-nowrap">
-            <table class="table table-striped">
+        <div class="table-responsive text-nowrap p-4">
+            <table class="table table-striped" id="myTable">
                 <thead>
                     <tr class="text-nowrap">
                         <th>#</th>

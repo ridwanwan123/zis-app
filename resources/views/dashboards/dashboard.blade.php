@@ -153,20 +153,25 @@
                                 <button type="button" class="btn dropdown-toggle p-0" data-bs-toggle="dropdown"
                                     aria-expanded="false"><i class="bx bx-calendar"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a href="javascript:void(0);"
-                                            class="dropdown-item d-flex align-items-center">Januari</a>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('01')">Januari</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('02')">Februari</a>
                                     </li>
-                                    <li><a href="javascript:void(0);"
-                                            class="dropdown-item d-flex align-items-center">June</a>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('03')">Maret</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('04')">April</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('05')">Mei</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('06')">Juni</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('07')">Juli</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('08')">Agustus</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('09')">September</a>
                                     </li>
-                                    {{-- <li>
-                                        <hr class="dropdown-divider">
-                                    </li> --}}
-                                    <li><a href="javascript:void(0);"
-                                            class="dropdown-item d-flex align-items-center">Month</a>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('10')">Oktober</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('11')">November</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#" onclick="setMonth('12')">Desember</a>
                                     </li>
                                 </ul>
                             </div>
+                            <input type="hidden" id="searchMonth" name="searchMonth">
                         </div>
                     </div>
                     <div class="card-body">
@@ -189,24 +194,12 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var totalNominal = [];
+        function setMonth(month) {
+            document.getElementById('searchMonth').value = month;
+        }
 
-            @if (auth()->user()->mosque)
-                totalNominal.push(
-                    {{ $zakat->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal') }}
-                );
-                totalNominal.push(
-                    {{ $infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal') }}
-                );
-                totalNominal.push(
-                    {{ $sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal') }}
-                );
-            @else
-                totalNominal.push({{ $zakat->where('status', 'Bayar')->sum('nominal') }});
-                totalNominal.push({{ $infaq->where('status', 'Bayar')->sum('nominal') }});
-                totalNominal.push({{ $sedekah->where('status', 'Bayar')->sum('nominal') }});
-            @endif
+        document.addEventListener('DOMContentLoaded', function() {
+            var totalNominal = @json($totalNominal);
 
             var options = {
                 series: [{

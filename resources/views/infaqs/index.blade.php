@@ -19,8 +19,8 @@
         <h5 class="card-header">Data Infaq </h5>
         {{-- <p>Total infaq yang terkumpul: Rp {{ number_format($totalInfaq) }}</p> --}}
 
-        <div class="table-responsive text-nowrap">
-            <table class="table table-striped mb-4">
+        <div class="table-responsive text-nowrap p-4">
+            <table class="table table-striped mb-4" id="myTable">
                 <thead>
                     <tr class="text-nowrap">
                         <th>#</th>
