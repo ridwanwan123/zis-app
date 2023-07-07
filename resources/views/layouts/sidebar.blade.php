@@ -81,36 +81,6 @@
                 </ul>
             </li>
 
-
-            {{-- SECTION LAPORAN  --}}
-
-            {{-- <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Laporan Keuangan ZIS</span>
-            </li>
-            <li class="menu-item {{ request()->is('laporan*') ? 'active' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bxs-report"></i>
-                    <div data-i18n="">Laporan</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item {{ request()->routeIs('report-zakat') ? 'active' : '' }}">
-                        <a href="" class="menu-link">
-                            <div data-i18n="Laporan Zakat">Laporan Zakat</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ request()->routeIs('report-infaq') ? 'active' : '' }}">
-                        <a href="" class="menu-link">
-                            <div data-i18n="Laporan Infaq">Laporan Infaq</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ request()->routeIs('report-sedekah') ? 'active' : '' }}">
-                        <a href="" class="menu-link">
-                            <div data-i18n="Laporan Sedekah">Laporan Sedekah</div>
-                        </a>
-                    </li>
-                </ul>
-            </li> --}}
-
             {{-- SECTION SISTEM PENDUKUNG KEPUTUSAN  --}}
 
             <li class="menu-header small text-uppercase">

@@ -28,7 +28,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
-    <title>ZIS | Home</title>
+    <title>ZIS | Laporan ZIS</title>
     <!-- Logo icon -->
     <link rel="shorcut icon" width="80px" href="{{ asset('homepage/image/A1.png') }}">
 
@@ -39,7 +39,7 @@
     <section>
         <nav class="navbar navbar-expand-lg navbar-light bg-light bg-white">
             <div class="container-fluid justify-content-center">
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('homepage/image/logo.png') }}" alt="" srcset="">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -75,13 +75,6 @@
                                 </li>
                             </ul>
                         </li>
-                        {{-- <li class="nav-item my-auto">
-                            <a class="nav-link" href=""></a>
-                        </li>
-                        <li class="nav-item my-auto">
-                            <a class="btn btn-lapor d-flex justify-content-center ms-lg-2" href="{{ route('login') }}"
-                                role="button">Login</a>
-                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -100,7 +93,7 @@
             <div class="d-flex flex-lg-row flex-column align-items-center justify-content-center gap-lg-0 gap-4">
                 <div class="me-lg-35">
                     <p class=" text-3xl text-lg-start text-center color-palette-1 fw-bold m-0">
-                        {{ $totalMosque }}
+                        {{ $totalAllMosque }}
                         <span class="text-3xl text-center color-palette-1 fw-bold m-0">Masjid</span>
                     </p>
 
@@ -111,21 +104,21 @@
                 <div class="horizontal-line mt-6 mb-6 me-lg-35 ms-lg-35 d-lg-none d-block"></div>
                 <div class="me-lg-35 ms-lg-35">
                     <p class="text-3xl text-lg-start text-center color-palette-1 fw-bold m-0">
-                        Rp. {{ number_format($totalZakat) }}</p>
+                        Rp. {{ number_format($totalAllZakat) }}</p>
                     <p class="text-lg text-lg-start text-center color-palette-2 m-0">Data Zakat yang terkumpul</p>
                 </div>
                 <div class="horizontal-line mt-6 mb-6 me-lg-35 ms-lg-35 d-lg-none d-block"></div>
                 <div class="vertical-line me-lg-35 ms-lg-35 d-lg-block d-none"></div>
                 <div class="me-lg-35 ms-lg-35">
                     <p class="text-3xl text-lg-start text-center color-palette-1 fw-bold m-0">Rp.
-                        {{ number_format($totalInfaq) }}</p>
+                        {{ number_format($totalAllInfaq) }}</p>
                     <p class="text-lg text-lg-start text-center color-palette-2 m-0">Data Infaq yang terkumpul</p>
                 </div>
                 <div class="horizontal-line mt-6 mb-6 me-lg-35 ms-lg-35 d-lg-none d-block"></div>
                 <div class="vertical-line me-lg-35 ms-lg-35 d-lg-block d-none"></div>
                 <div class="me-lg-35 ms-lg-35">
                     <p class="text-3xl text-lg-start text-center color-palette-1 fw-bold m-0">Rp.
-                        {{ number_format($totalSedekah) }}
+                        {{ number_format($totalAllSedekah) }}
                     </p>
                     <p class="text-lg text-lg-start text-center color-palette-2 m-0">Data Sedekah yang terkumpul</p>
                 </div>
@@ -140,18 +133,38 @@
                 <div class="card">
                     <div class="card-header header-elements p-3 my-n1">
                         <h5 class="card-title mb-0 pl-0 pl-sm-2 p-2">Laporan Dana Zakat Infaq dan Sedekah</h5>
-                        <div class="d-flex card-action-element  ms-auto py-0 ">
+                        <div class="d-flex card-action-element  ms-auto py-0 justify-content-end">
+                            <form id="formSearch" action="{{ route('Reporting') }}" method="GET"
+                                class="d-flex flex-wrap align-items-center">
+                                <div class="form-group me-2 mb-2 mb-md-0">
+                                    <select name="id_mosque" class="form-select">
+                                        <option value="{{ old('id_mosque') }}" selected>Silahkan pilih daftar masjid
+                                        </option>
+                                        @foreach ($mosques as $id => $name)
+                                            <option value="{{ $id }}"
+                                                {{ $id == $searchMosque ? 'selected' : '' }}>{{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                            <select name="id_mosque" class="form-select">
-                                <option value="{{ old('id_mosque') }}" selected>Silahkan pilih daftar masjid
-                                </option>
-                                @foreach ($mosques as $mosque)
-                                    <option value="{{ $mosque->id }}"> {{ $mosque->name_mosque }} </option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-primary btn-next" style="margin-left: 10px">
-                                <span class="font-semibold text-base">Hasil</span>
-                            </button>
+                                <div class="form-group me-2 mb-2 mb-md-0">
+                                    <select name="searchMonth" id="searchMonth" class="form-select">
+                                        <option value="">Pilih Bulan</option>
+                                        @foreach (range(1, 12) as $month)
+                                            <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}"
+                                                {{ $month == $searchMonth ? 'selected' : '' }}>
+                                                {{ \Carbon\Carbon::createFromFormat('m', $month)->format('F') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-2 mb-md-0">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -159,7 +172,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     {{-- END CONTENT  --}}
@@ -187,17 +199,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var totalNominal = [
-            {{ $zakat->where('status', 'Bayar')->sum('nominal') }},
-            {{ $infaq->where('status', 'Bayar')->sum('nominal') }},
-            {{ $sedekah->where('status', 'Bayar')->sum('nominal') }}
-        ];
+        var totalNominal = @json($totalNominal);
 
         var options = {
             series: [{
                 name: 'Total Nominal',
                 data: totalNominal,
-                colors: ['#34a034'],
+                colors: ['#ffbb44'],
             }],
             chart: {
                 height: 400,
