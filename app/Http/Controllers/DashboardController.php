@@ -67,4 +67,6 @@ class DashboardController extends Controller
         return view('dashboards.dashboard', compact('zakat', 'infaq', 'sedekah', 'tglZakat', 'totalNominal'));
     }
 
+    
+
 }

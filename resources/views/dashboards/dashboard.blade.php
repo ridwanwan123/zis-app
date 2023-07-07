@@ -146,32 +146,24 @@
                     <div class="card-header header-elements p-3 my-n1">
                         <h5 class="card-title mb-0 pl-0 pl-sm-2 p-2">Laporan Dana Zakat Infaq dan Sedekah</h5>
                         <div class="d-flex card-action-element  ms-auto py-0 ">
-                            <select name="" id="" class="form-control" style="margin-right: 10px;">
-                                <option value="">{{ auth()->user()->mosque->name_mosque }}</option>
-                            </select>
-                            <div class="dropdown" style="margin-left: 10px;">
-                                <button type="button" class="btn dropdown-toggle p-0" data-bs-toggle="dropdown"
-                                    aria-expanded="false"><i class="bx bx-calendar"></i></button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('01')">Januari</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('02')">Februari</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('03')">Maret</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('04')">April</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('05')">Mei</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('06')">Juni</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('07')">Juli</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('08')">Agustus</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('09')">September</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('10')">Oktober</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('11')">November</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#" onclick="setMonth('12')">Desember</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <input type="hidden" id="searchMonth" name="searchMonth">
+                            <form id="formSearch" action="{{ route('dashboard') }}" method="GET">
+                                <select name="searchMonth" id="searchMonth" class="form-control" style="margin-right: 10px;"
+                                    onchange="setMonth(this.value)">
+                                    <option value="">Pilih Bulan</option>
+                                    <option value="01">Januari</option>
+                                    <option value="02">Februari</option>
+                                    <option value="03">Maret</option>
+                                    <option value="04">April</option>
+                                    <option value="05">Mei</option>
+                                    <option value="06">Juni</option>
+                                    <option value="07">Juli</option>
+                                    <option value="08">Agustus</option>
+                                    <option value="09">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
                     <div class="card-body">
@@ -196,6 +188,7 @@
     <script>
         function setMonth(month) {
             document.getElementById('searchMonth').value = month;
+            document.getElementById('formSearch').submit();
         }
 
         document.addEventListener('DOMContentLoaded', function() {
