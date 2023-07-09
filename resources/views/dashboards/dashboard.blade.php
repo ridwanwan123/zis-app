@@ -141,37 +141,45 @@
     </div> --}}
     <div class="row">
         @if (auth()->user()->role->name === 'DKM')
-            <div class="col-lg-10 order-0">
+            <div class="col-lg-12 order-0">
                 <div class="card">
                     <div class="card-header header-elements p-3 my-n1">
                         <h5 class="card-title mb-0 pl-0 pl-sm-2 p-2">Laporan Dana Zakat Infaq dan Sedekah</h5>
-                        <div class="d-flex card-action-element  ms-auto py-0 ">
-                            <form id="formSearch" action="{{ route('dashboard') }}" method="GET">
-                                <select name="searchMonth" id="searchMonth" class="form-control" style="margin-right: 10px;"
-                                    onchange="setMonth(this.value)">
-                                    <option value="">Pilih Bulan</option>
-                                    <option value="01">Januari</option>
-                                    <option value="02">Februari</option>
-                                    <option value="03">Maret</option>
-                                    <option value="04">April</option>
-                                    <option value="05">Mei</option>
-                                    <option value="06">Juni</option>
-                                    <option value="07">Juli</option>
-                                    <option value="08">Agustus</option>
-                                    <option value="09">September</option>
-                                    <option value="10">Oktober</option>
-                                    <option value="11">November</option>
-                                    <option value="12">Desember</option>
+                        <div class="d-flex card-action-element align-items-center ms-auto py-0">
+                            <div class="me-3">
+                                <select name="" id="" class="form-control">
+                                    <option value="">{{ auth()->user()->mosque->name_mosque }}</option>
                                 </select>
-                            </form>
+                            </div>
+                            <div>
+                                <form id="formSearch" action="{{ route('dashboard') }}" method="GET">
+                                    <select name="searchMonth" id="searchMonth" class="form-control"
+                                        onchange="setMonth(this.value)">
+                                        <option value="">Pilih Bulan</option>
+                                        <option value="01">Januari</option>
+                                        <option value="02">Februari</option>
+                                        <option value="03">Maret</option>
+                                        <option value="04">April</option>
+                                        <option value="05">Mei</option>
+                                        <option value="06">Juni</option>
+                                        <option value="07">Juli</option>
+                                        <option value="08">Agustus</option>
+                                        <option value="09">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div id="barChart" style="height: 400px;"></div>
                     </div>
                 </div>
+
             </div>
-            <div class="col-lg-2">
+            {{-- <div class="col-lg-2">
                 <div class="card">
                     <div class="card-header">S</div>
                     <div class="card-body">
@@ -180,7 +188,7 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         @endif
     </div>
 
