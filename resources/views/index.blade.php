@@ -166,8 +166,8 @@
         <div class="container-fluid" data-aos="fade-up">
             <div class="row gy-4">
                 <div
-                    class="col-md-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
-
+                    class="col-md-7 d-flex flex-column justify-content-center align-items-stretch  
+                order-2 order-lg-1">
                     <div class="content">
                         <h3>Pertanyaan yang sering <strong class="q">Ditanyakan!</strong></h3>
                         <p>
@@ -261,6 +261,10 @@
                             <div class="col-md-4 col-6 mb-lg-0 mb-25">
                                 <p class="text-lg fw-semibold color-palette-1 mb-12">ZIS</p>
                                 <ul class="list-unstyled">
+                                    <li class="mb-6">
+                                        <a href="{{ route('login') }}"
+                                            class="text-lg color-palette-1 text-decoration-none">Admin</a>
+                                    </li>
                                     <li class="mb-6">
                                         <a href="" class="text-lg color-palette-1 text-decoration-none">About
                                             Us</a>
