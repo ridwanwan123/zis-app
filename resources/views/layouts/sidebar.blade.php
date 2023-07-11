@@ -86,20 +86,21 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Sistem Pendukung Keputusan</span>
             </li>
-            <li class="menu-item">
+            <li
+                class="menu-item {{ request()->routeIs('mustahik') || request()->routeIs('hasilSPK') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bxs-data"></i>
                     <div data-i18n="">SPK</div>
                 </a>
                 <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('mustahik') ? 'active' : '' }}">
+                        <a href="{{ route('mustahik') }}" class="menu-link">
                             <div data-i18n="Data Penerima">Data Penerima</div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="" class="menu-link">
-                            <div data-i18n="SPK">SPK</div>
+                    <li class="menu-item {{ request()->routeIs('hasilSPK') ? 'active' : '' }}">
+                        <a href="{{ route('hasilSPK') }}" class="menu-link">
+                            <div data-i18n="SPK">Hasil Perhitungan</div>
                         </a>
                     </li>
                 </ul>

@@ -10,12 +10,17 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\InfaqController;
 use App\Http\Controllers\SedekahController;
+use App\Http\Controllers\MustahikController;
+use App\Http\Controllers\SkorKriteriaController;
+use App\Http\Controllers\KriteriaController;
 
 
 use App\Http\Controllers\TransaksiZakatController;
 use App\Http\Controllers\TransaksiInfaqController;
 use App\Http\Controllers\TransaksiSedekahController;
 use App\Http\Controllers\ReportsZisController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +113,15 @@ Route::group(['middleware' =>['auth.login']], function (){
 
     Route::get('/sedekahs/pdf', [SedekahController::class, 'generatePDF'])->name('sedekah.generatePDF');
 
+
+    //Route Sistem Pendukung Keputusan
+    Route::get('/mustahik', [MustahikController::class, 'index'])->name('mustahik');
+    Route::get('/mustahik/create', [MustahikController::class, 'create'])->name('mustahik.create');
+    Route::post('/mustahik/store', [MustahikController::class, 'store'])->name('mustahik.store');
+    Route::get('/kriteria/create/{id_mustahik}', [KriteriaController::class, 'create'])->name('kriteria.create');
+    Route::post('/kriteria/store', [KriteriaController::class, 'store'])->name('kriteria.store');
+    Route::get('/skor-kriterias/{id_mustahik}', [SkorKriteriaController::class, 'show'])->name('skor_kriteria.show');
+    Route::get('/hasilSPK',[SkorKriteriaController::class, 'indexAll'])->name('hasilSPK');
 });
 
 //MUZAKI-Zakat
