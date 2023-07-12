@@ -95,7 +95,7 @@
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->routeIs('mustahik') ? 'active' : '' }}">
                         <a href="{{ route('mustahik') }}" class="menu-link">
-                            <div data-i18n="Data Penerima">Data Penerima</div>
+                            <div data-i18n="Data Penerima">Data Mustahik</div>
                         </a>
                     </li>
                     <li class="menu-item {{ request()->routeIs('hasilSPK') ? 'active' : '' }}">
