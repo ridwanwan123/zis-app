@@ -12,7 +12,7 @@ class SkorKriteriaController extends Controller
 {   
     public function indexAll(){
         $mustahik = Mustahik::all();
-        $skorKriteria = SkorKriteria::all();
+        $skorKriteria = SkorKriteria::orderByDesc('HA')->get();
 
         return view('skor_kriterias.indexSPK', compact('mustahik','skorKriteria'));
     }

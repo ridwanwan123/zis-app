@@ -18,10 +18,10 @@
                     <tr class="text-nowrap">
                         <th>#</th>
                         <th>Nama Mustahik</th>
-                        <th>NR</th>
-                        <th>NH</th>
-                        <th>NK</th>
-                        <th>HA</th>
+                        <th>Nilai Rumah</th>
+                        <th>Nilai Harta</th>
+                        <th>Nilai Keluarga</th>
+                        <th>Hasil Akhir</th>
                     </tr>
                 </thead>
                 <tbody>
