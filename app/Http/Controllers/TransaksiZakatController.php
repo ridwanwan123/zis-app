@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Mosque;
 use App\Models\Zakat;
 use Twilio\Rest\Client;
+use App\Models\PenyaluranDana;
+
+use Illuminate\Support\Str;
 
 class TransaksiZakatController extends Controller
 {
@@ -25,9 +28,12 @@ class TransaksiZakatController extends Controller
             'nominal' => 'required',
         ]);
 
-        $validatedData['status'] = 'Belum Bayar';
-
+        $validateData['status'] = 'Belum Bayar';
+        
+        // Simpan data zakat ke dalam tabel zakats
         $orderItem = Zakat::create($validateData);
+
+        $this->updateTotalZakat($request->id_mosque);
 
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = false;
@@ -36,19 +42,19 @@ class TransaksiZakatController extends Controller
 
         $zakatId = $orderItem->id;
         $params = [
-        'transaction_details' => [
-            'order_id' => 'Cobal-' . $zakatId,
-            'gross_amount' => $orderItem->nominal,
-        ],
-        'customer_details' => [
-            'name' => $orderItem->nama_donatur,
-            'phone' => $orderItem->phone,
-        ],
-    ];
+            'transaction_details' => [
+                'order_id' => 'Cobal-' . $zakatId,
+                'gross_amount' => $orderItem->nominal,
+            ],
+            'customer_details' => [
+                'name' => $orderItem->nama_donatur,
+                'phone' => $orderItem->phone,
+            ],
+        ];
 
-    $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-    return view('transaksi.pembayaran', compact('snapToken', 'orderItem'));
+        return view('transaksi.pembayaran', compact('snapToken', 'orderItem'));
     }
 
 
@@ -73,15 +79,19 @@ class TransaksiZakatController extends Controller
                 return response()->json(['message' => 'Record Zakat tidak ditemukan'], 404);
             }
             $zakat->update(['status' => 'Bayar']);
+
+            // Update totalZakat pada entitas Mosque
+            $this->updateTotalZakat($zakat->id_mosque);
+            
             // Send WhatsApp notification
             $this->whatsappNotification($zakat->phone, $zakat->nama_donatur);
         }
     }
 
-    public function invoice($id){
-        $zakat = Zakat::find($id);
-        return view('transaksi.success', compact('zakat'));
+    public function invoice(){
+        return view('transaksi.success');
     }
+
 
     public function whatsappNotification(string $recipient, string $namaDonatur)
     {
@@ -94,5 +104,28 @@ class TransaksiZakatController extends Controller
         $body = "Halo $namaDonatur, Pembayaran Zakat Anda telah berhasil. Terima kasih atas kontribusinya.";
 
         return $twilio->messages->create("whatsapp:$recipient",["from" => "whatsapp:$wa_from", "body" => $body]);
+    }
+
+    private function updateTotalZakat($mosqueId)
+    {
+        $mosque = Mosque::find($mosqueId);
+
+        // Hitung total zakat dengan status 'Bayar'
+        $totalZakatBayar = Zakat::where('id_mosque', $mosqueId)
+            ->where('status', 'Bayar')
+            ->sum('nominal');
+
+        // Hitung total zakat yang sudah disalurkan
+        $totalPengeluaranZakat = PenyaluranDana::where('id_mosque', $mosqueId)
+            ->where('jenis_dana', 'zakat')
+            ->sum('jumlah_penyaluran');
+
+        // Hitung total zakat yang belum disalurkan
+        $totalZakatBelumDisalurkan = $totalZakatBayar - $totalPengeluaranZakat;
+
+        $mosque->totalZakat = $totalZakatBayar;
+        $mosque->totalPengeluaranZakat = $totalPengeluaranZakat;
+        $mosque->totalZakatBelumDisalurkan = $totalZakatBelumDisalurkan;
+        $mosque->save();
     }
 }

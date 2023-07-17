@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sedekah;
 use App\Models\Mosque;
+use App\Models\PenyaluranDana;
 use PDF;
 
 class SedekahController extends Controller
@@ -34,15 +35,22 @@ class SedekahController extends Controller
 
         $data = $request->except('_token');
 
-        Sedekah::create($data);
-        
-        flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'bottom-right',
-            ])
-            ->addSuccess('Data Sedekah berhasil ditambahkan!!');
-        return redirect()->route('sedekah');
+        // Simpan data sedekah ke dalam tabel sedekahs
+        $sedekah = new Sedekah($data);
+        $sedekah->save();
+
+        // Update totalSedekah pada tabel mosques
+        $this->updateTotalSedekah($request->id_mosque);
+
+        return redirect()->route('sedekah')->with('success', 'Data Sedekah berhasil ditambahkan.');
+
+        // flash()
+        //     ->options([
+        //         'timeout' => 3000, // 3 seconds
+        //         'position' => 'bottom-right',
+        //     ])
+        //     ->addSuccess('Data Sedekah berhasil ditambahkan!!');
+        // return redirect()->route('sedekah');
     }
 
     public function edit($id)
@@ -72,26 +80,52 @@ class SedekahController extends Controller
         $sedekah->status = $request->status;
 
         $sedekah->save();
-        
-        flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'bottom-right',
-            ])
-            ->addSuccess('Data Sedekah berhasil diperbarui!!');
-        return redirect()->route('sedekah');
+        // Update totalSedekah pada tabel mosques
+        $this->updateTotalSedekah($request->id_mosque);
+
+        return redirect()->route('sedekah')->with('success', 'Data Sedekah berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        Sedekah::find($id)->delete();
-        flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'bottom-right',
-            ])
-            ->addSuccess('Data Sedekah berhasil dihapus!!');
-        return redirect()->route('sedekah');
+        // Cari data sedekah berdasarkan ID
+        $sedekah = Sedekah::find($id);
+
+        // Hapus data sedekah jika ditemukan
+        if ($sedekah) {
+            $mosqueId = $sedekah->id_mosque;
+            $sedekah->delete();
+
+            // Update totalSedekah pada tabel mosques
+            $this->updateTotalSedekah($mosqueId);
+
+            return redirect()->route('sedekah')->with('success', 'Data Sedekah berhasil dihapus.');
+        }
+
+        return redirect()->route('sedekah')->with('error', 'Data Sedekah tidak ditemukan.');
+    }
+
+    private function updateTotalSedekah($mosqueId)
+    {
+        $mosque = Mosque::find($mosqueId);
+
+        // Hitung total sedekah dengan status 'Bayar'
+        $totalSedekahBayar = Sedekah::where('id_mosque', $mosqueId)
+            ->where('status', 'Bayar')
+            ->sum('nominal');
+
+        // Hitung total sedekah yang sudah disalurkan
+        $totalPengeluaranSedekah = PenyaluranDana::where('id_mosque', $mosqueId)
+            ->where('jenis_dana', 'sedekah')
+            ->sum('jumlah_penyaluran');
+
+        // Hitung total sedekah yang belum disalurkan
+        $totalSedekahBelumDisalurkan = $totalSedekahBayar - $totalPengeluaranSedekah;
+
+        $mosque->totalSedekah = $totalSedekahBayar;
+        $mosque->totalPengeluaranSedekah = $totalPengeluaranSedekah;
+        $mosque->totalSedekahBelumDisalurkan = $totalSedekahBelumDisalurkan;
+        $mosque->save();
     }
 
     public function generatePDF()

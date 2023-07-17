@@ -103,6 +103,11 @@
                             <div data-i18n="SPK">Hasil Perhitungan</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ request()->routeIs('penyaluranDana') ? 'active' : '' }}">
+                        <a href="{{ route('penyaluranDana') }}" class="menu-link">
+                            <div data-i18n="Dana">Penyaluran Dana</div>
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endif

@@ -21,6 +21,9 @@ use App\Http\Controllers\TransaksiSedekahController;
 use App\Http\Controllers\ReportsZisController;
 
 
+use App\Http\Controllers\PenyaluranDanaController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +87,7 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::get('/zakats/edit/{id}', [ZakatController::class, 'edit'])->name('zakat.edit');
     Route::put('/zakats/edit/{id}', [ZakatController::class, 'update'])->name('zakat.update');
 
-    Route::delete('/zakats/delete/{id}', [ZakatController::class, 'destroy'])->name('zakat.delete');
+    Route::delete('/zakats/{id}', [ZakatController::class, 'destroy'])->name('zakat.delete');
 
     //Route CRUD Infaqs
     Route::get('/infaqs', [InfaqController::class, 'index'])->name('infaq');
@@ -95,7 +98,7 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::get('/infaqs/edit/{id}', [InfaqController::class, 'edit'])->name('infaq.edit');
     Route::put('/infaqs/edit/{id}', [InfaqController::class, 'update'])->name('infaq.update');
 
-    Route::delete('/infaqs/delete/{id}', [InfaqController::class, 'destroy'])->name('infaq.delete');
+    Route::delete('/infaqs/{id}', [InfaqController::class, 'destroy'])->name('infaq.delete');
 
     Route::get('/infaqs/pdf', [InfaqController::class, 'generatePDF'])->name('infaq.generatePDF');
 
@@ -122,12 +125,17 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::post('/kriteria/store', [KriteriaController::class, 'store'])->name('kriteria.store');
     Route::get('/skor-kriterias/{id_mustahik}', [SkorKriteriaController::class, 'show'])->name('skor_kriteria.show');
     Route::get('/hasilSPK',[SkorKriteriaController::class, 'indexAll'])->name('hasilSPK');
+
+    Route::get('/penyaluranDana', [PenyaluranDanaController::class, 'index'])->name('penyaluranDana');
+
+    Route::get('/penyaluranDana/{id}', [PenyaluranDanaController::class, 'create'])->name('penyaluranDana.create');
+    Route::post('/penyaluranDana/store', [PenyaluranDanaController::class, 'store'])->name('penyaluranDana.store');
 });
 
 //MUZAKI-Zakat
 Route::get('/bayarZakat', [TransaksiZakatController::class, 'createZakat'])->name('TransaksiZakat');
 Route::post('/bayarZakat', [TransaksiZakatController::class, 'storeZakat'])->name('TransaksiZakat.store');
-Route::get('/invoice/{id}', [TransaksiZakatController::class, 'invoice']);
+Route::get('/invoice', [TransaksiZakatController::class, 'invoice']);
 
 
 //MUZAKI-Infaq

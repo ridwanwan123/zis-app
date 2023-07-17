@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Infaq;
 use App\Models\Mosque;
+use App\Models\PenyaluranDana;
 use PDF;
 
 class InfaqController extends Controller
@@ -36,15 +37,14 @@ class InfaqController extends Controller
 
         $data = $request->except('_token');
 
-        Infaq::create($data);
-        
-        flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'bottom-right',
-            ])
-            ->addSuccess('Data Infaq berhasil ditambahkan!!');
-        return redirect()->route('infaq');
+        // Simpan data infaq ke dalam tabel infaqs
+        $infaq = new Infaq($data);
+        $infaq->save();
+
+        // Update totalInfaq pada tabel mosques
+        $this->updateTotalInfaq($request->id_mosque);
+
+        return redirect()->route('infaq')->with('success', 'Data Infaq berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -65,8 +65,10 @@ class InfaqController extends Controller
             'status' => 'required'
         ]);
 
+         // Get the Infaq by ID
         $infaq = Infaq::find($id);
 
+        // Update the Infaq properties
         $infaq->id_mosque = $request->id_mosque;
         $infaq->nama_donatur = $request->nama_donatur;
         $infaq->phone = $request->phone;
@@ -75,26 +77,52 @@ class InfaqController extends Controller
 
         $infaq->save();
 
-        flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'bottom-right',
-            ])
-            ->addSuccess('Data Infaq berhasil diperbarui!!');
-        return redirect()->route('infaq');
-        
+        // Update totalInfaq pada tabel mosques
+        $this->updateTotalInfaq($request->id_mosque);
+
+        return redirect()->route('infaq')->with('success', 'Data Infaq berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        Infaq::find($id)->delete();
-        flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'bottom-right',
-            ])
-            ->addSuccess('Data Infaq berhasil dihapus !!');
-        return redirect()->route('infaq');
+        // Cari data infaq berdasarkan ID
+        $infaq = Infaq::find($id);
+
+        // Hapus data infaq jika ditemukan
+        if ($infaq) {
+            $mosqueId = $infaq->id_mosque;
+            $infaq->delete();
+
+            // Update totalInfaq pada tabel mosques
+            $this->updateTotalInfaq($mosqueId);
+
+            return redirect()->route('infaq')->with('success', 'Data Infaq berhasil dihapus.');
+        }
+
+        return redirect()->route('infaq')->with('error', 'Data Infaq tidak ditemukan.');
+    }
+
+    private function updateTotalInfaq($mosqueId)
+    {
+        $mosque = Mosque::find($mosqueId);
+
+        // Hitung total infaq dengan status 'Bayar'
+        $totalInfaqBayar = Infaq::where('id_mosque', $mosqueId)
+            ->where('status', 'Bayar')
+            ->sum('nominal');
+
+        // Hitung total infaq yang sudah disalurkan
+        $totalPengeluaranInfaq = PenyaluranDana::where('id_mosque', $mosqueId)
+            ->where('jenis_dana', 'infaq')
+            ->sum('jumlah_penyaluran');
+
+        // Hitung total infaq yang belum disalurkan
+        $totalInfaqBelumDisalurkan = $totalInfaqBayar - $totalPengeluaranInfaq;
+
+        $mosque->totalInfaq = $totalInfaqBayar;
+        $mosque->totalPengeluaranInfaq = $totalPengeluaranInfaq;
+        $mosque->totalInfaqBelumDisalurkan = $totalInfaqBelumDisalurkan;
+        $mosque->save();
     }
 
     public function generatePDF()

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('zakats', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignId('id_mosque')->constrained('mosques');
             $table->enum('jenis_zakat', ['Fitrah', 'Maal']);
             $table->string('nama_donatur');

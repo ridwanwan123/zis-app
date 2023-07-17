@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mosque;
+use App\Models\Zakat;
+use App\Models\Infaq;
+use App\Models\Sedekah;
 
 class MosqueController extends Controller
 {
@@ -68,9 +71,57 @@ class MosqueController extends Controller
         // Redirect back to the mosque list page
         return redirect()->route('mosque');
     }
-
+    
     public function destroy()
     {
         //
+    }
+
+    // public function updateTotalDana($mosqueId)
+    // {
+    //     $mosque = Mosque::find($mosqueId);
+
+    //     // Hitung total zakat
+    //     $totalZakat = Zakat::where('id_mosque', $mosqueId)
+    //         ->where('status', 'Bayar')
+    //         ->sum('nominal');
+
+    //     // Hitung total infaq
+    //     $totalInfaq = Infaq::where('id_mosque', $mosqueId)
+    //         ->where('status', 'Bayar')
+    //         ->sum('nominal');
+
+    //     // Hitung total sedekah
+    //     $totalSedekah = Sedekah::where('id_mosque', $mosqueId)
+    //         ->where('status', 'Bayar')
+    //         ->sum('nominal');
+
+    //     // Simpan nilai total dana ke dalam tabel mosques
+    //     $mosque->totalZakat = $totalZakat;
+    //     $mosque->totalInfaq = $totalInfaq;
+    //     $mosque->totalSedekah = $totalSedekah;
+    //     $mosque->save();
+
+    // }
+
+    public function updateTotalDana($mosqueId)
+    {
+        $mosque = Mosque::find($mosqueId);
+
+        // Hitung total zakat
+        $totalZakat = $mosque->zakats()->where('status', 'Bayar')->sum('nominal');
+
+        // Hitung total infaq
+        $totalInfaq = $mosque->infaqs()->where('status', 'Bayar')->sum('nominal');
+
+        // Hitung total sedekah
+        $totalSedekah = $mosque->sedekahs()->where('status', 'Bayar')->sum('nominal');
+
+        // Simpan nilai total dana ke dalam tabel mosques
+        $mosque->totalZakat = $totalZakat;
+        $mosque->totalInfaq = $totalInfaq;
+        $mosque->totalSedekah = $totalSedekah;
+        $mosque->save();
+
     }
 }
