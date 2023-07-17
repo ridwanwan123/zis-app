@@ -43,7 +43,7 @@ class TransaksiZakatController extends Controller
         $zakatId = $orderItem->id;
         $params = [
             'transaction_details' => [
-                'order_id' => 'Cobal-' . $zakatId,
+                'order_id' => 'Zakat-' . $zakatId,
                 'gross_amount' => $orderItem->nominal,
             ],
             'customer_details' => [
@@ -69,10 +69,10 @@ class TransaksiZakatController extends Controller
 
         if ($request->transaction_status == 'capture' or $request->transaction_status == 'settlement') {
             $order_id = strtolower($request->order_id);
-            if (strpos($order_id, 'cobal-') !== 0) {
+            if (strpos($order_id, 'zakat-') !== 0) {
                 return response()->json(['message' => 'Invalid order id'], 400);
             }
-            $zakat_id = substr($order_id, strlen('cobal-'));
+            $zakat_id = substr($order_id, strlen('zakat-'));
             $zakat = Zakat::find($zakat_id);
 
             if (!$zakat) {

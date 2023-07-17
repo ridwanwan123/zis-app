@@ -25,13 +25,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::any('/midtrans-callback', function (Request $request) {
     $order_id = strtolower($request->order_id);
     
-    if (strpos($order_id, 'cobal-') === 0) {
+    if (strpos($order_id, 'zakat-') === 0) {
         $controller = new TransaksiZakatController();
         return $controller->callback($request);
-    } elseif (strpos($order_id, 'coba-') === 0) {
+    } elseif (strpos($order_id, 'infaq-') === 0) {
         $controller = new TransaksiInfaqController();
         return $controller->callback($request);
-    } elseif (strpos($order_id, 'cobas-') === 0) {
+    } elseif (strpos($order_id, 'sedekah-') === 0) {
         $controller = new TransaksiSedekahController();
         return $controller->callback($request);
     }

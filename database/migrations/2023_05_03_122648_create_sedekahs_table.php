@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sedekahs', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignId('id_mosque')->constrained('mosques');
             $table->string('nama_donatur');
             $table->string('phone');

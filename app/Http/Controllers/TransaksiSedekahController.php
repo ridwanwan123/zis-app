@@ -6,49 +6,56 @@ use Illuminate\Http\Request;
 use App\Models\Mosque;
 use App\Models\Sedekah;
 use Twilio\Rest\Client;
+use App\Models\PenyaluranDana;
 
+use Illuminate\Support\Str;
 
 class TransaksiSedekahController extends Controller
 {
     public function createSedekah()
-    {   
+    {
         $mosques = Mosque::all();
         return view('transaksi.sedekah', ['mosques' => $mosques]);
     }
 
     public function storeSedekah(Request $request)
     {
-       $validatedData = $request->validate([
-        'id_mosque' => 'required',
-        'nama_donatur' => 'required',
-        'phone' => 'required',
-        'nominal' => 'required',
-    ]);
+        $validateData = $request->validate([
+            'id_mosque' => 'required',
+            'nama_donatur' => 'required',
+            'phone' => 'required',
+            'nominal' => 'required',
+        ]);
 
-    $validatedData['status'] = 'Belum Bayar';
+        $validateData['status'] = 'Belum Bayar';
+        
+        // Simpan data sedekah ke dalam tabel sedekahs
+        $orderItem = Sedekah::create($validateData);
 
-    $orderItem = Sedekah::create($validatedData);
+        $this->updateTotalSedekah($request->id_mosque);
 
-    \Midtrans\Config::$serverKey = config('midtrans.server_key');
-    \Midtrans\Config::$isProduction = false;
-    \Midtrans\Config::$isSanitized = true;
-    \Midtrans\Config::$is3ds = true;
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$isSanitized = true;
+        \Midtrans\Config::$is3ds = true;
 
-    $sedekahId = $orderItem->id;
-    $params = [
-        'transaction_details' => [
-            'order_id' => 'Cobas-' . $sedekahId,
-            'gross_amount' => $orderItem->nominal,
-        ],
-        'customer_details' => [
-            'name' => $orderItem->nama_donatur,
-            'phone' => $orderItem->phone,
-        ],
-    ];
-    $snapToken = \Midtrans\Snap::getSnapToken($params);
-    // dd($snapToken);
-    return view('transaksi.pembayaran', compact('snapToken', 'orderItem'));
+        $sedekahId = $orderItem->id;
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'Sedekah-' . $sedekahId,
+                'gross_amount' => $orderItem->nominal,
+            ],
+            'customer_details' => [
+                'name' => $orderItem->nama_donatur,
+                'phone' => $orderItem->phone,
+            ],
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        return view('transaksi.pembayaran', compact('snapToken', 'orderItem'));
     }
+
 
     public function callback(Request $request)
     {
@@ -59,27 +66,31 @@ class TransaksiSedekahController extends Controller
             return response()->json(['message' => 'Invalid signature key'], 400);
         }
 
-        if ($request->transaction_status == 'capture' || $request->transaction_status == 'settlement') {
-            $order_id = $request->order_id;
-            if (strpos($order_id, 'Cobas-') !== 0) {
+        if ($request->transaction_status == 'capture' or $request->transaction_status == 'settlement') {
+            $order_id = strtolower($request->order_id);
+            if (strpos($order_id, 'sedekah-') !== 0) {
                 return response()->json(['message' => 'Invalid order id'], 400);
             }
-            $sedekah_id = substr($order_id, strlen('Cobas-'));
+            $sedekah_id = substr($order_id, strlen('sedekah-'));
             $sedekah = Sedekah::find($sedekah_id);
 
             if (!$sedekah) {
                 return response()->json(['message' => 'Record Sedekah tidak ditemukan'], 404);
             }
             $sedekah->update(['status' => 'Bayar']);
+
+            // Update totalSedekah pada entitas Mosque
+            $this->updateTotalSedekah($sedekah->id_mosque);
+            
             // Send WhatsApp notification
             $this->whatsappNotification($sedekah->phone, $sedekah->nama_donatur);
         }
     }
 
-    public function invoice($id){
-        $sedekah = Sedekah::find($id);
-        return view('transaksi.success', compact('sedekah'));
+    public function invoice(){
+        return view('transaksi.success');
     }
+
 
     public function whatsappNotification(string $recipient, string $namaDonatur)
     {
@@ -92,5 +103,28 @@ class TransaksiSedekahController extends Controller
         $body = "Halo $namaDonatur, Pembayaran Sedekah Anda telah berhasil. Terima kasih atas kontribusinya.";
 
         return $twilio->messages->create("whatsapp:$recipient",["from" => "whatsapp:$wa_from", "body" => $body]);
+    }
+
+    private function updateTotalSedekah($mosqueId)
+    {
+        $mosque = Mosque::find($mosqueId);
+
+        // Hitung total sedekah dengan status 'Bayar'
+        $totalSedekahBayar = Sedekah::where('id_mosque', $mosqueId)
+            ->where('status', 'Bayar')
+            ->sum('nominal');
+
+        // Hitung total sedekah yang sudah disalurkan
+        $totalPengeluaranSedekah = PenyaluranDana::where('id_mosque', $mosqueId)
+            ->where('jenis_dana', 'sedekah')
+            ->sum('jumlah_penyaluran');
+
+        // Hitung total sedekah yang belum disalurkan
+        $totalSedekahBelumDisalurkan = $totalSedekahBayar - $totalPengeluaranSedekah;
+
+        $mosque->totalSedekah = $totalSedekahBayar;
+        $mosque->totalPengeluaranSedekah = $totalPengeluaranSedekah;
+        $mosque->totalSedekahBelumDisalurkan = $totalSedekahBelumDisalurkan;
+        $mosque->save();
     }
 }
