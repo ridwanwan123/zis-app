@@ -103,9 +103,27 @@
                             <div data-i18n="SPK">Hasil Perhitungan</div>
                         </a>
                     </li>
+                </ul>
+            </li>
+
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Penyaluran Dana ZIS</span>
+            </li>
+            <li
+                class="menu-item {{ request()->routeIs('hasilPenyaluranDana') || request()->routeIs('penyaluranDana') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+                    <div data-i18n="">Penyaluran Dana ZIS</div>
+                </a>
+                <ul class="menu-sub">
                     <li class="menu-item {{ request()->routeIs('penyaluranDana') ? 'active' : '' }}">
                         <a href="{{ route('penyaluranDana') }}" class="menu-link">
-                            <div data-i18n="Dana">Penyaluran Dana</div>
+                            <div data-i18n="Dana">Kriteria Terbaik</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('hasilPenyaluranDana') ? 'active' : '' }}">
+                        <a href="{{ route('hasilPenyaluranDana') }}" class="menu-link">
+                            <div data-i18n="Dana">Hasil Penyaluran Dana</div>
                         </a>
                     </li>
                 </ul>

@@ -127,6 +127,7 @@ Route::group(['middleware' =>['auth.login']], function (){
     Route::get('/hasilSPK',[SkorKriteriaController::class, 'indexAll'])->name('hasilSPK');
 
     Route::get('/penyaluranDana', [PenyaluranDanaController::class, 'index'])->name('penyaluranDana');
+    Route::get('/hasilPenyaluranDana', [PenyaluranDanaController::class, 'indexHasil'])->name('hasilPenyaluranDana');
 
     Route::get('/penyaluranDana/{id}', [PenyaluranDanaController::class, 'create'])->name('penyaluranDana.create');
     Route::post('/penyaluranDana/store', [PenyaluranDanaController::class, 'store'])->name('penyaluranDana.store');

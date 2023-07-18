@@ -9,6 +9,32 @@
 
     <div class="row">
         <div class="col-lg-6">
+            <div class="card mb-3">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Data Dana ZIS Belum Disalurkan</h5>
+                    <small class="text-muted float-end">ZIS</small>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Zakat</th>
+                                <td class="text-end">Rp. {{ number_format($totalZakatBelumDisalurkan) }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Infaq</th>
+                                <td class="text-end">Rp. {{ number_format($totalInfaqBelumDisalurkan) }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Sedekah</th>
+                                <td class="text-end">Rp. {{ number_format($totalSedekahBelumDisalurkan) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Data Mustahik</h5>
@@ -16,28 +42,28 @@
                 </div>
 
                 <div class="card-body ">
-                    <div class="mb-3 row">
+                    <div class="mb-2 row">
                         <label for="" class="col-md-4 col-form-label">Nama Mustahik</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="text" value="{{ $mustahik->nama_mustahik }}">
+                            <input class="form-control" type="text" value="{{ $mustahik->nama_mustahik }}" readonly>
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <div class="mb-2 row">
                         <label for="" class="col-md-4 col-form-label">Jenis Kelamin</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="text" value="{{ $mustahik->jenis_kelamin }}">
+                            <input class="form-control" type="text" value="{{ $mustahik->jenis_kelamin }}" readonly>
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <div class="mb-2 row">
                         <label for="" class="col-md-4 col-form-label">Nomor Telepon</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="text" value="{{ $mustahik->phone }}">
+                            <input class="form-control" type="text" value="{{ $mustahik->phone }}" readonly>
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <div class="mb-2 row">
                         <label for="" class="col-md-4 col-form-label">Alamat</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="text" value="{{ $mustahik->address }}">
+                            <input class="form-control" type="text" value="{{ $mustahik->address }}" readonly>
                         </div>
                     </div>
                 </div>

@@ -19,20 +19,41 @@ use App\Models\PenyaluranDana;
 class PenyaluranDanaController extends Controller
 {
     //PenyaluranDana
-    public function index(){
+    public function index()
+    {
         $mustahik = Mustahik::all();
         $skorKriteria = SkorKriteria::orderByDesc('HA')->get();
 
-        return view('penyaluranDana.index', compact('mustahik','skorKriteria'));
+        return view('penyaluranDana.index', compact('mustahik', 'skorKriteria'));
+    }
+
+    public function indexHasil()
+    {
+        $mustahik = Mustahik::all();
+        $penyaluranDana = PenyaluranDana::all();
+        $skorKriteria = SkorKriteria::orderByDesc('HA')->get();
+
+        return view('penyaluranDana.indexHasilPenyaluran', compact('mustahik', 'skorKriteria', 'penyaluranDana'));
     }
 
     public function create($id_mustahik){
+        //Menampilkan data dana zis belum disalurkan
+            $user = Auth::user();
+            $idMosque = $user->id_mosque;
+
+            $masjid = Mosque::find($idMosque);
+            $totalZakatBelumDisalurkan = $masjid->totalZakatBelumDisalurkan;
+            $totalInfaqBelumDisalurkan = $masjid->totalInfaqBelumDisalurkan;
+            $totalSedekahBelumDisalurkan = $masjid->totalSedekahBelumDisalurkan;
+            
         $mustahik = Mustahik::findOrFail($id_mustahik);
         $kriteria = Kriteria::findOrFail($id_mustahik);
         
         $skorKriteria = SkorKriteria::where('id_mustahik', $id_mustahik)->first();
         
-        return view('penyaluranDana.create', compact('mustahik','kriteria','skorKriteria'));
+        return view('penyaluranDana.create', compact('mustahik','kriteria', 'totalZakatBelumDisalurkan',
+            'totalInfaqBelumDisalurkan',
+            'totalSedekahBelumDisalurkan','skorKriteria',));
     }
 
 
@@ -50,6 +71,22 @@ class PenyaluranDanaController extends Controller
         $tanggal_penyaluran = $request->input('tanggal_penyaluran');
         $jumlah_penyaluran = $request->input('jumlah_penyaluran');
 
+        // Cek apakah mustahik sudah pernah menerima penyaluran dana sebelumnya (UNTUK SELURUH)
+        // $existingPenyaluran = PenyaluranDana::where('id_mustahik', $id_mustahik)->first();
+        // if ($existingPenyaluran) {
+        //     return redirect()->back()->with('error', 'Mustahik sudah pernah menerima penyaluran dana sebelumnya.');
+        // }
+
+        // VERSI JENIS DANA 
+        // Cek apakah mustahik sudah pernah menerima penyaluran dana untuk jenis dana yang sama
+            $existingPenyaluran = PenyaluranDana::where('id_mustahik', $id_mustahik)
+                ->where('jenis_dana', $jenis_dana)
+                ->first();
+
+            if ($existingPenyaluran) {
+                return redirect()->back()->with('error', 'Mustahik sudah pernah menerima penyaluran dana ' . $jenis_dana . ' sebelumnya.');
+            }
+        
         // Ambil entitas Mosque
         $mosque = Mosque::find(Auth::user()->id_mosque);
 
