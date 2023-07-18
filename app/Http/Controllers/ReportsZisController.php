@@ -114,6 +114,15 @@ class ReportsZisController extends Controller
                     ->whereMonth('created_at', $searchMonth)
                     ->sum('jumlah_penyaluran');
 
+                // $totalZakatBelumDisalurkan = PenyaluranDana::where('id_mosque', $searchMosque)
+                //     ->where('jenis_dana', 'zakat')
+                //     ->whereMonth('created_at', $searchMonth)
+                //     ->sum('jumlah_penyaluran');
+
+                // $totalZakatBelumDisalurkan = $masjid->totalZakat - $totalZakatBelumDisalurkan - $totalPengeluaranZakat;
+                // $totalInfaqBelumDisalurkan = $masjid->totalInfaq - $masjid->totalPengeluaranInfaq;
+                // $totalSedekahBelumDisalurkan = $masjid->totalSedekah - $masjid->totalPengeluaranSedekah;
+
                 $totalPengeluaranZakat = PenyaluranDana::where('id_mosque', $searchMosque)
                     ->where('jenis_dana', 'zakat')
                     ->whereMonth('created_at', $searchMonth)
@@ -149,4 +158,5 @@ class ReportsZisController extends Controller
             'totalPengeluaranSedekah'
         ));
     }
+
 }
