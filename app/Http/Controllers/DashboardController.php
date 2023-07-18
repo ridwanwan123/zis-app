@@ -18,135 +18,78 @@ class DashboardController extends Controller
 {  
 
     public function index(Request $request)
-    {
-        $user = Auth::user();
-        $idMosque = $user->id_mosque;
+{
+    $user = Auth::user();
+    $idMosque = $user->id_mosque;
+    $masjid = Mosque::find($idMosque);
 
-        $masjid = Mosque::find($idMosque);
+    $searchMonth = $request->input('searchMonth');
 
-        $searchMonth = $request->input('searchMonth');
+    // Hitung total zakat, infaq, sedekah
+    $totalZakat = Zakat::where('id_mosque', $idMosque)
+        ->where('status', 'bayar')
+        ->when($searchMonth, function ($query, $searchMonth) {
+            return $query->whereMonth('created_at', $searchMonth);
+        })
+        ->sum('nominal');
 
-        $totalZakat = $masjid->totalZakat;
-        $totalInfaq = $masjid->totalInfaq;
-        $totalSedekah = $masjid->totalSedekah;
-        $totalZakatBelumDisalurkan = $masjid->totalZakatBelumDisalurkan;
-        $totalInfaqBelumDisalurkan = $masjid->totalInfaqBelumDisalurkan;
-        $totalSedekahBelumDisalurkan = $masjid->totalSedekahBelumDisalurkan;
-        $totalPengeluaranZakat = $masjid->totalPengeluaranZakat;
-        $totalPengeluaranInfaq = $masjid->totalPengeluaranInfaq;
-        $totalPengeluaranSedekah = $masjid->totalPengeluaranSedekah;
+    $totalInfaq = Infaq::where('id_mosque', $idMosque)
+        ->where('status', 'bayar')
+        ->when($searchMonth, function ($query, $searchMonth) {
+            return $query->whereMonth('created_at', $searchMonth);
+        })
+        ->sum('nominal');
 
-        // Filter berdasarkan searchMonth jika tersedia
-        if ($searchMonth) {
-            $totalZakat = Zakat::whereHas('mosque', function ($query) use ($idMosque) {
-                $query->where('id', $idMosque);
-            })
-            ->where('status', 'bayar')
-            ->whereMonth('created_at', $searchMonth)
-            ->sum('nominal');
+    $totalSedekah = Sedekah::where('id_mosque', $idMosque)
+        ->where('status', 'bayar')
+        ->when($searchMonth, function ($query, $searchMonth) {
+            return $query->whereMonth('created_at', $searchMonth);
+        })
+        ->sum('nominal');
 
-            $totalInfaq = Infaq::whereHas('mosque', function ($query) use ($idMosque) {
-                $query->where('id', $idMosque);
-            })
-            ->where('status', 'bayar')
-            ->whereMonth('created_at', $searchMonth)
-            ->sum('nominal');
+    // Hitung total zakat, infaq, sedekah yang sudah disalurkan
+    $totalPengeluaranZakat = PenyaluranDana::where('id_mosque', $idMosque)
+        ->where('jenis_dana', 'zakat')
+        ->when($searchMonth, function ($query, $searchMonth) {
+            return $query->whereMonth('created_at', $searchMonth);
+        })
+        ->sum('jumlah_penyaluran');
 
-            $totalSedekah = Sedekah::whereHas('mosque', function ($query) use ($idMosque) {
-                $query->where('id', $idMosque);
-            })
-            ->where('status', 'bayar')
-            ->whereMonth('created_at', $searchMonth)
-            ->sum('nominal');
+    $totalPengeluaranInfaq = PenyaluranDana::where('id_mosque', $idMosque)
+        ->where('jenis_dana', 'infaq')
+        ->when($searchMonth, function ($query, $searchMonth) {
+            return $query->whereMonth('created_at', $searchMonth);
+        })
+        ->sum('jumlah_penyaluran');
 
-            // Jika total nominal nol, kosongkan nilainya
-            if ($totalZakat == 0) {
-                $totalZakat = null;
-            }
+    $totalPengeluaranSedekah = PenyaluranDana::where('id_mosque', $idMosque)
+        ->where('jenis_dana', 'sedekah')
+        ->when($searchMonth, function ($query, $searchMonth) {
+            return $query->whereMonth('created_at', $searchMonth);
+        })
+        ->sum('jumlah_penyaluran');
 
-            if ($totalInfaq == 0) {
-                $totalInfaq = null;
-            }
+    // Hitung total zakat, infaq, sedekah yang belum disalurkan
+    $totalZakatBelumDisalurkan = $totalZakat - $totalPengeluaranZakat;
+    $totalInfaqBelumDisalurkan = $totalInfaq - $totalPengeluaranInfaq;
+    $totalSedekahBelumDisalurkan = $totalSedekah - $totalPengeluaranSedekah;
 
-            if ($totalSedekah == 0) {
-                $totalSedekah = null;
-            }
-        }
+    // ...
 
-        //Filter berdasarkan searchMonth untuk totalZakatBelumDisalurkan totalInfaqBelumDisalurkan totalSedekahBelumDisalurkan
-        if ($searchMonth) {
-            $totalZakatBelumDisalurkan = PenyaluranDana::where('id_mosque', $idMosque)
-                ->where('jenis_dana', 'zakat')
-                ->whereMonth('created_at', $searchMonth)
-                ->sum('jumlah_penyaluran');
+    return view('dashboards.dashboard', compact(
+        'masjid',
+        'totalZakat',
+        'totalInfaq',
+        'totalSedekah',
+        'totalZakatBelumDisalurkan',
+        'totalInfaqBelumDisalurkan',
+        'totalSedekahBelumDisalurkan',
+        'totalPengeluaranZakat',
+        'totalPengeluaranInfaq',
+        'totalPengeluaranSedekah'
+    ));
+}
 
-            $totalInfaqBelumDisalurkan = PenyaluranDana::where('id_mosque', $idMosque)
-                ->where('jenis_dana', 'infaq')
-                ->whereMonth('created_at', $searchMonth)
-                ->sum('jumlah_penyaluran');
 
-            $totalSedekahBelumDisalurkan = PenyaluranDana::where('id_mosque', $idMosque)
-                ->where('jenis_dana', 'sedekah')
-                ->whereMonth('created_at', $searchMonth)
-                ->sum('jumlah_penyaluran');
-
-            // Jika total nominal nol, kosongkan nilainya
-            if ($totalZakatBelumDisalurkan == 0) {
-                $totalZakatBelumDisalurkan = null;
-            }
-
-            if ($totalInfaqBelumDisalurkan == 0) {
-                $totalInfaqBelumDisalurkan = null;
-            }
-
-            if ($totalSedekahBelumDisalurkan == 0) {
-                $totalSedekahBelumDisalurkan = null;
-            }
-        }
-
-        //Filter berdasarkan searchMonth untuk totalPengeluaranZakat totalPengeluaranInfaq totalPengeluaranSedekah
-        if ($searchMonth) {
-            $totalPengeluaranZakat = PenyaluranDana::where('id_mosque', $idMosque)
-                ->where('jenis_dana', 'zakat')
-                ->whereMonth('created_at', $searchMonth)
-                ->sum('jumlah_penyaluran');
-
-            $totalPengeluaranInfaq = PenyaluranDana::where('id_mosque', $idMosque)
-                ->where('jenis_dana', 'infaq')
-                ->whereMonth('created_at', $searchMonth)
-                ->sum('jumlah_penyaluran');
-
-            $totalPengeluaranSedekah = PenyaluranDana::where('id_mosque', $idMosque)
-                ->where('jenis_dana', 'sedekah')
-                ->whereMonth('created_at', $searchMonth)
-                ->sum('jumlah_penyaluran');
-
-            // Jika total nominal nol, kosongkan nilainya
-            if ($totalPengeluaranZakat == 0) {
-                $totalPengeluaranZakat = null;
-            }
-
-            if ($totalPengeluaranInfaq == 0) {
-                $totalPengeluaranInfaq = null;
-            }
-
-            if ($totalPengeluaranSedekah == 0) {
-                $totalPengeluaranSedekah = null;
-            }
-        }
-
-        return view('dashboards.dashboard', compact(
-            'masjid',
-            'totalZakat',
-            'totalInfaq',
-            'totalSedekah',
-            'totalZakatBelumDisalurkan',
-            'totalInfaqBelumDisalurkan',
-            'totalSedekahBelumDisalurkan',
-            'totalPengeluaranZakat',
-            'totalPengeluaranInfaq',
-            'totalPengeluaranSedekah'
-        ));
-    }
 
 }
