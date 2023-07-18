@@ -27,13 +27,6 @@
                             <a href="#" class="btn btn-sm btn-outline-primary">More Info</a>
                         </div>
                     </div>
-                    {{-- <div class="col-sm-2">
-                        <div class="card-body pb-0 px-0 py-0">
-                            <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}" height="130"
-                                alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                data-app-light-img="illustrations/man-with-laptop-light.png" />
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -62,9 +55,9 @@
                                 <h3 class="card-title text-nowrap mb-1">Zakat</h3>
                                 <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                     @if (auth()->user()->mosque)
-                                        {{ number_format($zakat->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
+                                        {{ number_format($totalZakat) }}
                                     @else
-                                        {{ number_format($zakat->where('status', 'Bayar')->sum('nominal')) }}
+                                        {{ number_format($totalZakat) }}
                                     @endif
                                 </small>
                             </div>
@@ -92,9 +85,9 @@
                                 <h3 class="card-title text-nowrap mb-1">Infaq</h3>
                                 <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                     @if (auth()->user()->mosque)
-                                        {{ number_format($infaq->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
+                                        {{ number_format($totalInfaq) }}
                                     @else
-                                        {{ number_format($infaq->where('status', 'Bayar')->sum('nominal')) }}
+                                        {{ number_format($totalInfaq) }}
                                     @endif
                                 </small>
                             </div>
@@ -122,9 +115,9 @@
                                 <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
                                 <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                     @if (auth()->user()->mosque)
-                                        {{ number_format($sedekah->where('id_mosque', auth()->user()->mosque->id)->where('status', 'Bayar')->sum('nominal')) }}
+                                        {{ number_format($totalSedekah) }}
                                     @else
-                                        {{ number_format($sedekah->where('status', 'Bayar')->sum('nominal')) }}
+                                        {{ number_format($totalSedekah) }}
                                     @endif
                                 </small>
                             </div>
@@ -134,21 +127,17 @@
             </div>
         @endif
     </div>
-    {{-- <div>
-        @foreach ($tglZakat as $tgl)
-            <p>{{ $tgl }}</p>
-        @endforeach
-    </div> --}}
+
     <div class="row">
         @if (auth()->user()->role->name === 'DKM')
-            <div class="col-lg-12 order-0">
+            <div class="col-lg-8 order-0 mb-4">
                 <div class="card">
                     <div class="card-header header-elements p-3 my-n1">
                         <h5 class="card-title mb-0 pl-0 pl-sm-2 p-2">Laporan Dana Zakat Infaq dan Sedekah</h5>
                         <div class="d-flex card-action-element align-items-center ms-auto py-0">
                             <div class="me-3">
                                 <select name="" id="" class="form-control">
-                                    <option value="">{{ auth()->user()->mosque->name_mosque }}</option>
+                                    <option value="">{{ $masjid->name_mosque }}</option>
                                 </select>
                             </div>
                             <div>
@@ -179,16 +168,131 @@
                 </div>
 
             </div>
-            {{-- <div class="col-lg-2">
-                <div class="card">
-                    <div class="card-header">S</div>
-                    <div class="card-body">
-                        <select name="" id="" class="form-control" style="margin-right: 10px;">
-                            <option value="">{{ auth()->user()->mosque->name_mosque }}</option>
-                        </select>
+
+            <div class="col-md-6 col-lg-4 order-2 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0 me-2">Pendistribusian Dana ZIS</h5>
+                        <div class="dropdown">
+                            <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="card-body">
+                        <ul class="p-0 m-0">
+
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="{{ asset('assets/img/unicons/wallet-info.png') }}" alt="User"
+                                        class="rounded" />
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Total Belum Disalurkan</small>
+                                        <h6 class="mb-0">Zakat</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0"> Rp.
+                                            {{ number_format($totalZakatBelumDisalurkan) }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="{{ asset('assets/img/unicons/wallet-info.png') }}" alt="User"
+                                        class="rounded" />
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Total Sudah Disalurkan (-)</small>
+                                        <h6 class="mb-0">Zakat</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0"> Rp.
+                                            {{ number_format($totalPengeluaranZakat) }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="{{ asset('assets/img/unicons/wallet.png') }}" alt="User"
+                                        class="rounded" />
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Total Belum Disalurkan</small>
+                                        <h6 class="mb-0">Infaq</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0"> Rp.
+                                            {{ number_format($totalInfaqBelumDisalurkan) }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="{{ asset('assets/img/unicons/wallet.png') }}" alt="User"
+                                        class="rounded" />
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Total Sudah Disalurkan (-)</small>
+                                        <h6 class="mb-0">Infaq</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0"> Rp.
+                                            {{ number_format($totalPengeluaranInfaq) }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="{{ asset('assets/img/unicons/cc-warning.png') }}" alt="User"
+                                        class="rounded" />
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Total Belum Disalurkan</small>
+                                        <h6 class="mb-0">Sedekah</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0"> Rp.
+                                            {{ number_format($totalSedekahBelumDisalurkan) }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="{{ asset('assets/img/unicons/cc-warning.png') }}" alt="User"
+                                        class="rounded" />
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Total Sudah Disalurkan (-)</small>
+                                        <h6 class="mb-0">Sedekah</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0"> Rp.
+                                            {{ number_format($totalPengeluaranSedekah) }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
-            </div> --}}
+            </div>
         @endif
     </div>
 
@@ -200,7 +304,17 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            var totalNominal = @json($totalNominal);
+            var totalNominal = [
+                {{ $totalZakat ?? 0 }},
+                {{ $totalInfaq ?? 0 }},
+                {{ $totalSedekah ?? 0 }},
+                {{ $totalZakatBelumDisalurkan ?? 0 }},
+                {{ $totalInfaqBelumDisalurkan ?? 0 }},
+                {{ $totalSedekahBelumDisalurkan ?? 0 }},
+                {{ $totalPengeluaranZakat ?? 0 }},
+                {{ $totalPengeluaranInfaq ?? 0 }},
+                {{ $totalPengeluaranSedekah ?? 0 }}
+            ];
 
             var options = {
                 series: [{
@@ -227,7 +341,10 @@
                     enabled: false
                 },
                 xaxis: {
-                    categories: ['Zakat', 'Infaq', 'Sedekah'],
+                    categories: ['Zakat', 'Infaq', 'Sedekah', 'Zakat Belum Disalurkan',
+                        'Infaq Belum Disalurkan', 'Sedekah Belum Disalurkan', 'Pengeluaran Zakat',
+                        'Pengeluaran Infaq', 'Pengeluaran Sedekah'
+                    ],
                     labels: {
                         style: {
                             fontSize: '13px'

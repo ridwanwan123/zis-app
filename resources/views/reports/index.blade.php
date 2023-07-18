@@ -105,21 +105,21 @@
                 <div class="horizontal-line mt-6 mb-6 me-lg-35 ms-lg-35 d-lg-none d-block"></div>
                 <div class="me-lg-35 ms-lg-35">
                     <p class="text-3xl text-lg-start text-center color-palette-1 fw-bold m-0">
-                        Rp. {{ number_format($totalAllZakat) }}</p>
+                        Rp. {{ number_format($totalZakat) }}</p>
                     <p class="text-lg text-lg-start text-center color-palette-2 m-0">Data Zakat yang terkumpul</p>
                 </div>
                 <div class="horizontal-line mt-6 mb-6 me-lg-35 ms-lg-35 d-lg-none d-block"></div>
                 <div class="vertical-line me-lg-35 ms-lg-35 d-lg-block d-none"></div>
                 <div class="me-lg-35 ms-lg-35">
                     <p class="text-3xl text-lg-start text-center color-palette-1 fw-bold m-0">Rp.
-                        {{ number_format($totalAllInfaq) }}</p>
+                        {{ number_format($totalInfaq) }}</p>
                     <p class="text-lg text-lg-start text-center color-palette-2 m-0">Data Infaq yang terkumpul</p>
                 </div>
                 <div class="horizontal-line mt-6 mb-6 me-lg-35 ms-lg-35 d-lg-none d-block"></div>
                 <div class="vertical-line me-lg-35 ms-lg-35 d-lg-block d-none"></div>
                 <div class="me-lg-35 ms-lg-35">
                     <p class="text-3xl text-lg-start text-center color-palette-1 fw-bold m-0">Rp.
-                        {{ number_format($totalAllSedekah) }}
+                        {{ number_format($totalSedekah) }}
                     </p>
                     <p class="text-lg text-lg-start text-center color-palette-2 m-0">Data Sedekah yang terkumpul</p>
                 </div>
@@ -166,7 +166,6 @@
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                     <div class="card-body">
@@ -277,13 +276,23 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var totalNominal = @json($totalNominal);
+        var totalNominal = [
+            {{ $totalZakat ?? 0 }},
+            {{ $totalInfaq ?? 0 }},
+            {{ $totalSedekah ?? 0 }},
+            {{ $totalZakatBelumDisalurkan ?? 0 }},
+            {{ $totalInfaqBelumDisalurkan ?? 0 }},
+            {{ $totalSedekahBelumDisalurkan ?? 0 }},
+            {{ $totalPengeluaranZakat ?? 0 }},
+            {{ $totalPengeluaranInfaq ?? 0 }},
+            {{ $totalPengeluaranSedekah ?? 0 }}
+        ];
 
         var options = {
             series: [{
                 name: 'Total Nominal',
                 data: totalNominal,
-                colors: ['#ffbb44'],
+                colors: ['#34a034'],
             }],
             chart: {
                 height: 400,
@@ -304,7 +313,10 @@
                 enabled: false
             },
             xaxis: {
-                categories: ['Zakat', 'Infaq', 'Sedekah'],
+                categories: ['Zakat', 'Infaq', 'Sedekah', 'Zakat Belum Disalurkan',
+                    'Infaq Belum Disalurkan', 'Sedekah Belum Disalurkan', 'Pengeluaran Zakat',
+                    'Pengeluaran Infaq', 'Pengeluaran Sedekah'
+                ],
                 labels: {
                     style: {
                         fontSize: '13px'
@@ -336,5 +348,6 @@
         chart.render();
     });
 </script>
+
 
 </html>
