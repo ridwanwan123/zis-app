@@ -22,7 +22,6 @@
                         <th>Jenis Dana</th>
                         <th>Tanggal Penyaluran</th>
                         <th>Jumlah Penyaluran</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +49,6 @@
                                 <td>Belum Disalurkan</td>
                                 <td>Belum Disalurkan</td>
                             @endif
-                            <td>Action</td>
                         </tr>
                     @endforeach
                 </tbody>
