@@ -33,6 +33,12 @@ class ZakatController extends Controller
             'phone' => 'required',
             'nominal' => 'required',
             'status' => 'required'
+        ], [
+            'id_mosque.required' => 'Pilih masjid terlebih dahulu.',
+            'jenis_zakat.required' => 'Jenis zakat harus diisi.',
+            'nama_donatur.required' => 'Nama donatur harus diisi.',
+            'phone.required' => 'Nomor telepon harus diisi.',
+            'nominal.required' => 'Nominal harus diisi.',
         ]);
 
         $data = $request->except('_token');

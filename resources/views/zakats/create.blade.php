@@ -22,19 +22,28 @@
                 <div class="col-lg-12">
                     <div class="col mb-3">
                         <label for="jenis_zakat" class="form-label">Jenis Zakat</label>
-                        <select name="jenis_zakat" class="form-select">
-                            <option value="" selected> </option>
-                            <option value="Fitrah"> Fitrah </option>
-                            <option value="Maal"> Maal </option>
+                        <select name="jenis_zakat" class="form-select" id="select-condition">
+                            <option value="" {{ old('jenis_zakat') === '' ? 'selected' : '' }}>Silahkan
+                                pilih jenis zakat</option>
+                            <option value="Fitrah" {{ old('jenis_zakat') === 'Fitrah' ? 'selected' : '' }}>
+                                Zakat Fitrah</option>
+                            <option value="Maal" {{ old('jenis_zakat') === 'Maal' ? 'selected' : '' }}>Zakat
+                                Ma'al</option>
                         </select>
+                        @error('jenis_zakat')
+                            <div style="color: red">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <!-- input -->
                 <div class="col-lg-12">
                     <div class="col mb-3">
                         <label for="nama_donatur" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama_donatur" value="{{ old('nama_donatur') }}"
+                        <input type="text" class="form-control" id="namaDonaturInput" value="{{ old('nama_donatur') }}"
                             name="nama_donatur" aria-describedby="nama_donatur" autocomplete="off">
+                        @error('nama_donatur')
+                            <div style="color: red">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -43,19 +52,26 @@
                     <div class="col mb-3">
                         <label for="phone" class="form-label">Nomor Telepon</label>
                         <input type="number" class="form-control" placeholder="Harap Menggunakan 62" id="phone"
-                            value="{{ old('phone') }}" name="phone" aria-describedby="phone">
+                            value="{{ old('phone') }}" autocomplete="off" name="phone" aria-describedby="phone">
+                        @error('phone')
+                            <div style="color: red">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
                 <!-- input -->
                 <div class="col-lg-12">
                     <label for="nominal" class="form-label">Jumlah Zakat</label>
+                    @error('nominal')
+                        <div style="color: red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="g-3 mb-3 col-lg-12 input-group input-group-merge">
                     <span class="input-group-text">$</span>
                     <input type="number" class="form-control" placeholder="40000"
                         aria-label="Amount (to the nearest ruppiah)" id="nominal" value="{{ old('nominal') }}"
                         name="nominal" aria-describedby="nominal" autocomplete="off">
+
                 </div>
 
                 <div class="col mb-3 ">

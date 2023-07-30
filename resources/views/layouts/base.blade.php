@@ -145,7 +145,7 @@
         function confirmDelete(id) {
             Swal.fire({
                 title: 'Apakah Anda yakin?',
-                text: 'Data Zakat ini akan dihapus!',
+                text: 'Data ini akan dihapus!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, hapus!',

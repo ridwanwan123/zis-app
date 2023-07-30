@@ -24,6 +24,9 @@
                         <label for="nama_donatur" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" id="nama_donatur" value="{{ old('nama_donatur') }}"
                             name="nama_donatur" aria-describedby="nama_donatur" autocomplete="off">
+                        @error('nama_donatur')
+                            <div style="color: red">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -33,12 +36,18 @@
                         <label for="phone" class="form-label">Nomor Telepon</label>
                         <input type="number" class="form-control" placeholder="Harap Menggunakan 62" id="phone"
                             value="{{ old('phone') }}" name="phone" aria-describedby="phone">
+                        @error('phone')
+                            <div style="color: red">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
                 <!-- input -->
                 <div class="col-lg-12">
                     <label for="nominal" class="form-label">Jumlah Sedekah</label>
+                    @error('nominal')
+                        <div style="color: red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="g-3 mb-3 col-lg-12 input-group input-group-merge">
                     <span class="input-group-text">$</span>
