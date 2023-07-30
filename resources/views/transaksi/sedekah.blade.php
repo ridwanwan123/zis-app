@@ -59,7 +59,7 @@
     <section id="header" class="header">
         <div class="container-fluid">
             <h2 class="text-4xl fw-bold color-palette-1 mt-30">
-                TUNAIKAN INFAK ANDA DENGAN AMAN DAN MUDAH
+                TUNAIKAN SEDEKAH ANDA DENGAN AMAN DAN MUDAH
             </h2>
             <p class="text-support text-lg col-md-8 color-palette-2">
                 Dengan mengisi formulir ini, donatur akan menerima Notifikasi Berhasil setelah melakukan pembayaran
