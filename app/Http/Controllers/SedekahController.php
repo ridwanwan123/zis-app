@@ -130,7 +130,7 @@ class SedekahController extends Controller
 
     public function generatePDF()
     {
-        $sedekah = Sedekah::all();
+        $sedekah = Sedekah::where('status', 'Bayar')->get();
         $data = [
             'title' => 'Laporan Sedekah',
             'date' => date('m/d/Y'),

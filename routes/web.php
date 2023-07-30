@@ -89,6 +89,8 @@ Route::group(['middleware' =>['auth.login']], function (){
 
     Route::delete('/zakats/{id}', [ZakatController::class, 'destroy'])->name('zakat.delete');
 
+    Route::get('/zakats/pdf', [ZakatController::class, 'generatePDF'])->name('zakat.generatePDF');
+
     //Route CRUD Infaqs
     Route::get('/infaqs', [InfaqController::class, 'index'])->name('infaq');
     
@@ -128,6 +130,7 @@ Route::group(['middleware' =>['auth.login']], function (){
 
     Route::get('/penyaluranDana', [PenyaluranDanaController::class, 'index'])->name('penyaluranDana');
     Route::get('/hasilPenyaluranDana', [PenyaluranDanaController::class, 'indexHasil'])->name('hasilPenyaluranDana');
+    Route::get('/hasilPenyaluranDana/PDF', [PenyaluranDanaController::class, 'generatePDF'])->name('penyaluranDana.generatePDF');
 
     Route::get('/penyaluranDana/{id}', [PenyaluranDanaController::class, 'create'])->name('penyaluranDana.create');
     Route::post('/penyaluranDana/store', [PenyaluranDanaController::class, 'store'])->name('penyaluranDana.store');

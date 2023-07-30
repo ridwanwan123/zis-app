@@ -9,7 +9,7 @@ use App\Models\Kriteria;
 use App\Models\SkorKriteria;
 use App\Models\Mustahik;
 use App\Models\Factory;
-
+use PDF;
 use App\Models\Infaq;
 use App\Models\Sedekah;
 use App\Models\Zakat;
@@ -154,6 +154,37 @@ class PenyaluranDanaController extends Controller
         $penyaluranDana->save();
 
         return redirect()->back()->with('success', 'Dana berhasil disalurkan.');
+    }
+
+
+    public function generatePDF()
+    {
+        // Ambil id_mosque dari user yang sedang login
+        $idMosque = auth()->user()->mosque->id;
+
+        // Ambil data mustahik berdasarkan id_mosque yang sesuai
+        $mustahik = Mustahik::where('id_mosque', $idMosque)->get();
+
+        // Ambil data skor_kriteria berdasarkan id_mosque yang sesuai
+        $skorKriteria = SkorKriteria::whereHas('mustahik', function ($query) use ($idMosque) {
+            $query->where('id_mosque', $idMosque);
+        })->orderByDesc('HA')->get();
+
+        // Ambil data penyaluranDana berdasarkan id_mosque yang sesuai
+        $penyaluranDana = PenyaluranDana::whereHas('mustahik', function ($query) use ($idMosque) {
+            $query->where('id_mosque', $idMosque);
+        })->get();
+
+        $data = [
+            'title' => 'Laporan Infaq',
+            'date' => date('m/d/Y'),
+            'mustahik' => $mustahik, // Ganti 'infaq' menjadi 'mustahik'
+            'skorKriteria' => $skorKriteria, // Tambahkan skorKriteria
+            'penyaluranDana' => $penyaluranDana, // Tambahkan penyaluranDana
+        ];
+
+        $pdf = PDF::loadView('penyaluranDana.generatePDF', $data);
+        return $pdf->download('laporanPenyaluranDana.pdf');
     }
 
 }

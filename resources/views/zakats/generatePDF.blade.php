@@ -24,7 +24,7 @@
 </style>
 
 <h3 style=”text-align:justify;” class="text-center">
-    Result Laporan Infaq
+    Result Laporan Zakat
 </h3><br>
 
 <div class="table-responsive">
@@ -32,9 +32,10 @@
         <thead>
             <tr>
                 <th>No</th>
+                <th>Jenis Zakat</th>
                 <th>Nama Donatur</th>
                 <th>Nomor Telepon</th>
-                <th>Jumlah Infaq</th>
+                <th>Jumlah Zakat</th>
                 <th>Masjid</th>
                 <th>Status</th>
             </tr>
@@ -43,11 +44,14 @@
             @php
                 $i = 1;
             @endphp
-            @foreach ($infaq as $item)
+            @foreach ($zakat as $item)
                 @if ($item->mosque->id == auth()->user()->mosque->id)
                     <tr>
                         <td>
                             <i class="fab fa-angular fa-lg "></i> {{ $i++ }}
+                        </td>
+                        <td>
+                            <i class="fab fa-angular fa-lg "></i>{{ $item->jenis_zakat }}
                         </td>
                         <td>
                             <i class="fab fa-angular fa-lg "></i>{{ $item->nama_donatur }}

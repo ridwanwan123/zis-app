@@ -127,7 +127,7 @@ class InfaqController extends Controller
 
     public function generatePDF()
     {
-        $infaq = Infaq::all();
+        $infaq = Infaq::where('status', 'Bayar')->get();
         $data = [
             'title' => 'Laporan Infaq',
             'date' => date('m/d/Y'),
