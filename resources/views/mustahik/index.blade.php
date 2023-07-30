@@ -24,18 +24,23 @@
                         <th>Jenis Kelamin</th>
                         <th>Nomor Telepon</th>
                         <th>Alamat</th>
+                        <th>Alamat</th>
                         <th><i class='bx bx-cog'></i></th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $no = 1;
+                    @endphp
                     @foreach ($mustahik as $item)
                         @if ($item->mosque->id == auth()->user()->mosque->id)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $no++ }}</td>
                                 <td>{{ $item->nama_mustahik }}</td>
                                 <td>{{ $item->jenis_kelamin }}</td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->address }}</td>
+                                <td>{{ $item->mosque->name_mosque }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
