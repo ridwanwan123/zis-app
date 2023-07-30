@@ -98,11 +98,18 @@
                             <div class="mb-4">
                                 <label for="jenis_zakat" class="form-label">Jenis Zakat</label>
                                 <select name="jenis_zakat" class="form-select" id="select-condition">
-                                    <option value="" selected>Silahkan pilih jenis zakat</option>
-                                    <option value="Fitrah">Zakat Fitrah</option>
-                                    <option value="Maal">Zakat Ma'al</option>
+                                    <option value="" {{ old('jenis_zakat') === '' ? 'selected' : '' }}>Silahkan
+                                        pilih jenis zakat</option>
+                                    <option value="Fitrah" {{ old('jenis_zakat') === 'Fitrah' ? 'selected' : '' }}>
+                                        Zakat Fitrah</option>
+                                    <option value="Maal" {{ old('jenis_zakat') === 'Maal' ? 'selected' : '' }}>Zakat
+                                        Ma'al</option>
                                 </select>
+                                @error('jenis_zakat')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="mb-4">
                                 <label for="namaDonaturInput" class="form-label">Nama Lengkap</label>
                                 <div class="form-check mb-3">
@@ -112,33 +119,49 @@
                                 <input type="text" class="form-control" id="namaDonaturInput"
                                     value="{{ old('nama_donatur') }}" name="nama_donatur"
                                     aria-describedby="nama_donatur" autocomplete="off">
+                                @error('nama_donatur')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-4">
                                 <label for="phone" class="form-label">Nomor Telepon</label>
                                 <input type="number" class="form-control" placeholder="Harap Menggunakan 62"
                                     id="phone" value="{{ old('phone') }}" autocomplete="off" name="phone"
                                     aria-describedby="phone">
+                                @error('phone')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="mb-5 ">
-                                <label for="id_mosque" class="form-label">Masjid</label> <i class="fa fa-info-circle"
-                                    id="my-icon"></i>
+                            <div class="mb-5">
+                                <label for="id_mosque" class="form-label">Masjid</label>
+                                <i class="fa fa-info-circle" id="my-icon"></i>
                                 <select name="id_mosque" class="form-select">
-                                    <option value="{{ old('id_mosque') }}" selected>Silahkan pilih daftar masjid
-                                    </option>
+                                    <option value="" {{ old('id_mosque') === '' ? 'selected' : '' }}>Silahkan
+                                        pilih daftar masjid</option>
                                     @foreach ($mosques as $mosque)
-                                        <option value="{{ $mosque->id }}"> {{ $mosque->name_mosque }} </option>
+                                        <option value="{{ $mosque->id }}"
+                                            {{ old('id_mosque') == $mosque->id ? 'selected' : '' }}>
+                                            {{ $mosque->name_mosque }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('id_mosque')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                                 <small id="my-tooltip" hidden>
                                     Data anda akan masuk ke data masjid yang anda pilih
                                 </small>
                             </div>
+
                             <hr>
 
                             <div class="col-lg-12 col-12 my-auto">
                                 <p class=" "></p>
                                 <h1 class="header-title color-palette-1 fw-bold">Nominal Donatur</h1>
                             </div>
+                            @error('nominal')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
 
                             <div class="mb-3" hidden>
                                 <label for="" class="form-label">Jenis Dana</label> <i
@@ -165,6 +188,7 @@
                                 <input type="number" class="form-control" name="nominal"
                                     value="{{ old('nominal') }}" placeholder="100"
                                     aria-label="Amount (to the nearest ruppiah)" autocomplete="off">
+
                             </div>
 
 

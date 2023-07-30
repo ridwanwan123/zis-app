@@ -104,6 +104,9 @@
                                 <input type="text" class="form-control" id="namaDonaturInput"
                                     value="{{ old('nama_donatur') }}" name="nama_donatur"
                                     aria-describedby="nama_donatur" autocomplete="off">
+                                @error('nama_donatur')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3 ">
@@ -111,17 +114,26 @@
                                 <input type="number" class="form-control" placeholder="Harap Menggunakan 62"
                                     id="phone" value="{{ old('phone') }}" autocomplete="off" name="phone"
                                     aria-describedby="phone">
+                                @error('phone')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="mb-5 ">
-                                <label for="id_mosque" class="form-label">Masjid</label> <i class="fa fa-info-circle"
-                                    id="my-icon"></i>
+                            <div class="mb-5">
+                                <label for="id_mosque" class="form-label">Masjid</label>
+                                <i class="fa fa-info-circle" id="my-icon"></i>
                                 <select name="id_mosque" class="form-select">
-                                    <option value="{{ old('id_mosque') }}" selected>Silahkan pilih daftar masjid
-                                    </option>
+                                    <option value="" {{ old('id_mosque') === '' ? 'selected' : '' }}>Silahkan
+                                        pilih daftar masjid</option>
                                     @foreach ($mosques as $mosque)
-                                        <option value="{{ $mosque->id }}"> {{ $mosque->name_mosque }} </option>
+                                        <option value="{{ $mosque->id }}"
+                                            {{ old('id_mosque') == $mosque->id ? 'selected' : '' }}>
+                                            {{ $mosque->name_mosque }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('id_mosque')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                                 <small id="my-tooltip" hidden>
                                     Data anda akan masuk ke data masjid yang anda pilih
                                 </small>
@@ -131,6 +143,9 @@
                             <div class="col-lg-12 col-12 my-auto">
                                 <p class=" "></p>
                                 <h1 class="header-title color-palette-1 fw-bold">Nominal Donatur</h1>
+                                @error('nominal')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3" hidden>
