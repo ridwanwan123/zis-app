@@ -37,7 +37,7 @@
 
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Data Mustahik</h5>
+                    <h5 class="mb-0">Data Mustahik Masjid <i>{{ $mustahik->mosque->name_mosque }}</i></h5>
                     <small class="text-muted float-end">ZIS</small>
                 </div>
 
@@ -67,6 +67,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 

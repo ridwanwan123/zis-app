@@ -22,18 +22,6 @@ return new class extends Migration
             $table->integer('jumlah_penyaluran');
             $table->timestamps();
         });
-        // Schema::create('penyaluran_danas', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->foreignId('id_mosque')->constrained('mosques');
-        //     $table->foreignId('id_mustahik')->constrained('mustahiks');
-        //     $table->foreignId('id_zakat')->constrained('zakats');
-        //     $table->foreignId('id_infaq')->constrained('infaqs');
-        //     $table->foreignId('id_sedekah')->constrained('sedekahs');
-        //     $table->date('tanggal_penyaluran');
-        //     $table->integer('jumlah_penyaluran');
-        //     $table->timestamps();
-        // });
-
     }
 
     /**

@@ -65,7 +65,6 @@
                             <option value="{{ $mosque->id }}">{{ $mosque->name_mosque }}</option>
                         </select>
                     @endif
-
                 </div>
 
                 <!-- input -->

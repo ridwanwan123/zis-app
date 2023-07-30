@@ -23,6 +23,7 @@ class MustahikController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'id_mosque' => 'required',
             'nama_mustahik' => 'required',
             'jenis_kelamin' => 'required',
             'phone' => 'required',

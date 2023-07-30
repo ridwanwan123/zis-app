@@ -22,19 +22,38 @@ class PenyaluranDanaController extends Controller
     public function index()
     {
         $mustahik = Mustahik::all();
-        $skorKriteria = SkorKriteria::orderByDesc('HA')->get();
+        // Ambil id_mosque dari user yang sedang login
+        $idMosque = auth()->user()->mosque->id;
+        
+        // Ambil data skor_kriteria berdasarkan id_mosque yang sesuai
+        $skorKriteria = SkorKriteria::whereHas('mustahik', function ($query) use ($idMosque) {
+            $query->where('id_mosque', $idMosque);
+        })->orderByDesc('HA')->get();
 
         return view('penyaluranDana.index', compact('mustahik', 'skorKriteria'));
     }
 
     public function indexHasil()
     {
-        $mustahik = Mustahik::all();
-        $penyaluranDana = PenyaluranDana::all();
-        $skorKriteria = SkorKriteria::orderByDesc('HA')->get();
+        // Ambil id_mosque dari user yang sedang login
+        $idMosque = auth()->user()->mosque->id;
+
+        // Ambil data mustahik berdasarkan id_mosque yang sesuai
+        $mustahik = Mustahik::where('id_mosque', $idMosque)->get();
+
+        // Ambil data skor_kriteria berdasarkan id_mosque yang sesuai
+        $skorKriteria = SkorKriteria::whereHas('mustahik', function ($query) use ($idMosque) {
+            $query->where('id_mosque', $idMosque);
+        })->orderByDesc('HA')->get();
+
+        // Ambil data penyaluranDana berdasarkan id_mosque yang sesuai
+        $penyaluranDana = PenyaluranDana::whereHas('mustahik', function ($query) use ($idMosque) {
+            $query->where('id_mosque', $idMosque);
+        })->get();
 
         return view('penyaluranDana.indexHasilPenyaluran', compact('mustahik', 'skorKriteria', 'penyaluranDana'));
     }
+
 
     public function create($id_mustahik){
         //Menampilkan data dana zis belum disalurkan

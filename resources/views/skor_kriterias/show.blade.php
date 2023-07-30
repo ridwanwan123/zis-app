@@ -18,6 +18,14 @@
 
                 <div class="card-body">
                     <div class="mb-3 row">
+                        <label for="" class="col-md-4 col-form-label">Nama Masjid</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" value="{{ $mustahik->mosque->name_mosque }}" readonly
+                                style="cursor: default">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
                         <label for="" class="col-md-4 col-form-label">Nama Mustahik</label>
                         <div class="col-md-8">
                             <input class="form-control" type="text" value="{{ $mustahik->nama_mustahik }}" readonly

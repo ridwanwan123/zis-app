@@ -29,25 +29,27 @@
                 </thead>
                 <tbody>
                     @foreach ($mustahik as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->nama_mustahik }}</td>
-                            <td>{{ $item->jenis_kelamin }}</td>
-                            <td>{{ $item->phone }}</td>
-                            <td>{{ $item->address }}</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('skor_kriteria.show', $item->id) }}"
-                                            style="color:#435971"><i class="bx bx-detail me-1"></i> Show</a>
+                        @if ($item->mosque->id == auth()->user()->mosque->id)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->nama_mustahik }}</td>
+                                <td>{{ $item->jenis_kelamin }}</td>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->address }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ route('skor_kriteria.show', $item->id) }}"
+                                                style="color:#435971"><i class="bx bx-detail me-1"></i> Show</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

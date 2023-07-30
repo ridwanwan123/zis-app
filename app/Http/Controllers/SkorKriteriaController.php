@@ -11,11 +11,20 @@ use App\Models\Factory;
 class SkorKriteriaController extends Controller
 {   
     public function indexAll(){
+        // Ambil semua data mustahik
         $mustahik = Mustahik::all();
-        $skorKriteria = SkorKriteria::orderByDesc('HA')->get();
 
-        return view('skor_kriterias.indexSPK', compact('mustahik','skorKriteria'));
+        // Ambil id_mosque dari user yang sedang login
+        $idMosque = auth()->user()->mosque->id;
+
+        // Ambil data skor_kriteria berdasarkan id_mosque yang sesuai
+        $skorKriteria = SkorKriteria::whereHas('mustahik', function ($query) use ($idMosque) {
+            $query->where('id_mosque', $idMosque);
+        })->orderByDesc('HA')->get();
+
+        return view('skor_kriterias.indexSPK', compact('mustahik', 'skorKriteria'));
     }
+
 
     public function show($id_mustahik)
     {

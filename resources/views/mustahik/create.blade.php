@@ -19,6 +19,14 @@
             <form enctype="multipart/form-data" method="POST" action="{{ route('mustahik.store') }}">
                 @csrf
                 <!-- input -->
+                <div class="col mb-3" hidden>
+                    @if (auth()->user()->id_mosque && ($mosque = \App\Models\Mosque::find(auth()->user()->id_mosque)))
+                        <label for="mosque" class="form-label">Masjid</label>
+                        <select name="id_mosque" id="mosque" class="form-control">
+                            <option value="{{ $mosque->id }}">{{ $mosque->name_mosque }}</option>
+                        </select>
+                    @endif
+                </div>
                 <div class="col-lg-12">
                     <div class="col mb-3">
                         <label for="nama_mustahik" class="form-label">Nama Mustahik</label>
