@@ -12,9 +12,48 @@
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data Sistem Pendukung Keputusan /</span> Penyaluran Dana
     </h4>
 
-    <!-- Striped Rows -->
-    <div class="card">
-        <h5 class="card-header">Penyaluran Dana</h5>
+    <!-- TABLE ZAKAT -->
+    <div class="card mb-5">
+        <h5 class="card-header">Penyaluran Dana (Zakat)</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped mb-4">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th>#</th>
+                        <th>Nama Mustahik</th>
+                        <th>Hasil Akhir</th>
+                        <th>Jenis Dana</th>
+                        <th>Tanggal Penyaluran</th>
+                        <th>Jumlah Penyaluran</th>
+                        <th>Masjid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($zakatDana as $penyaluran)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $penyaluran->nama_mustahik }}</td>
+                            <td>{{ $penyaluran->HA }}</td>
+                            <td>{{ $penyaluran->jenis_dana }}</td>
+                            <td>{{ $penyaluran->tanggal_penyaluran }}</td>
+                            <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                            <td>{{ $penyaluran->name_mosque }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" style="text-align: center;">Data penyaluran kosong</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-5">
+        <h5 class="card-header">
+            <span class="combined-header">Penyaluran Infaq</span>
+            <small class="text-muted float-end">ZIS</small>
+        </h5>
 
         <div class="table-responsive text-nowrap">
             <table class="table table-striped mb-4">
@@ -30,39 +69,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($mustahik as $item)
+                    @forelse ($infaqDana as $penyaluran)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->nama_mustahik }}</td>
-                            @php
-                                $skor = $skorKriteria->where('id_mustahik', $item->id)->first();
-                            @endphp
-                            @if ($skor)
-                                <td>{{ $skor->HA }}</td>
-                            @else
-                                <td>Kosong</td>
-                            @endif
-                            @php
-                                $penyaluran = $penyaluranDana->where('id_mustahik', $item->id)->first();
-                            @endphp
-                            @if ($penyaluran)
-                                <td>{{ $penyaluran->jenis_dana }}</td>
-                                <td>{{ $penyaluran->tanggal_penyaluran }}</td>
-                                <td>{{ number_format($penyaluran->jumlah_penyaluran) }}</td>
-                                <td>{{ $item->mosque->name_mosque }}</td>
-                            @else
-                                <td>Belum Disalurkan</td>
-                                <td>Belum Disalurkan</td>
-                                <td>Belum Disalurkan</td>
-                                <td>{{ $item->mosque->name_mosque }}</td>
-                            @endif
+                            <td>{{ $penyaluran->nama_mustahik }}</td>
+                            <td>{{ $penyaluran->HA }}</td>
+                            <td>{{ $penyaluran->jenis_dana }}</td>
+                            <td>{{ $penyaluran->tanggal_penyaluran }}</td>
+                            <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                            <td>{{ $penyaluran->name_mosque }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="7" style="text-align: center;">Data penyaluran kosong</td>
+                        </tr>
+                    @endforelse
                 </tbody>
-
             </table>
         </div>
     </div>
 
 
+    {{-- TABLE SEDEKAH  --}}
+    <div class="card mb-5">
+        <h5 class="card-header">Penyaluran Dana (Sedekah)</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped mb-4">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th>#</th>
+                        <th>Nama Mustahik</th>
+                        <th>Hasil Akhir</th>
+                        <th>Jenis Dana</th>
+                        <th>Tanggal Penyaluran</th>
+                        <th>Jumlah Penyaluran</th>
+                        <th>Masjid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($sedekahDana as $penyaluran)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $penyaluran->nama_mustahik }}</td>
+                            <td>{{ $penyaluran->HA }}</td>
+                            <td>{{ $penyaluran->jenis_dana }}</td>
+                            <td>{{ $penyaluran->tanggal_penyaluran }}</td>
+                            <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                            <td>{{ $penyaluran->name_mosque }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" style="text-align: center;">Data penyaluran kosong</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection

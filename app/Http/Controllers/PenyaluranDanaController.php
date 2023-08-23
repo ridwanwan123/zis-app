@@ -15,6 +15,7 @@ use App\Models\Sedekah;
 use App\Models\Zakat;
 use App\Models\Mosque;
 use App\Models\PenyaluranDana;
+use Illuminate\Support\Facades\DB;
 
 class PenyaluranDanaController extends Controller
 {
@@ -22,10 +23,7 @@ class PenyaluranDanaController extends Controller
     public function index()
     {
         $mustahik = Mustahik::all();
-        // Ambil id_mosque dari user yang sedang login
         $idMosque = auth()->user()->mosque->id;
-        
-        // Ambil data skor_kriteria berdasarkan id_mosque yang sesuai
         $skorKriteria = SkorKriteria::whereHas('mustahik', function ($query) use ($idMosque) {
             $query->where('id_mosque', $idMosque);
         })->orderByDesc('HA')->get();
@@ -34,25 +32,39 @@ class PenyaluranDanaController extends Controller
     }
 
     public function indexHasil()
-    {
-        // Ambil id_mosque dari user yang sedang login
+    {   
         $idMosque = auth()->user()->mosque->id;
 
-        // Ambil data mustahik berdasarkan id_mosque yang sesuai
-        $mustahik = Mustahik::where('id_mosque', $idMosque)->get();
+        $zakatDana = DB::table('penyaluran_danas')
+            ->join('mustahiks', 'penyaluran_danas.id_mustahik', '=', 'mustahiks.id')
+            ->join('skor_kriterias', 'penyaluran_danas.id_mustahik', '=', 'skor_kriterias.id_mustahik')
+            ->join('mosques', 'penyaluran_danas.id_mosque', '=', 'mosques.id')
+            ->select('mustahiks.nama_mustahik', 'skor_kriterias.HA', 'penyaluran_danas.jumlah_penyaluran', 'penyaluran_danas.tanggal_penyaluran', 'mosques.name_mosque', 'penyaluran_danas.jenis_dana')
+            ->where('penyaluran_danas.jenis_dana', 'zakat')
+            ->where('penyaluran_danas.id_mosque', $idMosque)
+            ->get();
 
-        // Ambil data skor_kriteria berdasarkan id_mosque yang sesuai
-        $skorKriteria = SkorKriteria::whereHas('mustahik', function ($query) use ($idMosque) {
-            $query->where('id_mosque', $idMosque);
-        })->orderByDesc('HA')->get();
+        $infaqDana = DB::table('penyaluran_danas')
+            ->join('mustahiks', 'penyaluran_danas.id_mustahik', '=', 'mustahiks.id')
+            ->join('skor_kriterias', 'penyaluran_danas.id_mustahik', '=', 'skor_kriterias.id_mustahik')
+            ->join('mosques', 'penyaluran_danas.id_mosque', '=', 'mosques.id')
+            ->select('mustahiks.nama_mustahik', 'skor_kriterias.HA', 'penyaluran_danas.jumlah_penyaluran', 'penyaluran_danas.tanggal_penyaluran', 'mosques.name_mosque', 'penyaluran_danas.jenis_dana')
+            ->where('penyaluran_danas.jenis_dana', 'infaq')
+            ->where('penyaluran_danas.id_mosque', $idMosque)
+            ->get();
 
-        // Ambil data penyaluranDana berdasarkan id_mosque yang sesuai
-        $penyaluranDana = PenyaluranDana::whereHas('mustahik', function ($query) use ($idMosque) {
-            $query->where('id_mosque', $idMosque);
-        })->get();
+        $sedekahDana = DB::table('penyaluran_danas')
+            ->join('mustahiks', 'penyaluran_danas.id_mustahik', '=', 'mustahiks.id')
+            ->join('skor_kriterias', 'penyaluran_danas.id_mustahik', '=', 'skor_kriterias.id_mustahik')
+            ->join('mosques', 'penyaluran_danas.id_mosque', '=', 'mosques.id')
+            ->select('mustahiks.nama_mustahik', 'skor_kriterias.HA', 'penyaluran_danas.jumlah_penyaluran', 'penyaluran_danas.tanggal_penyaluran', 'mosques.name_mosque', 'penyaluran_danas.jenis_dana')
+            ->where('penyaluran_danas.jenis_dana', 'sedekah')
+            ->where('penyaluran_danas.id_mosque', $idMosque)
+            ->get();
 
-        return view('penyaluranDana.indexHasilPenyaluran', compact('mustahik', 'skorKriteria', 'penyaluranDana'));
+        return view('penyaluranDana.indexHasilPenyaluran', compact('zakatDana', 'infaqDana', 'sedekahDana'));
     }
+
 
 
     public function create($id_mustahik){
@@ -98,13 +110,13 @@ class PenyaluranDanaController extends Controller
 
         // VERSI JENIS DANA 
         // Cek apakah mustahik sudah pernah menerima penyaluran dana untuk jenis dana yang sama
-            $existingPenyaluran = PenyaluranDana::where('id_mustahik', $id_mustahik)
-                ->where('jenis_dana', $jenis_dana)
-                ->first();
+            // $existingPenyaluran = PenyaluranDana::where('id_mustahik', $id_mustahik)
+            //     ->where('jenis_dana', $jenis_dana)
+            //     ->first();
 
-            if ($existingPenyaluran) {
-                return redirect()->back()->with('error', 'Mustahik sudah pernah menerima penyaluran dana ' . $jenis_dana . ' sebelumnya.');
-            }
+            // if ($existingPenyaluran) {
+            //     return redirect()->back()->with('error', 'Mustahik sudah pernah menerima penyaluran dana ' . $jenis_dana . ' sebelumnya.');
+            // }
         
         // Ambil entitas Mosque
         $mosque = Mosque::find(Auth::user()->id_mosque);
@@ -159,31 +171,55 @@ class PenyaluranDanaController extends Controller
 
     public function generatePDF()
     {
-        // Ambil id_mosque dari user yang sedang login
         $idMosque = auth()->user()->mosque->id;
 
-        // Ambil data mustahik berdasarkan id_mosque yang sesuai
-        $mustahik = Mustahik::where('id_mosque', $idMosque)->get();
+        $zakatDana = DB::table('penyaluran_danas')
+            ->join('mustahiks', 'penyaluran_danas.id_mustahik', '=', 'mustahiks.id')
+            ->join('skor_kriterias', 'penyaluran_danas.id_mustahik', '=', 'skor_kriterias.id_mustahik')
+            ->join('mosques', 'penyaluran_danas.id_mosque', '=', 'mosques.id')
+            ->select('mustahiks.nama_mustahik', 'skor_kriterias.HA', 'penyaluran_danas.jumlah_penyaluran', 'penyaluran_danas.tanggal_penyaluran', 'mosques.name_mosque', 'penyaluran_danas.jenis_dana')
+            ->where('penyaluran_danas.jenis_dana', 'zakat')
+            ->where('penyaluran_danas.id_mosque', $idMosque)
+            ->get();
 
-        // Ambil data skor_kriteria berdasarkan id_mosque yang sesuai
-        $skorKriteria = SkorKriteria::whereHas('mustahik', function ($query) use ($idMosque) {
-            $query->where('id_mosque', $idMosque);
-        })->orderByDesc('HA')->get();
+            
+        $infaqDana = DB::table('penyaluran_danas')
+            ->join('mustahiks', 'penyaluran_danas.id_mustahik', '=', 'mustahiks.id')
+            ->join('skor_kriterias', 'penyaluran_danas.id_mustahik', '=', 'skor_kriterias.id_mustahik')
+            ->join('mosques', 'penyaluran_danas.id_mosque', '=', 'mosques.id')
+            ->select('mustahiks.nama_mustahik', 'skor_kriterias.HA', 'penyaluran_danas.jumlah_penyaluran', 'penyaluran_danas.tanggal_penyaluran', 'mosques.name_mosque', 'penyaluran_danas.jenis_dana')
+            ->where('penyaluran_danas.jenis_dana', 'infaq')
+            ->where('penyaluran_danas.id_mosque', $idMosque)
+            ->get();
 
-        // Ambil data penyaluranDana berdasarkan id_mosque yang sesuai
-        $penyaluranDana = PenyaluranDana::whereHas('mustahik', function ($query) use ($idMosque) {
-            $query->where('id_mosque', $idMosque);
-        })->get();
+        $sedekahDana = DB::table('penyaluran_danas')
+            ->join('mustahiks', 'penyaluran_danas.id_mustahik', '=', 'mustahiks.id')
+            ->join('skor_kriterias', 'penyaluran_danas.id_mustahik', '=', 'skor_kriterias.id_mustahik')
+            ->join('mosques', 'penyaluran_danas.id_mosque', '=', 'mosques.id')
+            ->select('mustahiks.nama_mustahik', 'skor_kriterias.HA', 'penyaluran_danas.jumlah_penyaluran', 'penyaluran_danas.tanggal_penyaluran', 'mosques.name_mosque', 'penyaluran_danas.jenis_dana')
+            ->where('penyaluran_danas.jenis_dana', 'sedekah')
+            ->where('penyaluran_danas.id_mosque', $idMosque)
+            ->get();
+
+        
+            // Load the content views
+        $zakatView = view('penyaluranDana.generatePDF', ['penyaluranDana' => $zakatDana, 'jenisDana' => 'Penyaluran Dana Zakat'])->render();
+        $infaqView = view('penyaluranDana.generatePDF', ['penyaluranDana' => $infaqDana, 'jenisDana' => 'Penyaluran Dana Infaq'])->render();
+        $sedekahView = view('penyaluranDana.generatePDF', ['penyaluranDana' => $sedekahDana, 'jenisDana' => 'Penyaluran Dana Sedekah'])->render();
+
+        // Combine the views with appropriate headers and footers
+        $content = $zakatView . '<pagebreak />' . $infaqView . '<pagebreak />' . $sedekahView;
+        $nameMosque = auth()->user()->mosque->name_mosque;
 
         $data = [
-            'title' => 'Laporan Infaq',
+            'title' => 'Laporan Penyaluran Dana',
             'date' => date('m/d/Y'),
-            'mustahik' => $mustahik, // Ganti 'infaq' menjadi 'mustahik'
-            'skorKriteria' => $skorKriteria, // Tambahkan skorKriteria
-            'penyaluranDana' => $penyaluranDana, // Tambahkan penyaluranDana
+            'content' => $content,
+            'nameMosque' => $nameMosque,
         ];
 
-        $pdf = PDF::loadView('penyaluranDana.generatePDF', $data);
+        $pdf = PDF::loadView('penyaluranDana.laporanPenyaluranDanaPDF', $data);
+
         return $pdf->download('laporanPenyaluranDana.pdf');
     }
 

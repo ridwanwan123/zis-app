@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-6 mb-4 order-0">
+        <div class="col-lg-8 mb-4 order-0">
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
@@ -30,8 +30,14 @@
                 </div>
             </div>
         </div>
+
+    </div>
+
+
+    <div class="row">
         @if (auth()->user()->role->name === 'DKM')
-            <div class="col-lg-6 col-md-3 order-1">
+            <div class="col-lg-6 col-md-3 order-0">
+                {{-- Zakat  --}}
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-6 mb-4">
                         <div class="card">
@@ -77,7 +83,72 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                            <a class="dropdown-item" href="{{ route('infaq') }}">View More</a>
+                                            <a class="dropdown-item" href="{{ route('zakat') }}">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>Total Pengeluaran</span>
+                                <h3 class="card-title text-nowrap mb-1">Zakat</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($totalPengeluaranZakat) }}
+                                    @else
+                                        {{ number_format($totalPengeluaranZakat) }}
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/cc-warning.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="{{ route('zakat') }}">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>Dana yang tersisa</span>
+                                <h3 class="card-title text-nowrap mb-1">Zakat</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($totalZakatBelumDisalurkan) }}
+                                    @else
+                                        {{ number_format($totalZakatBelumDisalurkan) }}
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                {{-- Infaq  --}}
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/wallet-info.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="">View More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -88,6 +159,131 @@
                                         {{ number_format($totalInfaq) }}
                                     @else
                                         {{ number_format($totalInfaq) }}
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/wallet.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="{{ route('infaq') }}">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>Total Pengeluaran</span>
+                                <h3 class="card-title text-nowrap mb-1">Infaq</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($totalPengeluaranInfaq) }}
+                                    @else
+                                        {{ number_format($totalPengeluaranInfaq) }}
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/cc-warning.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="{{ route('infaq') }}">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>Dana yang tersisa</span>
+                                <h3 class="card-title text-nowrap mb-1">Infaq</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($totalInfaqBelumDisalurkan) }}
+                                    @else
+                                        {{ number_format($totalInfaqBelumDisalurkan) }}
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                {{-- Sedekah --}}
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/wallet-info.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>Total Pemasukan</span>
+                                <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($totalSedekah) }}
+                                    @else
+                                        {{ number_format($totalSedekah) }}
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/unicons/wallet.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                            <a class="dropdown-item" href="{{ route('sedekah') }}">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>Total Pengeluaran</span>
+                                <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
+                                    @if (auth()->user()->mosque)
+                                        {{ number_format($totalPengeluaranSedekah) }}
+                                    @else
+                                        {{ number_format($totalPengeluaranSedekah) }}
                                     @endif
                                 </small>
                             </div>
@@ -111,13 +307,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span>Total Pemasukan</span>
+                                <span>Dana yang tersisa</span>
                                 <h3 class="card-title text-nowrap mb-1">Sedekah</h3>
                                 <small class="text-success fw-semibold"><i class="bx bx-money mb-1"></i> Rp.
                                     @if (auth()->user()->mosque)
-                                        {{ number_format($totalSedekah) }}
+                                        {{ number_format($totalSedekahBelumDisalurkan) }}
                                     @else
-                                        {{ number_format($totalSedekah) }}
+                                        {{ number_format($totalSedekahBelumDisalurkan) }}
                                     @endif
                                 </small>
                             </div>
@@ -125,50 +321,120 @@
                     </div>
                 </div>
             </div>
-        @endif
-    </div>
 
-    <div class="row">
-        @if (auth()->user()->role->name === 'DKM')
-            <div class="col-lg-8 order-0 mb-4">
-                <div class="card">
-                    <div class="card-header header-elements p-3 my-n1">
-                        <h5 class="card-title mb-0 pl-0 pl-sm-2 p-2">Laporan Dana Zakat Infaq dan Sedekah</h5>
-                        <div class="d-flex card-action-element align-items-center ms-auto py-0">
-                            <div class="me-3">
-                                <select name="" id="" class="form-control">
-                                    <option value="">{{ $masjid->name_mosque }}</option>
-                                </select>
-                            </div>
-                            <div>
-                                <form id="formSearch" action="{{ route('dashboard') }}" method="GET">
-                                    <select name="searchMonth" id="searchMonth" class="form-control"
-                                        onchange="setMonth(this.value)">
-                                        <option value="">Pilih Bulan</option>
-                                        <option value="01">Januari</option>
-                                        <option value="02">Februari</option>
-                                        <option value="03">Maret</option>
-                                        <option value="04">April</option>
-                                        <option value="05">Mei</option>
-                                        <option value="06">Juni</option>
-                                        <option value="07">Juli</option>
-                                        <option value="08">Agustus</option>
-                                        <option value="09">September</option>
-                                        <option value="10">Oktober</option>
-                                        <option value="11">November</option>
-                                        <option value="12">Desember</option>
-                                    </select>
-                                </form>
+            <div class="col-lg-6 col-md-3 order-1">
+                <div class="card h-75">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0 me-2">Mustahik penerima dana ZIS</h5>
+                        <div class="dropdown">
+                            <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                                <a class="dropdown-item" href="{{ route('hasilPenyaluranDana') }}">View More</a>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div id="barChart" style="height: 400px;"></div>
+                    <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-striped mb-4">
+                            <thead>
+                                <tr class="text-nowrap">
+                                    <th>Nama Mustahik</th>
+                                    <th>Jenis Dana</th>
+                                    <th>Jumlah Penyaluran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($zakatDana as $penyaluran)
+                                    <tr>
+                                        <td>{{ $penyaluran->nama_mustahik }}</td>
+                                        <td>{{ $penyaluran->jenis_dana }}</td>
+                                        <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                                    </tr>
+                                @endforeach
+                                @foreach ($infaqDana as $penyaluran)
+                                    <tr>
+                                        <td>{{ $penyaluran->nama_mustahik }}</td>
+                                        <td>{{ $penyaluran->jenis_dana }}</td>
+                                        <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                                    </tr>
+                                @endforeach
+                                @foreach ($sedekahDana as $penyaluran)
+                                    <tr>
+                                        <td>{{ $penyaluran->nama_mustahik }}</td>
+                                        <td>{{ $penyaluran->jenis_dana }}</td>
+                                        <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+
+
+    {{-- <div class="row">
+        @if (auth()->user()->role->name === 'DKM')
+            <div class="col-lg-8 order-0 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0 me-2">Mustahik penerima dana ZIS</h5>
+                        <div class="dropdown">
+                            <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                                <a class="dropdown-item" href="{{ route('hasilPenyaluranDana') }}">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-striped mb-4">
+                            <thead>
+                                <tr class="text-nowrap">
+                                    <th>Nama Mustahik</th>
+                                    <th>Jenis Dana</th>
+                                    <th>Jumlah Penyaluran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($zakatDana as $penyaluran)
+                                    <tr>
+                                        <td>{{ $penyaluran->nama_mustahik }}</td>
+                                        <td>{{ $penyaluran->jenis_dana }}</td>
+                                        <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                                    </tr>
+                                @endforeach
+                                @foreach ($infaqDana as $penyaluran)
+                                    <tr>
+                                        <td>{{ $penyaluran->nama_mustahik }}</td>
+                                        <td>{{ $penyaluran->jenis_dana }}</td>
+                                        <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                                    </tr>
+                                @endforeach
+                                @foreach ($sedekahDana as $penyaluran)
+                                    <tr>
+                                        <td>{{ $penyaluran->nama_mustahik }}</td>
+                                        <td>{{ $penyaluran->jenis_dana }}</td>
+                                        <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
+
             </div>
 
+            Pendistribusian
             <div class="col-md-6 col-lg-4 order-2 mb-4">
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -293,8 +559,10 @@
 
                 </div>
             </div>
+
+
         @endif
-    </div>
+    </div> --}}
 
 
     <script>
@@ -305,15 +573,10 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             var totalNominal = [
-                {{ $totalZakat ?? 0 }},
-                {{ $totalInfaq ?? 0 }},
-                {{ $totalSedekah ?? 0 }},
-                {{ $totalZakatBelumDisalurkan ?? 0 }},
-                {{ $totalInfaqBelumDisalurkan ?? 0 }},
-                {{ $totalSedekahBelumDisalurkan ?? 0 }},
-                {{ $totalPengeluaranZakat ?? 0 }},
-                {{ $totalPengeluaranInfaq ?? 0 }},
-                {{ $totalPengeluaranSedekah ?? 0 }}
+                {{ $totalZakat ?? 0 }}, {{ $totalInfaq ?? 0 }}, {{ $totalSedekah ?? 0 }},
+                {{ $totalZakatBelumDisalurkan ?? 0 }}, {{ $totalInfaqBelumDisalurkan ?? 0 }},
+                {{ $totalSedekahBelumDisalurkan ?? 0 }}, {{ $totalPengeluaranZakat ?? 0 }},
+                {{ $totalPengeluaranInfaq ?? 0 }}, {{ $totalPengeluaranSedekah ?? 0 }}
             ];
 
             var options = {

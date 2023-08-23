@@ -33,13 +33,14 @@
 </head>
 
 <body>
-    <h3 style=”text-align:justify;” class="text-center">
-        Result Laporan Penyaluran Dana
-    </h3><br>
+
 
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
+                <tr>
+                    <th colspan="7">{{ $jenisDana }}</th>
+                </tr>
                 <tr>
                     <th>No</th>
                     <th>Nama Mustahik</th>
@@ -51,39 +52,24 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $i = 1;
-                @endphp
-                @foreach ($mustahik as $item)
+                @forelse ($penyaluranDana as $penyaluran)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->nama_mustahik }}</td>
-                        @php
-                            $skor = $skorKriteria->where('id_mustahik', $item->id)->first();
-                        @endphp
-                        @if ($skor)
-                            <td>{{ $skor->HA }}</td>
-                        @else
-                            <td>Kosong</td>
-                        @endif
-                        @php
-                            $penyaluran = $penyaluranDana->where('id_mustahik', $item->id)->first();
-                        @endphp
-                        @if ($penyaluran)
-                            <td>{{ $penyaluran->jenis_dana }}</td>
-                            <td>{{ $penyaluran->tanggal_penyaluran }}</td>
-                            <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
-                            <td>{{ $item->mosque->name_mosque }}</td>
-                        @else
-                            <td>Belum Disalurkan</td>
-                            <td>Belum Disalurkan</td>
-                            <td>Belum Disalurkan</td>
-                            <td>{{ $item->mosque->name_mosque }}</td>
-                        @endif
+                        <td style="text-align: center">{{ $loop->iteration }}</td>
+                        <td>{{ $penyaluran->nama_mustahik }}</td>
+                        <td>{{ $penyaluran->HA }}</td>
+                        <td>{{ $penyaluran->jenis_dana }}</td>
+                        <td>{{ $penyaluran->tanggal_penyaluran }}</td>
+                        <td>Rp. {{ number_format($penyaluran->jumlah_penyaluran) }}</td>
+                        <td>{{ $penyaluran->name_mosque }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" style="text-align: center;">Data penyaluran kosong</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
+        <pagebreak>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

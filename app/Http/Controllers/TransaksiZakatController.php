@@ -22,18 +22,17 @@ class TransaksiZakatController extends Controller
     {
         $validateData = $request->validate([
             'id_mosque' => 'required',
-            'jenis_zakat' => 'required',
             'nama_donatur' => 'required',
             'phone' => 'required',
             'nominal' => 'required',
         ], [
             'id_mosque.required' => 'Pilih masjid terlebih dahulu.',
-            'jenis_zakat.required' => 'Jenis zakat harus diisi.',
             'nama_donatur.required' => 'Nama donatur harus diisi.',
             'phone.required' => 'Nomor telepon harus diisi.',
             'nominal.required' => 'Nominal harus diisi.',
         ]);
-
+        
+        $validateData['jenis_zakat'] = 'Maal';
         $validateData['status'] = 'Belum Bayar';
         
         // Simpan data zakat ke dalam tabel zakats

@@ -29,17 +29,12 @@
                             <td>{{ $item->mustahik->nama_mustahik }}</td>
                             <td>{{ $item->HA }}</td>
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('penyaluranDana.create', $item->id) }}"
-                                            style="color:#435971"><i class="bx bx-detail me-1"></i> Show</a>
-                                    </div>
-                                </div>
+                                <a class="btn btn-primary" href="{{ route('penyaluranDana.create', $item->id) }}"
+                                    style="color:#e5e5e5">
+                                    <i class="bx bx-detail me-1"></i> Show
+                                </a>
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>
